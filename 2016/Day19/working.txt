@@ -1,0 +1,20 @@
+Josepheus Problem
+
+3001330
+largest power of 2
+2097152 
+
+
+difference
+904178
+
+          y=2(x-2097151.5)
+2097152   1
+2097153   3
+
+
+
+part 2
+
+y=\left(x-2\cdot3^{i}\right)+3^{i}\left\{3^{i}\le x\le2\cdot3^{i}\right\}
+y=2\left(x-2\cdot3^{i}\right)+3^{i}\left\{2\cdot3^{i}\le x\le3\cdot3^{i}\right\}

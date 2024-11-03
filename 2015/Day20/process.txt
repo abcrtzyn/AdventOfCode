@@ -1,0 +1,33 @@
+This problem is finding the sum of the factors greater than the input/10.
+Because each presents number is multiplied by 10, just reduce the input.
+
+sum of divisors * 10 > [input]
+
+ex.
+house 4, factors 1,2,4. total 7
+house 7, factors 1,7. total 8
+house 24, factors 1,2,3,4,6,8,12,24. total 40
+
+
+831600
+
+
+
+Part 2
+Divide input by 11
+
+3272727.272727272
+
+
+
+
+
+
+
+1: 11
+2: 11+22
+3: 11+  +33
+4: 11+22+  +44
+5: 11+        +55
+6: 0 +22+33      +66
+7: 0 +

@@ -1,0 +1,13 @@
+If I choose an edge based on minimum and maximum coords, 
+expect for cases where the diamond touches the edge
+From what I can see, this is true.
+So. Do the following
+choose min/max x and y. For each cell in the array, mark which point is closest
+
+count all the marks per point
+Any point that has a mark on the edge of the array, ignore them (infinite)
+
+
+
+part 2
+instead of marking points, list the sum of the distances from all points

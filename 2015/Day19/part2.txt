@@ -1,0 +1,102 @@
+Notice that there is no need to actually find the replacement path
+Each replacement expect for RnAr replacements take 2 elements and replace them with 1
+For the purposes of counting, Rn(...)Ar counts as 1 element
+Number of replacements is the number of elements in the string minus 1 plus the reduction of each parenthesis
+
+
+
+
+
+
+Notice a few things about this string and replacements
+1. CRn does not exist, so no need to try those replacements
+
+
+3. Rn and Ar can only be reduced using few replacements in pairs too. With or without a Y
+So, they are like open and close parentheses. 
+Everything between the Rn and the Ar must be reduced to F or Mg and there needs to be an appropriate element in front to catalyze
+
+Al => ThRnFAr
+B => TiRnFAr
+Ca => PRnFAr
+Ca => SiRnMgAr
+H => NRnMgAr
+H => ORnFAr
+O => NRnFAr
+P => SiRnFAr
+
+Ca => SiRnFYFAr
+H => NRnFYFAr
+
+0:  ORnPBPMgAr
+    CaCaCaSiThCaCaSiThCaCaPBSi
+    RnFAr
+    RnFAr
+    CaCaSiThCaCaSiThCaCaCaCaCaCaSi
+    RnF
+    Y
+    FAr
+    Si
+    RnMgAr
+    CaSi
+    RnPTiTiBFYPBFAr
+    Si
+    RnCaSi
+        RnTi
+            RnFAr
+        SiAlAr
+        PTiBPTi
+        RnCaSiAlAr
+    CaPTiTiBPMgYFAr
+    PTi
+    RnFAr
+    Si
+    RnCaCaFAr
+    RnCaFAr
+    CaSi
+    RnSi
+        RnMgAr
+        FYCaSi
+        RnMgAr
+        CaCaSiThP
+        RnFAr
+        PBCaSi
+        RnMgAr
+        CaCaSiThCaSi
+        RnTiMgAr
+    FAr
+    SiThSiThCaCaSi
+    RnMgAr
+    CaCaSi
+    RnFAr
+    TiBPTi
+    RnCaSiAlAr
+    CaPTi
+    RnFAr
+    PBPBCaCaSiThCaPBSiThP
+    RnFAr
+    SiThCaSiThCaSiThCaPTiBSi
+    RnFYFAr
+    CaCaP
+    RnFAr
+    PBCaCaPBSi
+    RnTi
+        RnFAr
+        CaP
+        RnFAr
+        Si
+        RnCaCaCaSiThCa
+            RnCaFAr
+            YCaSi
+            RnFAr
+        BCaCaCaSiThFAr
+    PBFAr
+    CaSi
+    RnFAr
+    RnCaCaCaFAr
+    Si
+    RnFAr
+    Ti
+    RnPMgAr
+    F
+ 

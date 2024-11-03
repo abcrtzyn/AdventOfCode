@@ -1,0 +1,50 @@
+Al => ThF
+B => BCa
+B => TiB
+Ca => CaCa
+Ca => PB
+Ca => SiTh
+F => CaF
+F => PMg
+F => SiAl
+H => HCa
+H => NTh
+H => OB
+Mg => BF
+Mg => TiMg
+N => HSi
+O => HP
+O => OTi
+P => CaP
+P => PTi
+Si => CaSi
+Th => ThCa
+Ti => BP
+Ti => TiTi
+e => HF
+e => NAl
+e => OMg
+
+H =>  C (Al)
+
+O =>  C (Mg)
+H =>  N (Mg)
+Ca => Si (Mg)
+
+N =>  C (F)
+O =>  N (F)
+H =>  O (F)
+Ca => P (F)
+P =>  Si (F)
+Al => Th (F)
+B =>  Ti (F)
+
+H =>  C (F|Mg)
+
+H =>  C (Mg|F)
+
+O =>  C (F|F)
+H =>  N (F|F)
+Ca => Si (F|F)
+
+H =>  C (F|F|F)

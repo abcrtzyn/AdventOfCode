@@ -1,0 +1,15 @@
+
+
+0    p
+1    v+=a p+=v  v=v+a   p=p+v+a
+2    v+=a p+=v  v=v+2a  p=p+2v+3a
+3               v=v+3a  p=p+3v+6a
+4                       p=p+4v+10v
+5                       p=p+5v+15v
+
+
+p(t) = p0 + v0t + a(t(t+1)/2)
+
+based on the graphs of 4 of them, i will calculate the distance at 200, 500, and 1000 and take the minimum
+
+and if that doesn't work, in the long run sort of says limit as t->∞ d= which is about looking for the smallest ∂d

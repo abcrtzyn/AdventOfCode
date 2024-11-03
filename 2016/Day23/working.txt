@@ -1,0 +1,46 @@
+
+
+                        7.  0.   0.   0
+cpy a b
+dec b
+                         7.  6.  0.   0
+# a*b -> a
+cpy a d
+cpy 0 a
+cpy b c
+inc a
+dec c
+jnz c -2
+dec d
+jnz d -5
+                       1)  42.  6.  0.  0
+                       2)  210.  5.  0.   0
+                       3). 840.  4.
+                       4)  2520.  3
+dec b
+cpy b c
+cpy c d
+dec d
+inc c
+jnz d -2
+                       1) 42.  5.  10.  0
+                       2) 210.  4.  8.   0
+                       3) 840.  3.  6.  0
+                       4) 2520. 2.   4
+                       5) 5040.  1.   2
+tgl c
+cpy -16 c
+jnz Cpy 1 c
+                          5040.  1.  1.  0
+cpy 89 c
+                            5040. 1. 89. 0
+jnz Cpy 77 d
+                          5040.   1.  89.  77
+inc a
+inc Dec d
+jnz d -2
+
+inc Dec c
+jnz c -5
+
+Answer is  a!+77*89 for both parts

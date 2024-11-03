@@ -1,0 +1,2 @@
+Sue 323: perfumes: 1, trees: 6, goldfish: 0
+

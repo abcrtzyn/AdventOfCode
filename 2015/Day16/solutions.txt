@@ -1,0 +1,14 @@
+i just searched for chilren: 3, and the other two traits for sue 213 matched
+
+
+
+
+perfumes: 1
+
+cats: > 7 
+trees: > 3
+
+pomeranians: < 3
+goldfish: < 5
+
+decided on just hand elimination on part2, not to terrible if you know some regex find and replace

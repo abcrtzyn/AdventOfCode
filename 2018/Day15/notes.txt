@@ -1,0 +1,22 @@
+rounds
+units take turn in reading order
+
+turn
+    itentify possible enemy targets
+    if none - combat ends
+    identify all open squares in range(adjacent) of tagets
+    the current square counts
+    if there are no open adjacent squares, end turn
+
+    decide which selected square is the closest
+    ties broken by reading order
+    if unreachable, end turn
+    move towards that square most efficiently, ties broken by reading order
+
+    if in range - attack
+    select target with lowest HP, break tie reading order
+    deal 3 damage
+
+count number of rounds, excluding the last one
+
+part1 answer is rounds*(sum(units HP))

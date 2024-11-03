@@ -1,0 +1,24 @@
+all ingredients must add to 100
+a+b+c+d=100
+
+max(0,(ap+bp+cp+dp))*max(0,(ad+bd+cd+dd))*...=score -- to maximize
+
+   a  b  c  d
+p  x  x  x  x
+d  x  x  x  x
+f  x  x  x  x
+t  x  x  x  x
+c  x  x  x  x
+
+         amount each ingredient
+         x
+         x
+         x
+         x
+weights
+x x x x  n
+x x x x  n
+x x x x  n
+x x x x  n
+x x x x  n
+score = max(0,n)*max(0,n)*...

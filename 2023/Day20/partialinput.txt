@@ -1,0 +1,14 @@
+&jc -> vq, mf, bv, pk, nc, sv, rl
+%km -> jc, fc
+%jd -> jc, gm
+broadcaster -> bv
+%rl -> nc
+%bv -> jc, mf
+%nc -> km
+%vn -> jc
+%vv -> jc, vn
+%fc -> vv, jc
+%pk -> vq
+%vq -> jd
+%mf -> pk
+%gm -> jc, rl

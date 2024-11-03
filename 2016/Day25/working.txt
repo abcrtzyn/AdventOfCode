@@ -1,0 +1,53 @@
+
+
+                             A.   0.   0.  0
+cpy a d
+[ # add 2555 to d
+cpy 7 c
+cpy 365 b
+( # add b to d
+inc d
+dec b
+jnz b -2
+)
+dec c
+jnz c -5
+]
+                                A. 0. 0.  A+2555
+cpy d a
+
+jnz 0 0
+
+cpy a b
+
+[ # divide b by 2, quotient in a, c=1 or 2 if b odd or even
+cpy 0 a
+                              0.  B.   0.   X
+cpy 2 c         
+jnz b 2           
+jnz 1 6
+dec b
+dec c
+jnz c -4
+inc a
+jnz 1 -7
+]
+                              B/2.  0.  1|2.   X
+cpy 2 b
+jnz c 2
+jnz 1 5
+dec b
+dec c
+jnz 1 -4
+                         B/2.   1|0
+jnz 0 0
+out b
+jnz a -18
+jnz 1 -21
+
+
+Need an X that has a bit pattern (10)+
+2,10,42,170,682,2730,10922,43690
+With the required offset of 2555
+The next largest is 2730
+Difference of 175, the answer to the puzzle

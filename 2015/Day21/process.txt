@@ -1,0 +1,12 @@
+The player begins first
+Each turn, Boss Health -= PAttack-BArmour
+           Play Health -= BAttack-PArmour
+
+This is actually wrong because there is always 1 damage done each turn, i still ended up getting the right answer
+
+player Turns = ceiling Boss Health / (PAttack-BArmour)
+adjusted = celing Boss health / (max(1, pattack,barmour))
+boss Turns = ceiling Player Health / (BAttack-PArmour)
+
+to win, player turns < boss turns
+
