@@ -20,20 +20,20 @@ for line, idx in zip(grid,range(len(grid))):
 
 # from the starting point, figure out one of the two valid connections to start
 def start_direction(x,y):
-    check_x = a+NORTH[0]
-    check_y = b+NORTH[1]
+    check_x = x+NORTH[0]
+    check_y = y+NORTH[1]
     if grid[check_x][check_y] in '|F7':
         # NORTH is valid
         return NORTH
     
-    check_x = a+SOUTH[0]
-    check_y = b+SOUTH[1]
+    check_x = x+SOUTH[0]
+    check_y = y+SOUTH[1]
     if grid[check_x][check_y] in '|LJ':
         # NORTH is valid
         return SOUTH
 
-    check_x = a+EAST[0]
-    check_y = b+EAST[1]
+    check_x = x+EAST[0]
+    check_y = y+EAST[1]
     if grid[check_x][check_y] in '-J7':
         # NORTH is valid
         return EAST
