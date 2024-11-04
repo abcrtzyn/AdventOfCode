@@ -1,5 +1,4 @@
-from cmath import sqrt
-from math import ceil
+from math import ceil, sqrt
 
 
 a = 1
