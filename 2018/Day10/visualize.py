@@ -1,6 +1,7 @@
 ITERATIONS = 10710
 
 import numpy as np
+import matplotlib.pyplot as plt
 import re
 
 line_rule = re.compile("position=<([ -]\\d+), ([ -]\\d+)> velocity=<([ -]\\d+), ([ -]\\d+)>")
@@ -37,7 +38,6 @@ with open('Day10/input.txt') as f:
 #         max_y = py
 
 # print(max_x-min_x,max_y-min_y)
-import matplotlib.pyplot as plt
 
 #  it will be much easier to make a scatter plot
 xs = [p[0] for p in points]
