@@ -4,7 +4,7 @@ with open('Day17/input.txt') as f:
     for line in f.readlines():
         containers.append(int(line.strip()))
 
-print(containers)
+# print(containers)
 
 import itertools
 
@@ -35,5 +35,3 @@ for com in itertools.combinations(containers,4):
         ways += 1
 
 print(ways)
-
-

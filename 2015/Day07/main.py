@@ -1,3 +1,5 @@
+
+
 terms = {}
 
 with open('Day07/inputpart2.txt') as f:

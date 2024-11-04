@@ -1,7 +1,9 @@
 
 R←⊃⎕NGET 'Day11/input.txt' 1
 
+⍝ turn the grid into booleans
 grid←'#'=↑R
+
 ⍝ part 1
 modind1←↓⍉({(1⌷[2]↑⍵)+(+⍀~∨/grid)[1⌷[2]↑⍵]},[0.5]{(2⌷[2]↑⍵)+(+⍀~∨⌿grid)[2⌷[2]↑⍵]})⍸grid
 ⍝ part 2

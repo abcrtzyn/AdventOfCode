@@ -47,5 +47,3 @@ gen ← {⍉1=↑⍸∘(⍳⍴⍵)¨⍵} intervals
                     ⍝ the result doesn't change (at most ≢matches times)
                  ⍝ sum the cards
              ⍝ subtract the intial null card
-
-⍝ gen←1=(⍳⍴matches)∘.⍸⍨1+((⍳⍴)+(0∘,¨))matches

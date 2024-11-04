@@ -1,0 +1,2 @@
+For part 2, I decided it was easiest to just replace the value of b in the input.
+This is why there is a seperate input file for part 2. The code is the same

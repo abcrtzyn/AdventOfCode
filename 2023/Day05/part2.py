@@ -16,7 +16,7 @@ with open('Day05/input.txt') as f:
         else:
             maps[-1].append([int(x) for x in line.split()])
             
-    print(seedRanges)
+    # print(seedRanges)
     currentRanges = seedRanges;
     for m in maps:
         newRanges = [];
