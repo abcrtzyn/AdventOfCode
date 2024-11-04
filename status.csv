@@ -206,7 +206,7 @@ Year, Day, Status, Python, APL, Haskell, None
 2023,   5,   done, 1,0,0,0
 2023,   6,   done, 1,1,0,0
 2023,   7,   done, 0,1,0,0
-2023,   8,   done, 1,0,0,0
+2023,   8, rework part2, 1,0,0,0
 2023,   9,   done, 0,1,0,0
 2023,  10,   work, 1,0,0,0
 2023,  11,   work, 0,1,0,0
