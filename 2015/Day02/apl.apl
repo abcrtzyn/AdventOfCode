@@ -1,4 +1,4 @@
-R←⊃⎕NGET 'C:\Users\tater\Documents\AdventOfCode\2015\Day02\input.txt' 1
+R←⊃⎕NGET 'Day02\input.txt' 1
 +/(⌊/+(2∘×+/))2×/↑(⊂1 2 3 1)∘⌷¨↓⍎¨↑('x'∘≠⊆¨⊢)R ⍝ part 1
                                    ⍝ partition with x as delimiter
                                 ⍝ convert each cell into a number

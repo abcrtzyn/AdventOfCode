@@ -1,4 +1,3 @@
-]CD 'Documents/AdventOfCode/2015'
 R ← ⊃ ⎕NGET 'Day18/input.txt' 1
 
 A←'#'=↑R ⍝ convert to 1s and 0s and into matrix

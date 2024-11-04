@@ -1,6 +1,6 @@
 ⎕io ← 0
 
-]cd '/Users/aidanchristensen/Documents/AdventOfCode/2023/Day13'
+
 R←⊃⎕NGET 'input.txt' 1
 
 grids←↑¨(''∘≢¨⊆⊢)R

@@ -1,5 +1,5 @@
 ⎕IO ← 0 
-R←⊃⎕NGET 'C:\Users\tater\Documents\AdventOfCode\2015\Day06\input.txt' 1
+R←⊃⎕NGET 'Day06\input.txt' 1
 b←{⍺⍺='t':⍺≠⍵ ⋄ ⍺⍺='n':⍺∨⍵ ⋄ ⍺⍺='f':⍵∧~⍺}
 instruction←{⍵⊃((∧⌿' ,'∘(∘.≠))⊆⊢)¨R}
 nextGrid←{((((⍎1⊃⍺)∘≤∧(⍎3⊃⍺)∘≥)∘.∧((⍎2⊃⍺)∘≤∧(⍎4⊃⍺)∘≥))⍳1000)((⊃⍺)b)⍵}

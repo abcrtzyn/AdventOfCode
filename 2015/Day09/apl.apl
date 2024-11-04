@@ -1,4 +1,4 @@
-]CD 'Documents/AdventOfCode/2015'
+
 R ← ⊃ ⎕NGET 'Day09/input.txt' 1
 
 ↑((~(' to '∘stringFind∨' = '∘stringFind))⊆⊢)¨R

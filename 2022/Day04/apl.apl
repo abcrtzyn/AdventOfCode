@@ -1,4 +1,4 @@
-]cd 'Documents/AdventOfCode/2022'
+
 
 R←⊃⎕NGET 'Day04/input.txt' 1
 

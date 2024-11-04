@@ -1,4 +1,4 @@
-]cd '/Users/aidanchristensen/Documents/AdventOfCode/2017/'
+
 R←⊃⎕NGET 'Day02/input.txt' 1
 
 ⍝ part 1

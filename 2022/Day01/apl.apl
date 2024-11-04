@@ -1,5 +1,5 @@
-]cd 'Documents/AdventOfCode/2022/Day01'
-R←⊃⎕NGET 'input.txt' 1
+
+R←⊃⎕NGET 'Day01/input.txt' 1
 
 
 Q←+/¨⍎¨¨({⊃¨0≠⍴¨⍵}⊆⊢)R

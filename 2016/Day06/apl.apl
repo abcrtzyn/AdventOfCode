@@ -1,4 +1,4 @@
-R←⊃⎕NGET '/Users/aidanchristensen/Documents/AdventOfCode/2016/Day06/input.txt' 1
+R←⊃⎕NGET 'Day06/input.txt' 1
 
 ⍝ part 1
 ⊃¨({⍵⌷⍨⊂⍒⊢/⍵}{⍺,≢⍵}⌸)¨↓⍉↑R
