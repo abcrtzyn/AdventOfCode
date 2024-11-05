@@ -72,6 +72,6 @@ with open('Day12/input.txt') as f:
         numbers = [int(x) for x in numbers.split(',')]
         
         count += countPossibles(chars, numbers)
-    print(count)
+    print('Part 1:',count)
 
     

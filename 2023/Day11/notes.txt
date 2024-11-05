@@ -1,0 +1,11 @@
+start with a row
+
+#.#..#.#...#
+indicies              1,3,6,8,12
+offset                0,1,3,4,7
+the new indicies are  1,4,9,12,19
+
+for each blank cell before it, add one to the index
+this is done for each dimension seperately
+
+In part2, for each blank cell before it, add 999999 to the index
