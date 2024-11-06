@@ -1,3 +1,7 @@
+# I attempted to implement MD5 on my own
+# This code is definetly not tested and does a single iteration
+
+
 
 s = [ 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
       5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
@@ -71,19 +75,3 @@ def md5hash(message: bytes):
     
     return (hex(a0),hex(b0),hex(c0),hex(d0))
     
-    
-
-
-# I know that iternation 1 works on my md5 but can not confirm the rest. so anyway, just get someone else to do it.
-import hashlib
-
-
-base = 'yzbqklnj'
-i=0
-
-message = ''.join([base,str(i)])
-
-while not hashlib.md5(bytes(message,'utf8')).digest().hex().startswith('000000'):
-    i += 1
-    message = ''.join([base, str(i)])
-print(i)
