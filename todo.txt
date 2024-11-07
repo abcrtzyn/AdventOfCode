@@ -2,3 +2,4 @@
 2016.03 solve with APL since I said it should be easy
 2016.08 make a program to solve
 2015.01 easy and cool haskell solution
+2015.06 should be a good one for haskell
