@@ -1,0 +1,4 @@
+I have implemented this in APL as an incrementing base 26 number that is checked until a combination is valid
+This works, but it is a little slow
+
+In an imparitive language it would be better to skip over i,l,o characters when reached, especially when they appear near the beginning of the string.
