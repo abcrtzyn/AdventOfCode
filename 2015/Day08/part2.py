@@ -1,26 +1,14 @@
 total = 0
+
+
 with open('Day08/input.txt') as f:
     for line in f.readlines():
-        print(line.strip())
-        # first quote and last quote always count
-        stotal = 2
+        # this is a significant refactoring from what I had before
         
-        l = iter(line.strip())
-        try:
-            while True:
-                c = next(l)
-                match c:
-                    case '\\':
-                        stotal += 1
-                    case '"':
-                        stotal += 1
-                    case _:
-                        stotal += 0
-                
-
-        except StopIteration:
-            pass
+        # the answer is the number of backslashes that need to be added
+        # to escape the string.
+        # the only characters that need to be escaped are \ and "
+        # there are also an added " at the beginning and end
+        total += 2 + line.count('\\') + line.count('"')
         
-        total += stotal
-
-print(total)
+print('Part 2:',total)
