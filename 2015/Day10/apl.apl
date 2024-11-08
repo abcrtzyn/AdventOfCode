@@ -1,2 +1,14 @@
-GenerateNextNumber←{∊(≢,⊃)¨({+\2≠/0,⍵}⊆⊢)⍵}
-≢(GenerateNextNumber⍣50) 1 1 3 1 ...    input ⍝ part 1 and 2 by changing the power
+                  ⍝ INPUT HERE
+input ← (10∘⊥⍣¯1) 1113122113
+
+⍝ takes in an array of digits and outputs what it sees
+⍝ runs of more than 10 never
+looksay←{∊(≢,⊃)¨({+\2≠/0,⍵}⊆⊢)⍵}
+                    ⍝ find all points that aren't equal
+                           ⍝ partition the input
+           ⍝ create tuples of counts, digit
+        ⍝ concatenate it all together
+
+⎕←'Part 1: ' , ≢(looksay⍣40) input
+⍝ takes a bit of time
+⎕←'Part 2: ' , ≢(looksay⍣50) input
