@@ -9,3 +9,5 @@ R ← ⊃ ⎕NGET 'Day09/input.txt' 1
 
 ⍝ index into the matrix
 ⍝ sum elements
+
+⍝ there are some great APL Cart and dfns workspace stuff that I will try and use later
