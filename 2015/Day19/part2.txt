@@ -5,7 +5,7 @@ Number of replacements is the number of elements in the string minus 1 plus the 
 
 
 
-
+All notes below are old (trying to figure out how this part works)
 
 
 Notice a few things about this string and replacements

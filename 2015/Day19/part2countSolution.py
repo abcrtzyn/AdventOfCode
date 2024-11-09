@@ -17,7 +17,7 @@ def parens(f):
             if f.read(1) == 'r':
                 # done, minus 1 and return
                 local_count -= 1
-                print('Local: ',local_count)
+                # print('Local: ',local_count)
                 return local_count
         local_count += 1
         if a == 'R':
@@ -31,7 +31,7 @@ def parens(f):
 
 
 
-with open('text.txt') as f:
+with open('Day19/text.txt') as f:
     
     while True:
 
@@ -49,4 +49,4 @@ with open('text.txt') as f:
             f.read(1) # n, discard
             count += parens(f)
 
-print(count - 2) # minus 1 makes sense, not sure why minus 2
+print('Part 2:',count - 2) # minus 1 makes sense, not sure why minus 2
