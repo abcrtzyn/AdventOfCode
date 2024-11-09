@@ -1,14 +1,30 @@
-i just searched for chilren: 3, and the other two traits for sue 213 matched
+Part 1
 
-
-
-
+children: 3
+cats: 7
+samoyeds: 2
+pomeranians: 3
+akitas: 0
+vizslas: 0
+goldfish: 5
+trees: 3
+cars: 2
 perfumes: 1
 
-cats: > 7 
-trees: > 3
+Searched my input for chilren: 3, and the other two traits for sue 213 matched
 
-pomeranians: < 3
-goldfish: < 5
+Part 2
+
+children: 3
+cats: >7
+samoyeds: 2
+pomeranians: <3
+akitas: 0
+vizslas: 0
+goldfish: <5
+trees: >3
+cars: 2
+perfumes: 1
+
 
 decided on just hand elimination on part2, not to terrible if you know some regex find and replace
