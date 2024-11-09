@@ -1,0 +1,7 @@
+this is a standard lagrange multipliers (but with integers)
+
+The programming way is only to try all possible points or use gradient descent
+
+My solution in APL tries all possible points all at once which takes memory
+
+A solution that uses iterators in Haskell or python work very well
