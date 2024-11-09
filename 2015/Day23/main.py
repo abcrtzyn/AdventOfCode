@@ -1,25 +1,25 @@
-a = 0 # 1 for part 2
-b = 0
 
-with open('Day23/input.txt') as f:
-    lines = [x.strip().split() for x in f.readlines()]
-    le = len(lines)
+# emulate the program and return the state
+def emulate(prog, a, b):
+    prog_len = len(prog)
     pc = 0
     while True:
         #print(a)
-        if pc == le:
+        if pc >= prog_len:
             break
 
-        x = lines[pc]
+        x = prog[pc]
         #print(x)
         match x[0]:
             case 'jio':
-                # jump if odd
-                assert x[1] == 'a,'
-                if a == 1:
-                    pc += int(x[2])
+                # jump if one
+                if x[1] == 'a,':
+                    if a == 1:
+                        pc += int(x[2])
+                    else:
+                        pc += 1
                 else:
-                    pc += 1
+                    raise Exception('not imp',x[1])
             case 'inc':
                 if x[1] == 'a':
                     a += 1
@@ -49,6 +49,12 @@ with open('Day23/input.txt') as f:
                 pc += 1
             case _:
                 raise Exception(x[0])
-
     
-    print(b)
+    return (a,b)
+
+with open('Day23/input.txt') as f:
+    lines = [x.strip().split() for x in f.readlines()]
+    
+
+print('Part 1:', emulate(lines,0,0)[1])
+print('Part 2:', emulate(lines,1,0)[1])
