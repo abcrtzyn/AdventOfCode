@@ -15,7 +15,6 @@ with open('Day07/input.txt') as f:
     for line in f.readlines():
         mark = False
         line = line.strip()
-        print(line)
         tin = brackets.findall(line)
         tout = outside_brackets.findall(line)
 
@@ -24,12 +23,10 @@ with open('Day07/input.txt') as f:
             for i in range(len(item)-2):
                 # aba if 
                 if item[i] == item[i+2] and item[i] != item[i+1]:
-                    print(f'found {item[i]}{item[i+1]}{item[i+2]}')
                     # search for pattern in outside brackets
                     for _,oitem,_ in tout:
                         if len(re.findall(f'{item[i+1]}{item[i]}{item[i+1]}',oitem)) != 0:
                             #there is a match
-                            print('match')
                             count += 1
                             mark = True
                             break
@@ -38,4 +35,4 @@ with open('Day07/input.txt') as f:
             if mark == True:
                 break
 
-print(count)
+print('Part 2:',count)

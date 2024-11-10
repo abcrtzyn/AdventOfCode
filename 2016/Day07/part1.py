@@ -5,7 +5,7 @@ outside_brackets = re.compile('(^|\\])(.+?)(\\[|$)')
 
 def findabba(s: str) -> bool:
     for i in range(len(s)-3):
-        # abba if 
+        # abba if
         if s[i] == s[i+3] and s[i+1] == s[i+2] and s[i] != s[i+1]:
             return True
     return False
@@ -34,6 +34,6 @@ with open('Day07/input.txt') as f:
                 if findabba(a):
                     count += 1
                     break
-            
-        
-print(count)
+
+
+print('Part 1:',count)
