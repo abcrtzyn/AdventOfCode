@@ -17,5 +17,6 @@ with open('Day01/input.txt') as f:
             direction = (direction + 1) % 4
         else:
             direction = (direction - 1) % 4
-        point = (point[0]+directions[direction][0]*int(a[1:]),point[1]+directions[direction][1]*int(a[1:]))
-    print(abs(point[0])+abs(point[1]))
+        dp = directions[direction]
+        point = (point[0]+dp[0]*int(a[1:]),point[1]+dp[1]*int(a[1:]))
+    print('Part 1:', abs(point[0])+abs(point[1]))
