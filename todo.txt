@@ -7,3 +7,4 @@
 2015.16 python or haskell solutions, or both
 2016.01 haskell
 2016.02 haskell and maybe apl
+2016.04 apl

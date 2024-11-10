@@ -1,3 +1,5 @@
+Output of all the valid names in my input
+
 projectile bunny department  977
 projectile egg purchasing  289
 rampaging candy design  351
@@ -664,4 +666,3 @@ fuzzy egg shipping  430
 radioactive dye development  465
 military grade dye technology  981
 military grade basket containment  635
-361724
