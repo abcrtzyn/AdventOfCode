@@ -2,9 +2,7 @@
 from io import StringIO
 
 
-PART2 = True
-
-def uncompress(buf) -> int:
+def uncompress(buf, part2) -> int:
     count = 0
     while True:
 
@@ -17,14 +15,14 @@ def uncompress(buf) -> int:
                 continue
             case '(':
                 # handle a compression marker
-                count += compression_marker(buf)
+                count += compression_marker(buf, part2)
             case _:
                 count += 1
 
 
 # figures out the length of the text inside the compression zone
 # returns it
-def compression_marker(f):
+def compression_marker(f, part2):
     # start a compression marker
     num = ''
     c = f.read(1)
@@ -48,11 +46,11 @@ def compression_marker(f):
     part 1 skips over compressed blocks
     part 2 handles recursion
     """
-    if PART2:
+    if part2:
         sub = f.read(num_chars)
         if len(sub) != num_chars:
             exit(1)
-        uncompressed_chars = uncompress(StringIO(sub))
+        uncompressed_chars = uncompress(StringIO(sub), part2)
         return uncompressed_chars * repitions
     else:
         f.read(num_chars) # skip past the rest
@@ -60,5 +58,6 @@ def compression_marker(f):
         
 
 with open('Day09/input.txt') as f:
-    print(uncompress(f))
-    exit(0)
+    print('Part 1:',uncompress(f, False))
+    f.seek(0)
+    print('Part 2:',uncompress(f, True))
