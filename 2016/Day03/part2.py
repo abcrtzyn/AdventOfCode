@@ -22,8 +22,6 @@ with open('Day03/input.txt') as f:
             t1 = []
             t2 = []
             t3 = []
-        
-        #if i > 10:
-        #    break
-        
-print(count)    
+
+
+print('Part 2:',count)
