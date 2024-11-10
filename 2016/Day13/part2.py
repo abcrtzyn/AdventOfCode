@@ -45,7 +45,7 @@ def distinct(start, steps):
 
         if gScore[current] > steps:
             # done
-            print(gScore)
+            # print(gScore)
             count = 0
             for k,v in gScore.items():
                 if v <= steps:
@@ -55,7 +55,7 @@ def distinct(start, steps):
 
         # for each neighbor or current
         for neighbor in [(current[0]-1,current[1]),(current[0]+1,current[1]),(current[0],current[1]-1),(current[0],current[1]+1)]:
-            print(neighbor)
+            # print(neighbor)
             if neighbor[0] < 0 or neighbor[1] < 0:
                 continue
             if iswall(neighbor):
@@ -70,7 +70,7 @@ def distinct(start, steps):
                     heapq.heappush(open_set,Entry(gScore[neighbor],neighbor))
 
 
-        print(open_set)
+        # print(open_set)
     
     return -1
 
@@ -78,4 +78,4 @@ def distinct(start, steps):
 
 
 
-print(distinct(start,50))
+print('Part 2:',distinct(start,50))

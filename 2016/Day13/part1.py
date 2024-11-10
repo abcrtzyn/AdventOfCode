@@ -64,7 +64,7 @@ def A_star(start, goal, h):
         
         # for each neighbor
         for neighbor in [(current[0]-1,current[1]),(current[0]+1,current[1]),(current[0],current[1]-1),(current[0],current[1]+1)]:
-            print(neighbor)
+            # print(neighbor)
             if neighbor[0] < 0 or neighbor[1] < 0:
                 continue
             if iswall(neighbor):
@@ -80,12 +80,12 @@ def A_star(start, goal, h):
                     heapq.heappush(open_set,Entry(fScore[neighbor],neighbor))
 
 
-        print(open_set)
+        # print(open_set)
     
-    return -1
+    return (-1,None)
 
 
 
 
 
-print(A_star(start,goal,partial(taxicab,goal)))
+print('Part 1:', A_star(start,goal,partial(taxicab,goal))[0])
