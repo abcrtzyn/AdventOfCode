@@ -44,7 +44,7 @@ while len(process_stack) != 0:
         process_stack.append(p)
     """Part 1 check"""
     if (e1==61 and e2==17) or (e1==17 and e2==61):
-        print(f'bot {p} is handling 61 and 17')
+        print('Part 1:', p)
     # pass values
     low_bot = rules[p][0]
     high_bot = rules[p][1]
@@ -82,6 +82,6 @@ while len(process_stack) != 0:
 #print(bots)
 
 # part 2
-print('part 2', bots[300][0] * bots[301][0] * bots[302][0])
+print('Part 2:', bots[300][0] * bots[301][0] * bots[302][0])
 
 # multiply the state of bot 300, 301, 302
