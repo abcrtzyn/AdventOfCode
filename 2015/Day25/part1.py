@@ -7,21 +7,17 @@ y = 1
 value = 20151125
 while True:
     if x == goal_col and y == goal_row:
-        print(x,y, value)
         break
 
     if y == 1:
+        # if at the top of the grid, go to the next diagonal
         y = x + 1
         x = 1
     else:
+        # continue diagonally
         x += 1
         y -= 1
 
     value = (value * 252533) % 33554393
 
-    #if x == 7:
-    #    break
-    
-
-
-# my value is in diagonal row 5975
+print('Part 1:',value)
