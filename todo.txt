@@ -9,3 +9,4 @@
 2016.02 haskell and maybe apl
 2016.04 apl
 2016.08 potentially implement a program
+2016.11 refactor python more

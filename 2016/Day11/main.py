@@ -8,16 +8,6 @@ from itertools import combinations
 
 # (elevator, (chip 1, chip 2), (gen 1, gen 2))
 
-"""Test states"""
-#init_state = (1,(1,1),(2,3))
-#final_state = (4,(4,4),(4,4))
-"""Input states part 1"""
-init_state = (1,(1,2,3,1,2),(1,2,2,1,2))
-final_state = (4,(4,4,4,4,4),(4,4,4,4,4))
-"""Input states part 2"""
-#init_state = (1,(1,2,3,1,2,1,1),(1,2,2,1,2,1,1))
-#final_state = (4,(4,4,4,4,4,4,4),(4,4,4,4,4,4,4))
-
 
 # starting at maze state
 # we try each combination of movements
@@ -76,93 +66,85 @@ def check_state(state, old_floor):
     return True
 
 
-    # 
+def solve(init_state, final_state):
+    DP = {}
+    queue = []
+
+    queue.append((init_state,0))
+    steps = 0
+    while len(queue) > 0:
+        old_steps = steps
+        maze_state, steps = queue.pop(0)
+        # if steps > old_steps:
+            # print(steps, len(queue)+1)
+
+        if maze_state in DP:
+            continue
+
+        DP[maze_state] = steps
+        current_floor = maze_state[0]
+
+        # make a list of everything on floor 1
+        stuff = stuff_on_floor(maze_state)
 
 
-DP = {}
-queue = []
-
-queue.append((init_state,0))
-steps = 0
-while len(queue) > 0:
-    old_steps = steps
-    maze_state, steps = queue.pop(0)
-    if steps > old_steps:
-        print(steps, len(queue)+1)
-
-    if maze_state in DP:
-        continue
-
-    DP[maze_state] = steps
-    current_floor = maze_state[0]
-
-    # make a list of everything on floor 1
-    stuff = stuff_on_floor(maze_state)
-
-
-    new_found = False
-    # move 2 things
-    for items in combinations(stuff, 2):
-        if current_floor != 4:
-            # go up a floor
-            new_state = create_state(maze_state, True, items)
-            if new_state not in DP and check_state(new_state,current_floor):
-                # add to queue
-                new_found = True
-                if new_state == final_state:
-                    print(new_state)
-                    print('done')
-                    print(steps+1)
-                    exit(0)
-                queue.append((new_state,steps+1))
-        
-        # if current_floor != 1:
-        #     # go down a floor
-        #     new_state = create_state(maze_state, False, items)
-        #     if new_state not in DP and check_state(new_state,current_floor):
-        #         # add to queue
-        #         if new_state == final_state:
-        #             print(new_state)
-        #             print('done')
-        #             print(steps+1)
-        #             exit(0)
-        #         queue.append((new_state,steps+1))
-
-    down_accceptable = False
-    for x,y in zip(maze_state[1],maze_state[2]):
-        if x < current_floor or y < current_floor:
-            down_accceptable = True
-            break
-
-    for item in stuff:
-        if current_floor != 1 and down_accceptable:
-            
-
-            # go down a floor
-            new_state = create_state(maze_state, False, [item])
-            if new_state not in DP and check_state(new_state,current_floor):
-                # add to queue
-                if new_state == final_state:
-                    print(new_state)
-                    print('done')
-                    print(steps+1)
-                    exit(0)
-                queue.append((new_state,steps+1))
-
-    if not new_found:
-        #print('run')
-        for item in stuff:
+        new_found = False
+        # move 2 things
+        for items in combinations(stuff, 2):
             if current_floor != 4:
                 # go up a floor
-                new_state = create_state(maze_state, True, [item])
+                new_state = create_state(maze_state, True, items)
                 if new_state not in DP and check_state(new_state,current_floor):
                     # add to queue
                     new_found = True
                     if new_state == final_state:
-                        print(new_state)
-                        print('done')
-                        print(steps+1)
-                        exit(0)
+                        return steps+1
                     queue.append((new_state,steps+1))
 
-# print(DP)
+
+        down_accceptable = False
+        for x,y in zip(maze_state[1],maze_state[2]):
+            if x < current_floor or y < current_floor:
+                down_accceptable = True
+                break
+
+        for item in stuff:
+            if current_floor != 1 and down_accceptable:
+                
+
+                # go down a floor
+                new_state = create_state(maze_state, False, [item])
+                if new_state not in DP and check_state(new_state,current_floor):
+                    # add to queue
+                    if new_state == final_state:
+                        return steps+1
+                    
+                    queue.append((new_state,steps+1))
+
+        if not new_found:
+            #print('run')
+            for item in stuff:
+                if current_floor != 4:
+                    # go up a floor
+                    new_state = create_state(maze_state, True, [item])
+                    if new_state not in DP and check_state(new_state,current_floor):
+                        # add to queue
+                        new_found = True
+                        if new_state == final_state:
+                            return steps+1
+                        queue.append((new_state,steps+1))
+
+"""Test states"""
+init_stateT = (1,(1,1),(2,3))
+final_stateT = (4,(4,4),(4,4))
+"""Input states part 1"""
+init_state1 = (1,(1,2,3,1,2),(1,2,2,1,2))
+final_state1 = (4,(4,4,4,4,4),(4,4,4,4,4))
+"""Input states part 2"""
+init_state2 = (1,(1,2,3,1,2,1,1),(1,2,2,1,2,1,1))
+final_state2 = (4,(4,4,4,4,4,4,4),(4,4,4,4,4,4,4))
+
+# solve(init_stateT,final_stateT)
+print('Part 1:',solve(init_state1,final_state1))
+print('part 2 takes a while')
+print('Part 2:',solve(init_state2,final_state2))
