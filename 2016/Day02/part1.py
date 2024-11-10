@@ -1,3 +1,4 @@
+# start on 5
 number = 5
 code = 0
 
@@ -27,4 +28,4 @@ with open('Day02/input.txt') as f:
         code += number
         
 
-print(code)
+print('Part 1:',code)

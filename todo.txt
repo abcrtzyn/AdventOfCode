@@ -6,3 +6,4 @@
 2015.12 part2 APL JSON values
 2015.16 python or haskell solutions, or both
 2016.01 haskell
+2016.02 haskell and maybe apl
