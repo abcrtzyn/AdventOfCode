@@ -1,0 +1,5 @@
+I originally did this one in a spreadsheet manually
+
+Rotating arrays is expensive and in my opinion not easy to implement
+
+I may do it later
