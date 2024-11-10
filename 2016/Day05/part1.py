@@ -13,7 +13,7 @@ while j != 8:
     password += h[5]
     j += 1
     
-    print(i)
-    print(h[5])
+    # print(i)
+    # print(h[5])
 
-print(password)
+print('Part 1:',password)

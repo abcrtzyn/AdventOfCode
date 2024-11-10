@@ -15,10 +15,11 @@ while j != 8:
         password[h[5]] = h[6]
         j += 1
     
-    print(i)
-    print(h[5],h[6])
+    # print(i)
+    # print(h[5],h[6])
 
+print('Part 2: ',end='')
 for a in valids:
     print(password[a],end='')
 print()
-#print(password)
+# print(password)
