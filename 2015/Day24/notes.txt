@@ -1,0 +1,3 @@
+I think there is an assumption that the product of n numbers will be better than the best product of n-1 numbers.
+
+I do not believe that this is true, it sure isn't in general.

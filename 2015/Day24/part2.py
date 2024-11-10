@@ -5,7 +5,7 @@ with open('Day24/input.txt') as f:
 
 # the weight of the groups is calculatable ahead of time
 group_weight = round(sum(values)/4) # it will always be an int
-print(group_weight)
+# print(group_weight)
 
 number = len(values)-1
 
@@ -18,7 +18,7 @@ import functools
 
 
 for i in range(2,len(values)-1): # start at 2, there is no way there are groups of 1
-    print('i',i)
+    # print('i',i)
     for x in itertools.combinations(values,i):
         if sum(x) != group_weight:
             continue
@@ -62,7 +62,7 @@ for i in range(2,len(values)-1): # start at 2, there is no way there are groups 
         if qe < fewest_product:
             fewest_product = qe
     if fewest_product != 100000000000000000:
-        print(fewest_product)
+        print('Part 2:',fewest_product)
         exit()
         
     
