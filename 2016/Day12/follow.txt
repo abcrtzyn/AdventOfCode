@@ -39,7 +39,11 @@ dec d
 jnz d -2
 dec c
 jnz c -5
-            fib[26+2|33+2]+12*16 is the answer in a
+            fib[26+2|33+2]+12*16
 
 Yes, it is very possible to make an interpreter for this
 but why bother
+
+So, where fib[1] = 1 and fib[2] = 1
+Part 1: fib[28]+12*16
+Part 2: fib[35]+12*16
