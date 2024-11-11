@@ -5,9 +5,9 @@ My first Advent of Code was 2021 and have since worked backwards and forwards.
 
 Advent of Code has been an excellent learning oppurtunity for learning about different types of problems, data structures, languages, and different styles of programming.
 
+I have learned APL from doing these challenges, and have become a huge fan of array based programming. It has changed how I think about problems. It may be evident in some of my Python solutions. Several of my Python solutions now use itertools functions and mapping over iterators because that is what an array based solution would do.
 
-
-Advent of Code is not all about programming but also about problem solving. Occasionally there will not be any code, or there will be code that has nothing to with the input because I have done some work by hand to better understand the problem.
+Advent of Code is mainly about solving problems. Although, programming is usually necessary to solve the problem, it takes some thinking to find an efficient solution. Occasionally there will not be any code, or there will be code that has nothing to with the input because I have done some work by hand to better understand the problem.
 
 An example of this is the assembly puzzles. In some instances, rather than writing an interpreter to run the assembly code, I will work through it by hand to see what it does. I try and leave some notes about what my thought process is.
 
