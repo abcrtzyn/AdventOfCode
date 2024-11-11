@@ -17,11 +17,18 @@ I first try to quickly find a solution, but then will go back through and make s
 
 'status.csv' describes the status of each problem.
 
-- A number indicates how many parts are completed
-- 'work' indicates that it is to be worked into a standardized form and or simplified
-- 'done' indicates that I am done working on I try to do it in a different language
+- Stars shows how many parts are completed
+- Status shows what work there is left
+    - 'done' indicates that solutions are complete. I may try to solve them using a different method later.
+    - 'work' indicates that it is to be worked into a standardized form, simplified, and or made clearer
+    - 'rework' means there is a solution that the solution I use to solve it is not there. I essentially have to resolve it
+    - 'solve' means that there are still unsolved parts
 
 It also marks which languages are used in each day.
+
+### Todo
+
+'todo.txt' is a list of items that I would like to get around to doing, usually solving in a different language.
 
 ### Running files
 
