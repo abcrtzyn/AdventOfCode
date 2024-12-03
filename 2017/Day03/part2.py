@@ -1,3 +1,7 @@
+INPUT = 265149
+
+# this is all the grid I need, because the sums get quite big.
+# in fact, I only need half of this
 
 grid = [
     [145,144,143,142,141,140,139,138,137,136,135,134,133],
@@ -17,8 +21,11 @@ grid = [
 
 totals = [[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15,[0]*15]
 
+# calculate grid values until we find the right answer
 for i in range(1,170):
-    # find the value in the grid
+
+    # get the grid index, by searching
+    # this is easier, but it could be calculated
     for a,l in enumerate(grid):
         try:
             j = l.index(i)
@@ -26,8 +33,10 @@ for i in range(1,170):
             continue
         else:
             k = a
+    # coordinate is (j,k)
     #print(j,k)
     
+    # calculate the value of this cell
     if i==1:
         totals[k+1][j+1] = 1
     else:
@@ -36,9 +45,10 @@ for i in range(1,170):
                            totals[k+2][j] + totals[k+2][j+1] + totals[k+2][j+2]
         #print(totals)
         
-    
-    if totals[k+1][j+1] > 265149:
-        print(i, totals[k+1][j+1])
+    # if we get to the input value, we are done
+    if totals[k+1][j+1] > INPUT:
+        print('finished at cell',i)
+        print('Part 2:',totals[k+1][j+1])
         exit(0)
 
     
