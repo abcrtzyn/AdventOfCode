@@ -10,4 +10,3 @@
 2016.04 apl
 2016.08 potentially implement a program
 2016.11 refactor python more
-2024.04 in APL using windowed operations
