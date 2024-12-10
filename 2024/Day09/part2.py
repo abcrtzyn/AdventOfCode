@@ -107,4 +107,4 @@ with open('Day09/input.txt') as f:
 
 
 
-print(checksum)
+print('Part 2:',checksum)
