@@ -4,7 +4,7 @@
 from typing import Set, Tuple
 
 
-with open('2024/Day10/input.txt') as f:
+with open('Day10/input.txt') as f:
     grid = [x.strip() for x in f.readlines()]
 
 
