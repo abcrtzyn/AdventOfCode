@@ -11,3 +11,4 @@
 2016.08 potentially implement a program
 2016.11 refactor python more
 2024.08 potential apl solution
+2024.12 try apl, at least a partial solution

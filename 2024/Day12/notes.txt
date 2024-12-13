@@ -1,0 +1,4 @@
+It is easy to calculate amount of fencing per cell.
+How is it possible to grab the areas for contiguous sections of letters
+
+I would like to find a way to do connected compontents in APL
