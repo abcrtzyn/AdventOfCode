@@ -1,0 +1,20 @@
+what a funny problem
+It could be seen as an optimization problem
+The fact that a limit of 100 is given is weird. Is it for the sake of making it easier or tractable
+
+I do see that all distances are positive, you cant do negative button presses
+That means the limit of 100 button presses is not even useful
+
+The first example, its two equations and two variables
+[1]: 8400 = 94*A+22*B
+[2]: 5400 = 34*A+67*B
+minimize tokens = 3*A + B
+
+[2]*47: 253800 = 1598*A + 3149*B
+[1]*17: 142800 = 1598*A + 374*B
+[2]*47-[1]*17: 111000 = 2775*B -> B = 40
+
+Part 1 appears to just be an algebra task
+
+We aren't given a answer for the test input on part 2
+Numpy isnt giving me the right answer, I wonder if I am going to have to keep them as integers to keep the precision
