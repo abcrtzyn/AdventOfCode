@@ -14,3 +14,4 @@
 2024.12 try apl, at least a partial solution
 2024.13 apl solution should not be difficult
 2024.14 apl solution for part 1, interval index please
+2024.15 clear up and unify both solutions
