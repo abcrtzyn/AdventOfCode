@@ -1,3 +1,4 @@
+from math import log2
 import numpy as np
 import heapq
 from typing import Iterable, List, Dict, Tuple, Optional, Callable, Generator
@@ -79,20 +80,28 @@ print('Part 1:',breadth_first_search(startpoint,endpoint,partial(adjacent,12)))
 
 
 # lets do a binary search just because
+# I spent a while on trying to trust the binary search I implemented
+# usually binary searches are supposed to find a value, so once the value is equal, it is done
+# in this case, it is a border condition, something that occurs between values
+# This is insipired by Dyalog APL interval index
+# It is a branchless binary search that will find the first occurance of None in the sample space
+# I trust this way more than the regular binary search
+# the best way to understand this is to look at current.
+# for a length 16 list, current starts at 8, then will try 4 or 12, then will try 2,6,10,14 and so on
 
-left = 0
-right = len(fall_list)
 
-while True:
-    current = (left + right) // 2
-    if breadth_first_search(startpoint,endpoint,partial(adjacent,current)) is None:
-        # lower
-        right = current
-    else:
-        # higher
-        left = current
+# power is the size of the search space, it starts as the power of 2 above the length of the sample space
+power = int(log2(len(fall_list)))+1
+# current search value, set in the loop
+current = 0
+
+while power:
+    # cut the offset in half
+    power -= 1
+    # try the value at half the list
+    current |= (1 << power)
+    # if the condition is true, remove the bit, otherwise leave it
+    current ^= (int(current-1 >= len(fall_list) or breadth_first_search(startpoint,endpoint,partial(adjacent,current)) is None) << power)
     
-    if left == right - 1:
-        break
-
-print(f'Part 2: {fall_list[left][0]},{fall_list[left][1]}')
+    
+print(f'Part 2: {fall_list[current][0]},{fall_list[current][1]}')
