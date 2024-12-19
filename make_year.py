@@ -6,8 +6,8 @@ YEAR = 2024
 
 import os
 
-os.mkdir(f'{YEAR}')
-os.chdir(f'{YEAR}')
+os.mkdir(f'year{YEAR}')
+os.chdir(f'year{YEAR}')
 for i in range(1,26):
     # print(f'Day{i:02d}')
     os.mkdir(f'Day{i:02d}')
