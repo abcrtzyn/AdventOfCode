@@ -5,6 +5,8 @@ from functools import cache
 # {first char: [strings sorted by length reversed]}
 towels: Dict[str,List[str]] = {}
 
+# it is likely that this function call will see lots of the same starting position
+# the cache decorator means that it will store results and use them rather than re-computing each time
 @cache
 def count_possibles(s: str, starting: int = 0) -> int:
     # print(s)
@@ -30,16 +32,18 @@ with open('Day19/input.txt') as f:
             towels[towel[0]] = []
         towels[towel[0]].append(towel)
     
-    # reverse sort each in towels
+    # reverse sort each in towels, longest to shortest. It likely doesn't effect speed but I like to think it will
     for k in towels:
         towels[k] = sorted(towels[k],reverse=True)
     
+    # read the empty line
     f.readline()
 
     count_strings = 0
     count_ways = 0
 
     for line in f:
+        # how many ways to assemble the string
         result = count_possibles(line.strip())
         if result > 0:
             count_strings += 1
