@@ -1,0 +1,20 @@
+We are looking for a number to put in r0 such that r3 will equal r0 as soon as possible
+Since r0 does not change in this program
+We are looking for what the value of r3 the first time on ip=28
+
+part one is the number in r3 after removing the last three lines of code
+
+part two requires finding the number that occurs before one appears twice
+
+program summary
+random string check that doesn't matter one bit
+loop
+    r2 <- r3 | 2^16 
+    start with a big number in r3
+    loop 
+        modify r3 in various ways
+        break on some r2 condition
+        r2 <- r2 / 256
+    endloop
+    break if r3 != r0
+endloop
