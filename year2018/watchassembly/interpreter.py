@@ -1,4 +1,4 @@
-from io import TextIOWrapper
+from io import TextIOBase
 from typing import List, Tuple
 
 
@@ -54,7 +54,7 @@ def eqrr(registers,a,b):
 ops = {f.__name__:f for f in [addr,addi,mulr,muli,banr,bani,borr,bori,setr,seti,gtir,gtri,gtrr,eqir,eqri,eqrr]}
 
 
-def intepret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [0,0,0,0,0,0], ip_reg=5):
+def interpret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [0,0,0,0,0,0], ip_reg=5):
     regs = initial_regs
 
     while 0 <= regs[ip_reg] < len(program):
@@ -67,7 +67,7 @@ def intepret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [0
     return regs
 
 
-def parse(f: TextIOWrapper):
+def parse(f: TextIOBase, dissasemble_map=None):
     program = []
 
     line = next(f)
@@ -81,6 +81,7 @@ def parse(f: TextIOWrapper):
         
     for line in f:
         txt = line.strip().split(' ')
-        program.append((txt[0],int(txt[1]),int(txt[2]),int(txt[3])))
+        opcode = dissasemble_map[int(txt[0])] if dissasemble_map is not None else txt[0]
+        program.append((opcode,int(txt[1]),int(txt[2]),int(txt[3])))
 
     return program, ip_reg

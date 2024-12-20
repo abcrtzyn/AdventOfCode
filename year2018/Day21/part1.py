@@ -1,4 +1,4 @@
-from year2018.watchassembly.interpreter import intepret, parse
+from year2018.watchassembly.interpreter import interpret, parse
 
 # from following the code, running the program up to 3 lines gives the value that r0 must equal
 # r0 does not change throughout the program and is only used to compare to on the third to last line
@@ -29,4 +29,4 @@ with open('Day21/input.txt') as f:
 
     program = program[:-2]
     
-    print('Part 1:',intepret(program,ip_reg=ip_reg)[needed_register])
+    print('Part 1:',interpret(program,ip_reg=ip_reg)[needed_register])
