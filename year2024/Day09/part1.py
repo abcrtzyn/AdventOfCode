@@ -36,7 +36,7 @@ with open('Day09/input.txt') as f:
     for curr_ptr in range(length):
         # each loop handles one file or one empty space
         if remo_ptr == curr_ptr:
-            print(curr_ptr)
+            #print(curr_ptr)
             # there are only (length_left) cells to place
             for _ in range(length_left):
                 checksum += curr_disk_pos * file

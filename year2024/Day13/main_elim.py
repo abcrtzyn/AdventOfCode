@@ -63,5 +63,5 @@ with open('Day13/input.txt') as f:
         if f.readline() == '':
             break
 
-print('Part 1:', int(tokens_used_1))
-print('Part 2:', int(tokens_used_2))
+print('Part 1:', tokens_used_1)
+print('Part 2:', tokens_used_2)

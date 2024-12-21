@@ -23,6 +23,8 @@ grid = np.zeros((size,size),np.int16)
 startpoint = (0,0)
 endpoint = (size-1,size-1)
 
+is_end: Callable[[Tuple[int,int]],bool] = lambda x: x == endpoint
+
 
 with open('Day18/input.txt') as f:
     fall_list = [tuple([int(x) for x in line.strip().split(',')]) for line in f.readlines()]
@@ -47,7 +49,7 @@ grid.fill(len(fall_list))
 for i,(x,y) in enumerate(fall_list):
     grid[y,x] = i
 
-print('Part 1:',breadth_first_search(startpoint,endpoint,partial(adjacent,12)))
+print('Part 1:',breadth_first_search(startpoint,is_end,partial(adjacent,12)))
 
 
 # lets do a binary search just because
@@ -72,7 +74,7 @@ while power:
     # try the value at half the list
     current |= (1 << power)
     # if the condition is true, remove the bit, otherwise leave it
-    current ^= (int(current-1 >= len(fall_list) or breadth_first_search(startpoint,endpoint,partial(adjacent,current)) is None) << power)
+    current ^= (int(current-1 >= len(fall_list) or breadth_first_search(startpoint,is_end,partial(adjacent,current)) is None) << power)
     
     
 print(f'Part 2: {fall_list[current][0]},{fall_list[current][1]}')

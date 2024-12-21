@@ -23,7 +23,9 @@ with open('Day08/input.txt') as f:
 
 # print(antennas)
 
-antinodes: Set[Tuple[int,int]] = set()
+antinodes1: Set[Tuple[int,int]] = set()
+antinodes2: Set[Tuple[int,int]] = set()
+
 # now, for each character, find antinodes
 for k,ant in antennas.items():
     # for each combination of points
@@ -31,19 +33,22 @@ for k,ant in antennas.items():
         ydiff = p1[0] - p2[0]
         xdiff = p1[1] - p2[1]
 
-        p1 = (p1[0]+ydiff,p1[1]+xdiff)
-        
-        if 0 <= p1[0] < height and 0 <= p1[1] < width:
-            antinodes.add(p1)
+        if 0 <= p1[0]+ydiff < height and 0 <= p1[1]+xdiff < width:
+                antinodes1.add((p1[0]+ydiff,p1[1]+xdiff))
+        if 0 <= p2[0]-ydiff < height and 0 <= p2[1]-xdiff < width:
+                antinodes1.add((p2[0]-ydiff,p2[1]-xdiff))
+
+
+        while 0 <= p1[0] < height and 0 <= p1[1] < width:
+            antinodes2.add(p1)
+            p1 = (p1[0]+ydiff,p1[1]+xdiff)
+
+        while 0 <= p2[0] < height and 0 <= p2[1] < width:
+            antinodes2.add(p2)
+            p2 = (p2[0]-ydiff,p2[1]-xdiff)
             
-        p2 = (p2[0]-ydiff,p2[1]-xdiff)
-        
-        if 0 <= p2[0] < height and 0 <= p2[1] < width:
-            antinodes.add(p2)
-        
-            
 
 
-
-print('Part 1:',len(antinodes))
+print('Part 1:',len(antinodes1))
+print('Part 2:',len(antinodes2))
     
