@@ -1,5 +1,5 @@
-from typing import Dict, Set, Tuple, List
-import heapq
+from typing import Set, Tuple, List
+from graph_traversals.breadth_first_search import breadth_first_search_parents
 import numpy as np
 
 # an intersting search problem where turning is costly
@@ -31,85 +31,36 @@ startpointxy = np.argwhere(grid == 'S')[0]
 startpoint = (int(startpointxy[0]),int(startpointxy[1]),EAST)
 endpoint = np.argwhere(grid == 'E')[0]
 
+def is_endpoint(point: Tuple[int,int,Tuple[int,int]]) -> bool:
+    return point[0] == endpoint[0] and point[1] == endpoint[1]
 
-scores: Dict[Tuple[int,int,Tuple[int,int]],int] = {}
-parents: Dict[Tuple[int,int,Tuple[int,int]],List[Tuple[int,int,Tuple[int,int]]]] = {}
-# use heapq
-queue: List[Tuple[int,Tuple[int,int,Tuple[int,int]]]] = []
+def neighbors(state: Tuple[int,int,Tuple[int,int]], score: int):
+    # new states are to move forward
+    # and rotate
+    state_y, state_x, state_dir = state
 
-
-heapq.heappush(queue,(0,startpoint))
-scores[startpoint] = 0
-
-while True:
-    # print('queue', queue)
-    # print('scores', scores)
-
-    # grab the first element in the queue
-    score_queue, (current_y, current_x, current_dir) = heapq.heappop(queue)
-    current_score = scores[(current_y,current_x,current_dir)]
-    if (current_y,current_x,current_dir) in scores and score_queue != current_score:
-        # print('different scores')
-        # print(score_queue,current_score)
-        pass
-
-    if current_y == endpoint[0] and current_x == endpoint[1]:
-        break
-
-    #### check in each direction
-    # forward
-    next_y = current_y + current_dir[0]
-    next_x = current_x + current_dir[1]
-    next_dir = current_dir
-    next_score = scores[(current_y,current_x,current_dir)] + 1
+    #### forward
+    next_y = state_y + state_dir[0]
+    next_x = state_x + state_dir[1]
+    next_dir = state_dir
+    next_score = score + 1
 
     if grid[next_y,next_x] != '#':
-        if (next_y,next_x,next_dir) not in scores:
-            scores[(next_y,next_x,next_dir)] = next_score
-            parents[(next_y,next_x,next_dir)] = [(current_y,current_x,current_dir)]
-            heapq.heappush(queue,(next_score,(next_y,next_x,next_dir)))
-        
-        elif scores[(next_y,next_x,next_dir)] > next_score:
-            # this path is better, assign new parent
-            # print('path change, check it')
-            scores[(next_y,next_x,next_dir)] = next_score
-            parents[(next_y,next_x,next_dir)] = [(current_y,current_x,current_dir)]
-
-        elif scores[(next_y,next_x,next_dir)] == next_score:
-            # scores is the same, add new parent
-            parents[(next_y,next_x,next_dir)].append((current_y,current_x,current_dir))
-
-
-    for direction in search_directions(*current_dir):
-        next_y = current_y
-        next_x = current_x
+        yield (next_score, (next_y, next_x, next_dir))
+    
+    #### rotations
+    for direction in search_directions(*state_dir):
+        next_y = state_y
+        next_x = state_x
         next_dir = direction
-        next_score = scores[(current_y,current_x,current_dir)] + 1000
+        next_score = score + 1000
 
-        check_y = next_y + next_dir[0]
-        check_x = next_x + next_dir[1]
-
-
-        if grid[check_y,check_x] != '#':
-            if (next_y,next_x,next_dir) not in scores:
-                # if unvisited
-                scores[(next_y,next_x,next_dir)] = next_score
-                parents[(next_y,next_x,next_dir)] = [(current_y,current_x,current_dir)]
-                heapq.heappush(queue,(next_score,(next_y,next_x,next_dir)))
-
-            elif scores[(next_y,next_x,next_dir)] > next_score:
-                # if better score
-                # print('path change, check it')
-                scores[(next_y,next_x,next_dir)] = next_score
-                parents[(next_y,next_x,next_dir)] = [(current_y,current_x,current_dir)]
-                # heapq.heappush(queue,(next_score,(next_y,next_x,next_dir)))
-
-            elif scores[(next_y,next_x,next_dir)] == next_score:
-                # scores is the same, add new parent
-                parents[(next_y,next_x,next_dir)].append((current_y,current_x,current_dir))
+        yield (next_score,(next_y,next_x,next_dir))
 
 
-print('Part 1:',current_score)
+score, parents = breadth_first_search_parents(startpoint,is_endpoint, neighbors)
+
+print('Part 1:',score)
 
 visited: Set[Tuple[int,int,Tuple[int,int]]] = set()
 
