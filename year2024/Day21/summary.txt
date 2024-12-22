@@ -1,0 +1,37 @@
+This is a great problem that appears to be harder than usual
+The goal is to find the shortest sequence of button presses to control a robot under 2 levels of indirection
+
+From the beginning of this day, it was unclear if levels of indirection caused different paths to be better than others
+
+Example, moving from ^ to > and pressing it on the directional keypad.
+There are two ways of doing it
+>vA or v>A
+And add another level of indireciton
+      vA<A^>A  or  <vA>A^A
+also  vA<A>^A  or  v<A>A^A
+Still both the same length
+
+Since I could not prove that some paths are better than others, I chose a brute force approach for part 1. 
+It uses breadth first search to find the shortest path under any number of indirections.
+It recusively calls breadth first search for each level of indirection to find the shortest paths on each keyboard.
+
+After testing it, working with it, and getting part 1 correct, I knew it would not suffice for part 2.
+
+I then used my part 1 approach to figure out lengths of paths from every cell to every cell hoping to find patterns in their lengths
+Looking at the paths, some paths had multiple shortest paths except for indirection level 4. Suddenly all cell to cell paths had a single shortest path.
+I then checked that the path did exist in each indirection level below it, they did.
+
+The rules were quite interesting.
+1. Always do one direction, then the next direction. So never do left, up, left. 
+This one was pretty obvious from the start, it is always better to press on A as many times in a row as possible
+2. Always do left before up or down.
+3. Always do up or down before right.
+4. In the case where the keypad square is cutout, you must swap the directions. 
+So going from A to < should always be done v<<A
+and going from A to 7 should always be done ^^^<<A
+
+Since I had already printed out all the shortest paths, there was no reason to try and figure them out in code
+On calculated.py, I made a lookup table of all the paths and called it good.
+One memoizing recursive function later that looks up the right path and figures out the button presses, part 2 is done
+
+What a great problem
