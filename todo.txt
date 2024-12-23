@@ -16,3 +16,4 @@
 2024.14 apl solution for part 1, interval index please
 2024.15 clear up and unify both solutions
 2024.19 good candidate for Haskell, memozation
+2024.22 with all the iterators, might be interesting in Haskell
