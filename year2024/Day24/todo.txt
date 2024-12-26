@@ -1,0 +1,4 @@
+I have only completed part 2 using some manual work
+I have grouped together full adders with their carry or gates
+
+The process by hand was to follow the carries forward and find the swaps
