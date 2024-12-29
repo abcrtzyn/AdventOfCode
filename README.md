@@ -1,6 +1,6 @@
 # My solutions to Advent of Code
 
-So far, I have completed 2015, 2016, 2023, and over half of 2018 and 2021.
+So far, I have completed 2015, 2016, 2017, 2023, 2024, and over half of 2018 and 2021.
 My first Advent of Code was 2021 and have since worked backwards and forwards.
 
 Advent of Code has been an excellent learning oppurtunity for learning about different types of problems, data structures, languages, and different styles of programming.
