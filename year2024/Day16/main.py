@@ -71,7 +71,7 @@ for dy,dx in [NORTH,EAST,SOUTH,WEST]:
         lasts.append((int(endpoint[0]),int(endpoint[1]),(dy,dx)))
 
 if len(lasts) > 1:
-    print('help me')
+    print('it is very unlikely that there are multiple best ways to get to the final cell, if this is you I am very sorry')
     exit(1)
 
 current = lasts[0]

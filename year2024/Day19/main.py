@@ -1,13 +1,13 @@
 from typing import Dict, List
 from functools import cache
 
-# counts the number of ways to make each towel arrangement
 # {first char: [strings sorted by length reversed]}
 towels: Dict[str,List[str]] = {}
 
 # it is likely that this function call will see lots of the same starting position
 # the cache decorator means that it will store results and use them rather than re-computing each time
 @cache
+# counts the number of ways to make each towel arrangement
 def count_possibles(s: str, starting: int = 0) -> int:
     # print(s)
     if starting == len(s):

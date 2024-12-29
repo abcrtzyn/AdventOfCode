@@ -15,7 +15,7 @@ with open('Day17/test_input2.txt') as f:
 
 def combo(operand: int) -> int:
     match operand:
-        case 0 | 1 | 2 | 3:
+        case 0 | 1 | 2 | 3: # did you know this is real python syntax
             return operand
         case 4:
             return reg_a
@@ -85,4 +85,7 @@ while True:
             print('unknown instruction', instruction)
             exit(1)
 
+# this line removes the last comma I hope. I hate printing out length unknown lists,
+# sure I could put it in a list and print it all out, but thats how a computer does it.
+# then again, a computer wouldn't put commas between the output values either
 print('\b ')
