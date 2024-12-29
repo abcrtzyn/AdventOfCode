@@ -81,9 +81,12 @@ for exp,or_out in ors:
 
     full_adders.append((half_adder1,half_adder2,exp,or_out))
 
-for x in full_adders:
-    print(x)
-for x in first_layer_half_adders_by_and_res.values():
-    print(x)
-for x in second_layer_half_adders_by_and_res.values():
-    print(x)
+# based on my input, the only swaps happen within full adders. It probably has something to do with uniqueness
+# that if two adders outputs are swapped, than all outputs the adders can be swapped to make it valid.
+
+# things to look for. If a carry or input is not in a normal place, find where it is. it will be swapped
+# all of my swaps are two half adder outputs are swapped, the xor is swapped with the and of the same or other half adder
+# or the output of the or gate should be one of the outputs of the full adder
+
+# I think it should be possible to try each adder one at a time
+# plug in x0, y0, find the correct result and carry outputs, if the z00 is not the output, make a swap
