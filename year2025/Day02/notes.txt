@@ -1,0 +1,7 @@
+In part 1, the invalid IDs are some n repeated twice. So invalid IDs can only be even length.
+
+They would have a general form of
+n * (10^(# of digits) + 1)
+# of digits is approximately log10
+
+for searching, going through all possible wrong ids for a given order of magnitude is going to be faster than checking all numbers in a range.
