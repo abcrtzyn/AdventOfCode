@@ -1,0 +1,13 @@
+These are the basic optimization problems, I think they should be doable using methods
+
+maximize score = product Pij*Ai for ingredient i and property j
+where 100 = sum Ai for ingredient i
+
+this is lagrange multipliers, can't use this to find integer solutions
+
+Second part
+maximize score = product Pij Ai for ingredient i and property j
+where 100 = sum Ai for ingredient i
+and 500 = sum Ci*Ai for ingredient i
+
+this is also lagrange multipliers
