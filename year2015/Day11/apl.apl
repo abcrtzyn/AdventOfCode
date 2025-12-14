@@ -2,7 +2,7 @@
 
 
         ⍝ INPUT HERE
-input ← 'vzbxkghb'
+input ← 'hijklmmn'
 
 stringtodigits ← (¯1+(¯1 ⎕C ⎕A)⍳⊢)
 digitstostring ← {(¯1 ⎕C ⎕A)[1+⍵]}

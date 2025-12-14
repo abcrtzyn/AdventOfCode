@@ -1,5 +1,5 @@
                   ⍝ INPUT HERE
-input ← (10∘⊥⍣¯1) 1113122113
+input ← (10∘⊥⍣¯1) 211
 
 ⍝ takes in an array of digits and outputs what it sees
 ⍝ runs of more than 10 never
