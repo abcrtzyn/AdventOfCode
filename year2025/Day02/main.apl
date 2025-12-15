@@ -50,8 +50,8 @@ invalid_1 ← {{(1+10×⍵)×⍵+⍳9×⍵}(10÷⍨10*⍵÷2)}
 invalid_2 ← {⍺{⍺ × ⍵+⍳9×⍵}10*¯1+⍵}
 
 list_2 ← {
-    l1←invalid_2∘1 ¨(11 111 1111 11111 111111 1111111 11111111 111111111 1111111111)
-    l2←invalid_2∘2 ¨(101 10101 1010101 101010101)
+    l1←invalid_2∘1 ¨ 9÷⍨¯1+10* 2+ ⍳ 9  ⍝ this is the sequence 1 11 111 ...
+    l2←invalid_2∘2 ¨ 99÷⍨¯1+100* 2+ ⍳ 4
     l3←invalid_2∘3 ¨(1001 1001001)
     l4←invalid_2∘4 ¨(10001)
     l5←invalid_2∘5 ¨(100001)
@@ -65,9 +65,3 @@ list_2 ← {
                     ⍝ ravel them all into one list
                   ⍝ take unique elements, removes duplicates
                 ⍝ sum
-
-⍝ side task
-⍝ find a explicit function for the serieses
-⍝ 1 11 111 1111 ...
-⍝ and
-⍝ 101 10101 1010101 ...
