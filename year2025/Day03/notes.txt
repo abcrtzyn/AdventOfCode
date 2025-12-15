@@ -1,0 +1,5 @@
+We are looking for the biggest 2 digit number in each line.
+Any 90 some number is better than any other number
+
+A procedure then is to look for a 9 and pick the largest digit after the 9
+If there are no 9s or only the last digit is a 9, repeat with 8, then 7...
