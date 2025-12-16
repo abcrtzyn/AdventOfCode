@@ -5,8 +5,6 @@ YEAR = 2025
 
 import os
 
-os.mkdir(f'year{YEAR}')
-os.chdir(f'year{YEAR}')
 if YEAR <= 2024:
     max_day = 25
 else:
@@ -14,4 +12,4 @@ else:
 
 for i in range(1,max_day+1):
     # print(f'Day{i:02d}')
-    os.mkdir(f'Day{i:02d}')
+    os.makedirs(f'year{YEAR}/Day{i:02d}',exist_ok=True)
