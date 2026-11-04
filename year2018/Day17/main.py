@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 import numpy as np
 
 
@@ -11,15 +13,15 @@ grid = np.loadtxt('Day17/grid.txt',np.uint8)
 # if we fall and hit flowing water, stop, it will flow to the same place
 
 
-search = []
+search: List[Tuple[int,int]] = []
 
 # find the 2 in the top row
-start_x = np.where(grid[0] == 2)[0][0]
+start_x: int = np.where(grid[0] == 2)[0][0]
 
 current_y = 1
 current_x = start_x
 
-def spread(y,x,off):
+def spread(y: int,x: int,off: int):
     search_x = x
     while True:
         search_x += off
@@ -48,7 +50,7 @@ def spread(y,x,off):
             print('spread wall',c1)
             exit(0)
 
-def fill(y,x,off):
+def fill(y: int,x: int,off: int):
     # convert all in a layer to standing water
     search_x = x
     while True:
@@ -64,7 +66,7 @@ def fill(y,x,off):
             exit(1)
 
 
-def get_next():
+def get_next() -> Tuple[int,int]:
     if search:
         y, x = search.pop()
         # check that this coordinate is still flowing

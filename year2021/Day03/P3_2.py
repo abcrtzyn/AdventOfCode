@@ -8,7 +8,7 @@ ints = [[int(c) for c in list(s) if c != "\n"] for s in lines]
 arr = np.array(ints)
 arr2 = arr.copy()
 
-def mostCommonBit(arr: np.ndarray, place):
+def mostCommonBit(arr: np.ndarray, place: int):
     count = len(arr)
     sums = arr.sum(0)
     if sums[place] >= count:
@@ -18,5 +18,5 @@ def mostCommonBit(arr: np.ndarray, place):
 
 
 
-b = np.ma.mask_rowcols(arr, 0, arr[:,0] == mostCommonBit(arr,0))
-print(b)
+b = np.ma.mask_rowcols(arr, 0, arr[:,0] == mostCommonBit(arr,0)) # pyright: ignore[reportCallIssue, reportUnknownVariableType]
+print(b) # pyright: ignore[reportUnknownArgumentType]

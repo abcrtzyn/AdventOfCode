@@ -1,9 +1,12 @@
+from typing import List
+
+
 count = 0
 with open('Day03/input.txt') as f:
     i = 0
-    t1 = []
-    t2 = []
-    t3 = []
+    t1: List[int] = []
+    t2: List[int] = []
+    t3: List[int] = []
     for line in f.readlines():
         line = [int(x) for x in line.strip().split()]
         t1.append(line[0])

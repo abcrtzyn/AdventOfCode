@@ -1,3 +1,7 @@
+from collections import defaultdict
+from typing import Dict
+
+
 score = 0
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -8,7 +12,7 @@ with open('Day04/input.txt') as f:
         checksum = line[line.find('['):][1:-1]
         
         # make a frequency table
-        freq = {}
+        freq: Dict[str,int] = defaultdict(lambda: 0)
         number = 0
         for c in line:
             if c == '-':
@@ -19,10 +23,8 @@ with open('Day04/input.txt') as f:
                 continue
             if c == '[':
                 break
-            if c in freq:
-                freq[c] += 1
-            else:
-                freq[c] = 1
+            freq[c] += 1
+
         # create the sorted list of letters
         check = [x[0] for x in sorted(sorted(freq.items(),key=lambda x:x[0]),key=lambda x:x[1],reverse=True)[:5]]
         

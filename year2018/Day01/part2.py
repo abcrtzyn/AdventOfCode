@@ -1,11 +1,14 @@
 
 
+from typing import Set
+
+
 with open('Day01/input.txt') as f:
     l = [int(line) for line in f]
 
 a = len(l)
 
-s = set()
+s: Set[int] = set()
 s.add(0)
 
 c = 0

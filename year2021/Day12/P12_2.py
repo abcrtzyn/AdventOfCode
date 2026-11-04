@@ -1,6 +1,9 @@
-edges = dict()
+from typing import Dict, List
 
-visited = dict()
+
+edges: Dict[str,List[str]] = {}
+
+visited: Dict[str,int] = {}
 
 with open('input.txt','r') as f:
     for line in f:
@@ -31,7 +34,7 @@ doubleVisited = False
 paths = 0
 #nodeStack = list()
 
-def countPaths(node):
+def countPaths(node: str):
     #nodeStack.append(node)
     for next in edges[node]:
         if next == 'end':

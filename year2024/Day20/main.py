@@ -1,4 +1,6 @@
 # we are assured that the path has no branches
+from typing import List
+
 import numpy as np
 from itertools import combinations
 
@@ -78,7 +80,7 @@ for i in range(1,path.shape[0]-1):
             continue
 
         # check around it for nonzero numbers
-        numbers = []
+        numbers: List[int] = []
         for dy,dx in directions:
             if path[j+dy,i+dx] != 0:
                 numbers.append(path[j+dy,i+dx])

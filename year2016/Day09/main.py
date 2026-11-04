@@ -1,8 +1,9 @@
 
 from io import StringIO
+from typing import TextIO
 
 
-def uncompress(buf, part2) -> int:
+def uncompress(buf: TextIO, part2: bool) -> int:
     count = 0
     while True:
 
@@ -22,7 +23,7 @@ def uncompress(buf, part2) -> int:
 
 # figures out the length of the text inside the compression zone
 # returns it
-def compression_marker(f, part2):
+def compression_marker(f: TextIO, part2: bool):
     # start a compression marker
     num = ''
     c = f.read(1)

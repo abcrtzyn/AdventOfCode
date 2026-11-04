@@ -1,4 +1,7 @@
-containers = []
+from typing import List
+
+
+containers: List[int] = []
 
 with open('Day17/input.txt') as f:
     for line in f.readlines():

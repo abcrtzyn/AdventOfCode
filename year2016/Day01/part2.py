@@ -1,4 +1,7 @@
 
+from typing import Set, Tuple
+
+
 direction = 0
 
 directions = {0:(1,0), 1:(0,1), 2:(-1,0), 3:(0,-1)}
@@ -6,7 +9,7 @@ directions = {0:(1,0), 1:(0,1), 2:(-1,0), 3:(0,-1)}
 # left is decrement
 # right is increment
 
-locations = set()
+locations: Set[Tuple[int,int]] = set()
 
 point = (0,0)
 locations.add(point)

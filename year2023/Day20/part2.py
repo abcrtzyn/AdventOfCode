@@ -7,7 +7,10 @@
 # the only way rx gets a low signal is if all 4 counters reach their values at the same time.
 # calculations are at the end
 
-modules = {}
+from typing import Dict, List, Tuple, cast
+
+
+modules: Dict[str,Tuple[str,int|Dict[str,int],List[str]]] = {}
 
 with open('Day20/partialinput.txt') as f:
     for line in f.readlines():
@@ -39,7 +42,7 @@ for module in modules:
     
     
 first = ('button',0,'broadcaster')
-pulseQueue = []
+pulseQueue: List[Tuple[str,int,str]] = []
 
 # high_count = 0
 # low_count = 0
@@ -75,6 +78,7 @@ while True:
                 modules[mod] = (tipe,state,outs)
 
         elif tipe == '&':
+            assert isinstance(state,dict)
             # set the new value
             state[source] = p
             # if all input sources are one
@@ -101,7 +105,7 @@ while True:
         l.reverse()
         n = 0
         for i in l:
-            n = (n << 1) + modules[i][1]
+            n = cast(int,(n << 1) + modules[i][1]) # pyright: ignore[reportOperatorIssue]
             #print(i,modules[i][1],end=' ')
         #print(buttons, n)
     #print({k: v[1] for k,v in modules.items()})

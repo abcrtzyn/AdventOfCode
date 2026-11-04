@@ -11,14 +11,14 @@ from typing import List
 
 
 
-def swap_pos(word: List[str], x,y):    
+def swap_pos(word: List[str], x: int,y: int):    
     temp = word[x]
     word[x] = word[y]
     word[y] = temp
     
     return word
 
-def swap_ltr(word: List[str],x,y):
+def swap_ltr(word: List[str],x: str, y: str):
     i = word.index(x)
     j = word.index(y)
     
@@ -29,7 +29,7 @@ def swap_ltr(word: List[str],x,y):
     return word
 
 
-def rotate_dir(word: List[str], steps):
+def rotate_dir(word: List[str], steps: int):
 
     if True:
         # rotate right

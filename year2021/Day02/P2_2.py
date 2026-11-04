@@ -9,6 +9,7 @@ m = re.compile("(?P<dir>forward|down|up) (?P<num>\\d+)")
 with open("input.txt") as f:
     for line in f.readlines():
         matchObject = m.match(line)
+        assert matchObject is not None
         direction = matchObject.group(1)
         number = int(matchObject.group(2))
         if(direction == "forward"):

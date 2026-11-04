@@ -46,5 +46,7 @@ if __name__ == '__main__':
                     count += 3
                 case 'f':
                     count += 4
+                case _:
+                    assert False, 'unreachable'
 
     print(count)

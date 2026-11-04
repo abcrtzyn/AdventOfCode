@@ -1,9 +1,8 @@
 # implementating A* for this task
 
-from functools import partial
 import heapq
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Dict, Tuple
 
 @dataclass(order=True)
 class Entry:
@@ -19,10 +18,10 @@ start = (1,1)
 goal = (31,39)
 
 # taxicab distance
-def taxicab(a,b):
+def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
-def iswall(p):
+def iswall(p: Tuple[int,int]):
     n = p[0]**2 + 3*p[0] + 2 * p[0] * p[1] + p[1] + p[1]**2 + DESIGNERS_FAVORITE_NUMBER
     #print(n)
     #print(bin(n))
@@ -30,11 +29,11 @@ def iswall(p):
 
 
 
-def distinct(start, steps):
+def distinct(start: Tuple[int,int], steps: int) -> int:
     
-    cameFrom = {}
+    cameFrom: Dict[Tuple[int,int],Tuple[int,int]] = {}
 
-    gScore = {}
+    gScore: Dict[Tuple[int,int],int] = {}
     gScore[start] = 0
 
     open_set = [Entry(gScore[start],start)]
@@ -46,8 +45,8 @@ def distinct(start, steps):
         if gScore[current] > steps:
             # done
             # print(gScore)
-            count = 0
-            for k,v in gScore.items():
+            count: int = 0
+            for _,v in gScore.items():
                 if v <= steps:
                     count += 1
             

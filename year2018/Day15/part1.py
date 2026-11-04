@@ -1,11 +1,11 @@
 # Grid. 0 is wall, 1 is open, anything else is a unit, dividing point set by the parser
 
-from typing import Any, List, Tuple
+from typing import Any, Callable, List, Set, Tuple
 
 
 grid: List[List[int]] = []
 
-def manhattan(a,b,c,d):
+def manhattan(a: int,b: int,c: int,d: int):
     return abs(a-c) + abs(b-d)
 
 
@@ -51,14 +51,14 @@ with open('Day15/input.txt') as f:
 
 
 
-def square_next_to_elf(grid,y,x):
+def square_next_to_elf(grid: List[List[int]],y: int,x: int):
     for y_off,x_off in [(-1,0),(1,0),(0,-1),(0,1)]:
         tile = grid[y+y_off][x+x_off]
         if ELVES <= tile < WALL:
             return True
     return False
 
-def square_next_to_goblin(grid,y,x):
+def square_next_to_goblin(grid: List[List[int]],y: int,x: int):
     for y_off,x_off in [(-1,0),(1,0),(0,-1),(0,1)]:
         tile = grid[y+y_off][x+x_off]
         if GOBLINS <= tile < ELVES:
@@ -69,15 +69,14 @@ def square_next_to_goblin(grid,y,x):
 
 # find the closest square that satisfies a given predicate function
 # tests all squares of a given distance, in reading order, and returns the closest one
-def breadth_first_seach(grid, start_y, start_x, f):
+def breadth_first_seach(grid: List[List[int]], start_y: int, start_x: int, f: Callable[[List[List[int]],int,int],bool]):
     # it is going to be better to just compare distances and then after sort by reading order
-    search = set()
-    search.add((start_y,start_x))
-    searched = set()
-    satisfies = set()
+    search = {(start_y,start_x)}
+    searched: Set[Tuple[int,int]] = set()
+    satisfies: Set[Tuple[int,int]] = set()
     
     while len(satisfies) == 0:
-        next_search = set()
+        next_search: Set[Tuple[int,int]] = set()
         # print(search)
         for cell_y,cell_x in search:
             if f(grid,cell_y,cell_x):

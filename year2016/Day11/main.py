@@ -1,4 +1,5 @@
 from itertools import combinations
+from typing import Dict, Iterable, List, Tuple
 
 # essentially this is finding a path through a maze with many dimensions
 # some cells in the maze are not allowed
@@ -14,9 +15,9 @@ from itertools import combinations
 # elevator moves up or down one floor
 # one or two objects from that floor must move as well
 
-def stuff_on_floor(state):
+def stuff_on_floor(state: Tuple[int,Tuple[int,...],Tuple[int,...]]):
     floor = state[0]
-    stuff = []
+    stuff: List[Tuple[int,int]] = []
 
     for i,f in enumerate(state[1]):
         if f == floor:
@@ -27,7 +28,7 @@ def stuff_on_floor(state):
     
     return stuff
 
-def create_state(state, direction, items):
+def create_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], direction: bool, items: Iterable[Tuple[int,int]]):
     new_floor = state[0] + (1 if direction else -1)
     
     new_items = [list(state[1]), list(state[2])]
@@ -37,7 +38,7 @@ def create_state(state, direction, items):
     new_state = (new_floor, tuple(new_items[0]),tuple(new_items[1]))
     return new_state
 
-def check_state(state, old_floor):
+def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int):
     # for old_floor and current_floor
     # for each chip on floor
     # if same number generator is not on floor
@@ -49,7 +50,7 @@ def check_state(state, old_floor):
         if chip_floor == old_floor:
             if state[2][chip] != old_floor:
                 # check for other gens
-                for gen,gen_floor in enumerate(state[2]):
+                for generation,gen_floor in enumerate(state[2]): # pyright: ignore[reportUnusedVariable]
                     if gen_floor == old_floor:
                         #print(state, f'chip {chip} was irradiated by generator {gen}')
                         # invalid state
@@ -58,7 +59,7 @@ def check_state(state, old_floor):
         if chip_floor == current_floor:
             if state[2][chip] != current_floor:
                 # check for other gens
-                for gen,gen_floor in enumerate(state[2]):
+                for generation,gen_floor in enumerate(state[2]): # pyright: ignore[reportUnusedVariable]
                     if gen_floor == current_floor:
                         #print(state, f'chip {chip} was irradiated by generator {gen}')
                         # invalid state
@@ -66,14 +67,14 @@ def check_state(state, old_floor):
     return True
 
 
-def solve(init_state, final_state):
-    DP = {}
-    queue = []
+def solve(init_state: Tuple[int,Tuple[int,...],Tuple[int,...]], final_state: Tuple[int,Tuple[int,...],Tuple[int,...]]):
+    DP: Dict[Tuple[int,Tuple[int,...],Tuple[int,...]],int] = {}
+    queue: List[Tuple[Tuple[int,Tuple[int,...],Tuple[int,...]],int]] = []
 
     queue.append((init_state,0))
     steps = 0
     while len(queue) > 0:
-        old_steps = steps
+        # old_steps = steps
         maze_state, steps = queue.pop(0)
         # if steps > old_steps:
             # print(steps, len(queue)+1)
@@ -133,6 +134,7 @@ def solve(init_state, final_state):
                         if new_state == final_state:
                             return steps+1
                         queue.append((new_state,steps+1))
+
 
 """Test states"""
 init_stateT = (1,(1,1),(2,3))

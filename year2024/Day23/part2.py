@@ -2,7 +2,7 @@
 # I've never had to solve this problem
 # I have looked up the Bron–Kerbosch algorithms
 
-from typing import Dict, List, Set
+from typing import Dict, Set
 
 
 network: Dict[str,Set[str]] = {}

@@ -1,8 +1,10 @@
 # %%
+from typing import Dict
+
 import numpy as np
 from numpy.lib.stride_tricks import sliding_window_view
 
-replacements = dict()
+replacements: Dict[str,str] = dict()
 
 # %%
 with open('input_test.txt') as f:

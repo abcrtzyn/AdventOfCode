@@ -7,16 +7,16 @@ towerN = 9
 
 
 with open('Day05/input.txt') as f:
-    h: List[str] = list()
+    h: List[str] = []
     for i in range(towerHeight):
         h.append(f.readline())
     
     h.reverse()
 
-    stacks: List[List[str]] = list()
+    stacks: List[List[str]] = []
     
     for t in range(towerN):
-        a = list()
+        a: List[str] = []
         for line in h: 
             c = line[t*4+1]
             if(c == ' '): break
@@ -26,9 +26,12 @@ with open('Day05/input.txt') as f:
     f.readline()
     f.readline()
 
-    exp = re.compile('move (\d+) from (\d+) to (\d+)')
+    exp = re.compile('move (\\d+) from (\\d+) to (\\d+)')
     for line in f:
         m = exp.match(line)
+        if m is None:
+            print('could not match line')
+            exit(1)
         n = int(m.group(1))
         p = int(m.group(2))-1
         q = int(m.group(3))-1

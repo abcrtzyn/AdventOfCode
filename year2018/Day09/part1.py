@@ -13,7 +13,7 @@ ring = [0]
 current = 0
 
 
-def act(n):
+def act(n: int):
     global ring
     global current
     if n % 23 == 0:

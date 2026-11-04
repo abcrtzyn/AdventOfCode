@@ -1,4 +1,7 @@
 
+from typing import List, Tuple
+
+
 def hash(s: str):
     acc1 = 0
     for c in s:
@@ -7,7 +10,7 @@ def hash(s: str):
         acc1 = acc1 % 256
     return acc1
 
-hashtable = []
+hashtable: List[List[Tuple[str,int]]] = []
 for i in range(256):
     hashtable.append(list())
 

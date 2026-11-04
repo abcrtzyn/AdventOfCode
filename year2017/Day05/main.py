@@ -1,6 +1,9 @@
 
 
-def solve(numbers,part2: bool):
+from typing import List
+
+
+def solve(numbers: List[int],part2: bool):
     limit = len(numbers)
     i = 0
     jump_count = 0
@@ -19,7 +22,7 @@ def solve(numbers,part2: bool):
 
 
 # each line is a number, make a list
-numbers = []
+numbers: List[int] = []
 with open('Day05/input.txt') as f:
     for x in f:
         numbers.append(int(x.strip()))

@@ -1,14 +1,17 @@
 
 # dykstras algorithm with the following states (x,y,direction,steps of direction)
 
+from typing import Callable, Dict, List, Tuple
+
+
 DOWN = (1, 0)
 UP = (-1, 0)
 LEFT = (0, -1)
 RIGHT = (0, 1)
 
-TURNLEFT = {UP: LEFT, DOWN: RIGHT, LEFT: DOWN, RIGHT: UP}
-TURNRIGHT = {UP: RIGHT, DOWN: LEFT, LEFT: UP, RIGHT: DOWN}
-DIRMAP = {DOWN: 0, UP: 1, LEFT: 2, RIGHT: 3}
+TURNLEFT: Dict[Tuple[int,int],Tuple[int,int]] = {UP: LEFT, DOWN: RIGHT, LEFT: DOWN, RIGHT: UP}
+TURNRIGHT: Dict[Tuple[int,int],Tuple[int,int]] = {UP: RIGHT, DOWN: LEFT, LEFT: UP, RIGHT: DOWN}
+DIRMAP: Dict[Tuple[int,int],int] = {DOWN: 0, UP: 1, LEFT: 2, RIGHT: 3}
 
 import numpy as np
 
@@ -18,43 +21,44 @@ SIZE = grid.shape[0]
 
 costs = np.ones((SIZE,SIZE,4,10),np.int16)*32767
 
-def readCosts(v):
-    return costs[v[0],v[1],DIRMAP[v[2]],v[3]-1]
+def readCosts(v: Tuple[int,int,Tuple[int,int],int]):
+    return int(costs[v[0],v[1],DIRMAP[v[2]],v[3]-1])
 
-def writeCosts(v,n):
+def writeCosts(v: Tuple[int,int,Tuple[int,int],int], n: int):
     costs[v[0],v[1],DIRMAP[v[2]],v[3]-1] = n;
 
 
 # handles things where the costs are in a seperate thing
-class HeapState:
+class HeapState[T]:
 
-    def __init__(self):
-        self.container = list()
+    def __init__(self, f: Callable[[T],int]):
+        self.container: List[T] = []
+        self.costf: Callable[[T],int] = f
     
     def __len__(self):
         return len(self.container)
 
-    def _siftdown(self, start, current):
+    def _siftdown(self, start: int, current: int):
         newitem = self.container[current]
 
         while current > start:
             parent = (current - 1) >> 1
             parentitem = self.container[parent]
-            if readCosts(newitem) < readCosts(parentitem):
+            if self.costf(newitem) < self.costf(parentitem):
                 self.container[current] = parentitem
                 current = parent
                 continue
             break
         self.container[current] = newitem
 
-    def _siftup(self, current):
+    def _siftup(self, current: int):
         end = len(self)
         start = current
         newitem = self.container[current]
         child = 2*current+1
         while child < end:
             right = child+1
-            if right < end and not readCosts(self.container[child]) < readCosts(self.container[right]):
+            if right < end and not self.costf(self.container[child]) < self.costf(self.container[right]):
                 child = right
             self.container[current] = self.container[child]
             current = child
@@ -62,7 +66,7 @@ class HeapState:
         self.container[current] = newitem
         self._siftdown(start, current)
 
-    def push(self, item):
+    def push(self, item: T):
         self.container.append(item)
         self._siftdown(0, len(self)-1)
 
@@ -75,23 +79,23 @@ class HeapState:
             return ret
         return last
     
-    def poppush(self, item):
+    def poppush(self, item: T):
         ret = self.container[0]
         self.container[0] = item
         self._siftup(0)
         return ret
     
-    def pushpop(self, item):
-        if self.container and readCosts(self.container[0]) < readCosts(item):
+    def pushpop(self, item: T):
+        if self.container and self.costf(self.container[0]) < self.costf(item):
             item, self.container[0] = self.container[0], item
             self._siftup(0)
         return item
 
 
-heap = HeapState()
+heap = HeapState(readCosts)
 
-def rangeCheck(x,y):
-    return 0 <= x and x < SIZE and 0 <= y and y < SIZE
+def rangeCheck(x: int,y: int):
+    return 0 <= x < SIZE and 0 <= y < SIZE
 
 
 writeCosts((1,0,DOWN,1),grid[1,0])

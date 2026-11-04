@@ -1,4 +1,5 @@
 from collections import deque
+from typing import Dict, Generator, Tuple
 
 # gives the next price in the sequence, 2001 times, including the initial
 def market_price(seed: int):
@@ -11,12 +12,12 @@ def market_price(seed: int):
 
 # generates the sequence of 4 market changes
 # yields ((4 number sequence), price)
-def market_changes(seed: int):
+def market_changes(seed: int) -> Generator[Tuple[Tuple[int,...],int]]:
     prices = market_price(seed)
     
     # using a deque of maxlen 4 means it will only ever keep 4 values
     # its quite a flexible data structure
-    changes = deque([],4)
+    changes: deque[int] = deque([],4)
     
     # a stores the last price, b stores the current price
     price = 0
@@ -38,14 +39,14 @@ def market_changes(seed: int):
 
 
 # keeps track of all the sequences and what the total number of bananas recieved for it
-sequences_master = {}
+sequences_master: Dict[Tuple[int,...],int] = {}
 
 
 with open('Day22/input.txt') as f:
     # for each buyer
     for line in f:
         # make a list of all the sequences and their costs
-        sequences = {}
+        sequences: Dict[Tuple[int,...],int] = {}
 
         changes = market_changes(int(line))
         for seq,price in changes:

@@ -14,6 +14,9 @@
 
 
 # parse the input
+from typing import List
+
+
 with open('Day17/input.txt') as f:
     f.readline()
     f.readline()
@@ -40,7 +43,7 @@ def combo(operand: int) -> int:
             raise ValueError(operand,'not a vaild combo operand')
 
 # to end the program, A is 0, so we start with A=0
-new_possibles = [0]
+new_possibles: List[int] = [0]
 
 while output:
 

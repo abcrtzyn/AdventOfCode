@@ -2,7 +2,7 @@ import numpy as np
 
 grid = np.zeros((1024,1024), dtype=np.int16)
 
-def addToGrid(x,y):
+def addToGrid(x: int,y: int):
     global grid
     # print(x,y)
     grid[x][y] += 1

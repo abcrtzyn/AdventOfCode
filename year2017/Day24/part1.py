@@ -10,6 +10,8 @@ PART2 = True
 
 
 
+from typing import Tuple
+
 import numpy as np
 
 adjacency = np.zeros((51,51),np.int32)
@@ -30,10 +32,11 @@ with open('Day24/input.txt') as f:
 
 
 # tries every possible path, returns the best one
-def depth_first_search(v:int):
+def depth_first_search(v:int) -> Tuple[int|float,str]:
     highest_value = 0
     highest_path = f'{v}'
     for w,e in enumerate(adjacency[v]):
+        e: int
         if e == 0:
             continue
         if used[v,w]:

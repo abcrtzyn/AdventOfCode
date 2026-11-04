@@ -1,12 +1,15 @@
 
-current = []
+from typing import Dict, List, Tuple
+
+
+current: List[int] = []
 
 with open('Day06/input.txt') as f:
     current = [int(x) for x in f.readlines()]
 
 length = len(current)
 
-DP = {}
+DP: Dict[Tuple[int,...],int] = {}
 
 iterations = 0
 

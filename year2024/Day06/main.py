@@ -36,7 +36,7 @@ print('Part 1:', np.count_nonzero(marked))
 
 # PART 2 CODE
 
-def is_loop(grid, y, x, direction):
+def is_loop(grid, y: int, x: int, direction: Tuple[int,int]):
     # in order to detect loops, keep track of each cell and the direction
     visited: Set[Tuple[int,int,int]] = set()
     # same simulation code as before

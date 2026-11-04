@@ -1,6 +1,9 @@
+from typing import List
+
 import numpy as np
 import re
-points = list()
+
+points: List[List[int]] = []
 
 foldInstructions = False
 with open('input.txt', 'r') as f:
@@ -10,6 +13,9 @@ with open('input.txt', 'r') as f:
             # parse line
             match = re.fullmatch('fold along (?P<axis>.)=(?P<number>.+)', line)
             foldDirection = 0
+            if match is None:
+                print(f'could not match line "{line}"')
+                exit(1)
             if match.groups()[0] == 'y':
                 foldDirection = 1
             value = int(match.groups()[1])

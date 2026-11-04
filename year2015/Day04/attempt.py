@@ -3,6 +3,9 @@
 
 
 
+from typing import List
+
+
 s = [ 7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
       5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
       4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,  4, 11, 16, 23,
@@ -25,53 +28,55 @@ K = [ 0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
       0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1,
       0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391]
 
-def leftrotate(n,d):
+def leftrotate(n: int,d: int):
     return ((n << d)|(n >> (32 - d)))&0xffffffff
 
 def md5hash(message: bytes):
     nbytes = len(message)
-    M = b''.join([message,b'\x80',(nbytes*8).to_bytes(56-1-nbytes+8)])
-    Mi = list()
+    m = b''.join([message,b'\x80',(nbytes*8).to_bytes(56-1-nbytes+8)])
+    Mi: List[int] = list()
     for i in range(16):
-        Mi.append(int.from_bytes(M[i*4:i*4+4]))
-    M = Mi;
+        Mi.append(int.from_bytes(m[i*4:i*4+4]))
+    m = Mi
 
     a0 = 0x01234567
     b0 = 0x89abcdef
     c0 = 0xfedcba98
     d0 = 0x76543210
 
-    A = a0
-    B = b0
-    C = c0
-    D = d0
+    a = a0
+    b = b0
+    c = c0
+    d = d0
 
     for i in range(64):
         if 0 <= i < 16:
-            F = (B & C) | ((~ B) & D)
+            f = (b & c) | ((~ b) & d)
             g = i
         elif 16 <= i < 32:
-            F = (D & B) | ((~ D) & C)
+            f = (d & b) | ((~ d) & c)
             g = (5*i + 1) % 16
         elif 32 <= i < 48:
-            F = B ^ C ^ D
+            f = b ^ c ^ d
             g = (3*i+5) % 16
         elif 48 <= i < 64:
-            F = C ^ (B | (~ D))
+            f = c ^ (b | (~ d))
             g = (7*i) % 16
+        else:
+            assert False, 'unreachable'
         
-        F = (F + A + K[i] + M[g]) & 0xFFFFFFFF
+        f = (f + a + K[i] + m[g]) & 0xFFFFFFFF
         
-        print(i, hex(A),hex(B),hex(C),hex(D),hex(F))
-        A = D
-        D = C
-        C = B
-        B = (B + leftrotate(F, s[i])) & 0xffffffff
+        print(i, hex(a),hex(b),hex(c),hex(d),hex(f))
+        a = d
+        d = c
+        c = b
+        b = (b + leftrotate(f, s[i])) & 0xffffffff
 
-    a0 += A
-    b0 += B
-    c0 += C
-    d0 += D
+    a0 += a
+    b0 += b
+    c0 += c
+    d0 += d
     
     return (hex(a0),hex(b0),hex(c0),hex(d0))
     

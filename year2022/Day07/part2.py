@@ -2,10 +2,10 @@
 
 # looking for the directory whose size is minimum greater than 25623268
 
-from io import TextIOWrapper
+from typing import TextIO, Tuple
 
 
-def trace(f: TextIOWrapper):
+def trace(f: TextIO) -> Tuple[int,int]:
     size = 0;
     outputSize = 44376732;
     # expect ls command

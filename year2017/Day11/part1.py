@@ -5,6 +5,7 @@ current = (0,0,0)
 longest = 0
 
 i = 0
+s = 0
 
 with open('Day11/input.txt') as f:
     for d in f.read().strip().split(','):

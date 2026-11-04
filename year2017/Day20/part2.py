@@ -1,10 +1,11 @@
 import re
+from typing import Dict, List, Tuple
 
 rule = re.compile('p=<(-?\\d+),(-?\\d+),(-?\\d+)>, v=<(-?\\d+),(-?\\d+),(-?\\d+)>, a=<(-?\\d+),(-?\\d+),(-?\\d+)>')
 
 
-particles = {}
-positions = {}
+particles: Dict[int,List[int]] = {}
+# positions = {}
 
 
 with open('Day20/input.txt') as f:
@@ -17,8 +18,8 @@ with open('Day20/input.txt') as f:
 
 for _ in range(500):
     # reset collision index
-    positions = {}
-    remove = []
+    positions: Dict[Tuple[int,int,int],int] = {}
+    remove: List[int] = []
     for particle,info in particles.items():
         #print(particle,info)
         

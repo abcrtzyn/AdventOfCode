@@ -1,5 +1,5 @@
 from io import StringIO
-from typing import Dict, Set
+from typing import Dict, List, Set, Tuple
 from year2018.watchassembly.interpreter import interpret, ops, parse
 from itertools import groupby
 import re
@@ -7,7 +7,7 @@ import re
 
 sample_rule = re.compile('Before: \\[(\\d+), (\\d+), (\\d+), (\\d+)\\]\n(\\d+) (\\d+) (\\d+) (\\d+)\nAfter:  \\[(\\d+), (\\d+), (\\d+), (\\d+)\\]')
 
-samples = []
+samples: List[Tuple[int,...]] = []
 
 
 
@@ -25,20 +25,20 @@ for s in samplestxt:
     if mat is None:
         print('could not parse sample')
         exit(1)
-    samples.append(tuple([int(x) for x in mat.groups()]))
+    samples.append(tuple(int(x) for x in mat.groups()))
 
 part1 = 0
 
 # figure out which samples work with which instructions
 maps: Dict[int,Set[str]] = {}
 
-for instruction,samples in groupby(samples,(lambda x: x[4])):
+for instruction,grouped_samples in groupby(samples,(lambda x: x[4])):
     # print(k)
     possibles = set(ops)
     
     # for each sample with this instruction
-    for sample in samples:
-        regs = (sample[0],sample[1],sample[2],sample[3])
+    for sample in grouped_samples:
+        regs = [sample[0],sample[1],sample[2],sample[3]]
         # instruction = sample[4]
         a = sample[5]
         b = sample[6]
@@ -67,11 +67,11 @@ print('Part 1:',part1)
 # I found it easier to output the maps and do elimination by hand than to implement a program to do it
 # print(maps)
 
-opcode_map = {}
+opcode_map: Dict[int,str] = {}
 
 while maps:
     # find the instruction with length 1, there should be one
-    process_list = []
+    process_list: List[int] = []
     for instruction in maps:
         if len(maps[instruction]) == 1:
             process_list.append(instruction)

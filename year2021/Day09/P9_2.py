@@ -1,8 +1,11 @@
+from typing import List
+
 import numpy as np
+from numpy.typing import NDArray
 
-basinSizes = list()
+basinSizes: List[int] = list()
 
-def searchGrid(grid, x, y):
+def searchGrid(grid, x: int, y: int) -> int:
     grid[x,y] = False
     size = 1
     if grid[x-1][y]:
@@ -17,7 +20,7 @@ def searchGrid(grid, x, y):
 
 
 with open("input.txt",'r') as f:
-    grid = np.array([[int(i) for i in list(s.strip())] for s in f.readlines()])
+    grid= np.array([[int(i) for i in list(s.strip())] for s in f.readlines()])
     #print(grid.shape)
     border0 = [[9] * grid.shape[1]]
     grid = np.concatenate((border0, grid, border0), axis = 0)

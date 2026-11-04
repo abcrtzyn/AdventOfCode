@@ -1,7 +1,8 @@
 import itertools
+from typing import List, Tuple
 
 
-hails = []
+hails: List[Tuple[Tuple[int,...],Tuple[int,...]]] = []
 with open('Day24/input.txt') as f:
     for line in f.readlines():
         p,v = line.strip().split('@')

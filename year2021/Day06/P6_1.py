@@ -1,6 +1,8 @@
+from typing import List
+
 import numpy as np
 
-def nextState(state):
+def nextState(state: List[int]):
     s = [0,0,0,0,0,0,0,0,0]
     s[0] = state[1]
     s[1] = state[2]

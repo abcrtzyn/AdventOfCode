@@ -3,7 +3,7 @@
 
 
 
-def generator(seed, start):
+def generator(seed: int, start: int):
     value = start
     while True:
         value = (seed * value) % 2147483647

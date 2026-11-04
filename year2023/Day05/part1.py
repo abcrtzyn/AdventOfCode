@@ -22,10 +22,10 @@ for line in lines:
         maps[-1].append(tuple([int(x) for x in line.split()])) # type: ignore
 
 # maps is a list of lists of range maps
-
+seedsNew = []
 # map the seeds through each map
 for m in maps:
-    seedsNew = [];
+    seedsNew: List[int] = [];
     for seed in seeds:
         for line in m:
             # if the see in in the range of the given line

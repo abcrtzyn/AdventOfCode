@@ -1,8 +1,9 @@
-from typing import Dict, List, Tuple, Callable, Iterator, Optional, Union
+from typing import Dict, List, Tuple, Callable, Iterator, Optional
 import heapq
 
 
-def breadth_first_search_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Tuple[Optional[int],Dict[T,List[T]]]:
+def dijkstra_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Tuple[Optional[int],Dict[T,List[T]]]:
+    
     # given a start point, an end point (or a function to say it is the end), a function that gives all neighbors
     
     scores: Dict[T,int] = {start: 0}
@@ -41,7 +42,7 @@ def breadth_first_search_parents[T](start: T, end: Callable[[T],bool], neighbors
     return None, parents
 
 
-def breadth_first_search[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Optional[int]:
+def dijkstra[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Optional[int]:
     # given a start point, an end point (or a function to say it is the end), a function that gives all neighbors
     
     scores: Dict[T,int] = {start: 0}

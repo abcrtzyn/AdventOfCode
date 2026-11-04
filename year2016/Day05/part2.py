@@ -1,9 +1,10 @@
 import hashlib
+from typing import Dict
 
 base = 'uqwqemis'
 i=-1
 j = 0
-password = {}
+password: Dict[str,str] = {}
 valids = ['0','1','2','3','4','5','6','7']
 while j != 8:
     h = '11111'

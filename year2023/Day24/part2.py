@@ -1,15 +1,18 @@
-import itertools
 
 
-hails = []
+from typing import List, Tuple
+
+
+hails: List[Tuple[Tuple[int,int,int],Tuple[int,int,int]]] = []
 with open('Day24/input.txt') as f:
     for line in f.readlines():
         p,v = line.strip().split('@')
         p = tuple([int(x) for x in p.split(',')])
+        assert len(p) == 3
         v = tuple([int(x) for x in v.split(',')])
+        assert len(v) == 3
         hails.append((p,v))
 
-pass
 # facts
 # There must exist a projection plane such that all 300 lines intersect at a single point
 # the perpendicular line from this point is the only line that works. Then the starting point must be found
@@ -23,10 +26,10 @@ pass
 # for the purposes of this algorithm, it is reasonable to believe that the first two hailstones will be hit at t=1 and t=2
 # so i will start there
 
-def extrapolate(p,v,t):
+def extrapolate(p: Tuple[int,int,int],v: Tuple[int,int,int],t: float):
     return (p[0]+v[0]*t,p[1]+v[1]*t,p[2]+v[2]*t)
 
-def distance_from_line(ap,av,bp,bv):
+def distance_from_line(ap: Tuple[float,float,float],av: Tuple[float,float,float],bp: Tuple[int,int,int],bv: Tuple[int,int,int]) -> float:
     # determine the line perpendicular to both lines, return the distance squared
     p1 = ap
     p3 = bp
@@ -92,13 +95,14 @@ bt = 62884918104
 # try +10 at
 # try +10 bt
 # the metric to optimize is distance from a line
-costs = []
-ats = []
-bts = []
+costs: List[float] = []
+ats: List[float] = []
+bts: List[float] = []
 
 random_test_line = 8
 cp,cv = hails[random_test_line]
 prev_cost = 1*10**26
+o_cost = 0
 for i in range(1000):
     p1 = extrapolate(ap,av,at)
     p2 = extrapolate(bp,bv,bt)
@@ -154,6 +158,7 @@ for i in range(1000):
 print(o_cost)
 print(costs.index(min(costs)))
 print(at,bt)
+
 import matplotlib.pyplot as plt
 
 plt.plot(costs)

@@ -11,7 +11,7 @@
 from year2018.watchassembly.interpreter import interpret, parse
 
 
-def sum_of_divisors(number):
+def sum_of_divisors(number: int):
     total = 0
     i = 1
     while i**2 <= number:

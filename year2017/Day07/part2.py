@@ -19,7 +19,7 @@ with open('Day07/input.txt') as f:
             print(f'did not match line "{line}"')
             exit(1)
         res: Dict[str,str] = mat.groupdict()
-        if res['subs'] is not None:
+        if 'subs' in res:
             subs = res['subs']
             # parse subs
             subs = subs.split(', ')
@@ -33,8 +33,8 @@ with open('Day07/input.txt') as f:
 # recursively fill in tower weights
 # i dont suspect it will go over 997 function calls
 
-def find_discrepency(unit:str):
-    weight = unit_weights[unit]
+def find_discrepency(unit:str) -> int:
+    # weight = unit_weights[unit]
     # get the weights of all the sub towers
     # also check if one of them is off
 

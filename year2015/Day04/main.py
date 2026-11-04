@@ -6,7 +6,7 @@ import hashlib
 base = 'yzbqklnj'
 
 
-def solve(base, prefix):
+def solve(base: str, prefix: str):
     i=0
 
     message = ''.join([base,str(i)])

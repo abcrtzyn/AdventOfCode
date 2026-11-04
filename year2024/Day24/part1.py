@@ -1,4 +1,7 @@
-values = {}
+from typing import Dict
+
+
+values: Dict[str,int | str] = {}
 
 
 with open('Day24/input.txt') as f:
@@ -17,11 +20,12 @@ with open('Day24/input.txt') as f:
             values[name] = exp
 
 
-def evaluate(name) -> int:
-    if type(values[name]) == int:
-        return values[name]
+def evaluate(name: str) -> int:
+    expression = values[name]
+    if isinstance(expression,int):
+        return expression
     
-    exp1, op, exp2 = values[name].split(' ')
+    exp1, op, exp2 = expression.split(' ')
     v1 = evaluate(exp1)
     v2 = evaluate(exp2)
     

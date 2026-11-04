@@ -1,15 +1,15 @@
 import re
-from typing import List, Dict
+from typing import List, Dict, Tuple, cast
 
 rule = re.compile('(snd|set|add|mul|mod|rcv|jgz) (-?\\d+|[a-z]) ?(-?\\d+|[a-z])?')
 
 
 
 
-program = []
+program: List[Tuple[str,str|int,str|int|None]] = []
 
-queueA = []
-queueB = []
+queueA: List[int] = []
+queueB: List[int] = []
 
 
 class Program:
@@ -18,7 +18,7 @@ class Program:
 
     def __init__(self,number: int,sndqueue: List[int],rcvqueue: List[int]):
         self.registers: Dict[str,int] = {}
-        self.prog_counter = 0
+        self.prog_counter: int = 0
         self.registers['p'] = number
         self.sndqueue: List[int] = sndqueue
         self.rcvqueue: List[int] = rcvqueue
@@ -28,69 +28,85 @@ class Program:
         while True:
             line = program[self.prog_counter]
             #print(line, self.registers)
+            op = line[0]
+            arg1 = line[1]
+            arg2 = line[2]
 
-            match line[0]:
+            match op:
                 case 'set':
-                    if type(line[2]) == int:
-                        self.registers[line[1]] = line[2]
+                    assert isinstance(arg1,str)
+                    if isinstance(arg2,int):
+                        self.registers[arg1] = arg2
                     else:
-                        if line[2] in self.registers:
-                            self.registers[line[1]] = self.registers[line[2]]
+                        if arg2 in self.registers:
+                            self.registers[arg1] = self.registers[arg2]
                         else:
-                            self.registers[line[1]] = 0
+                            self.registers[arg1] = 0
                 case 'add':
-                    if line[2] in self.registers:
-                        value = self.registers[line[2]]
+                    assert isinstance(arg1,str)
+                    if arg2 in self.registers:
+                        value = self.registers[arg2]
                     else:
-                        value = line[2]
+                        assert isinstance(arg2,int)
+                        value = arg2
                     
-                    if line[1] in self.registers:
-                        self.registers[line[1]] += value
+                    if arg1 in self.registers:
+                        self.registers[arg1] += value
                     else:
-                         self.registers[line[1]] = value
+                         self.registers[arg1] = value
                 case 'mul':
-                    if line[2] in self.registers:
-                        value = self.registers[line[2]]
+                    assert isinstance(arg1,str)
+                    if arg2 in self.registers:
+                        value = self.registers[arg2]
                     else:
-                        value = line[2]
+                        assert isinstance(arg2,int)
+                        value = arg2
                     
-                    if line[1] in self.registers:
-                        self.registers[line[1]] *= value
+                    if arg1 in self.registers:
+                        self.registers[arg1] *= value
                     else:
-                         self.registers[line[1]] = value
+                         self.registers[arg1] = value
                 case 'mod':
-                    if line[2] in self.registers:
-                        value = self.registers[line[2]]
+                    assert isinstance(arg1,str)
+                    if arg2 in self.registers:
+                        value = self.registers[arg2]
                     else:
-                        value = line[2]
+                        assert isinstance(arg2,int)
+                        value = arg2
                     
-                    if line[1] in self.registers:
-                        self.registers[line[1]] %= value
+                    if arg1 in self.registers:
+                        self.registers[arg1] %= value
                     else:
-                         self.registers[line[1]] = value
+                         self.registers[arg1] = value
                 case 'jgz':
-                    if line[2] in self.registers:
-                        value = self.registers[line[2]] - 1
+                    if arg2 in self.registers:
+                        value = self.registers[arg2] - 1
                     else:
-                        value = line[2] - 1
+                        assert isinstance(arg2,int)
+                        value = arg2 - 1
 
-                    if type(line[1]) == int:
-                        if line[1] > 0:
+                    if isinstance(arg1,int):
+                        if arg1 > 0:
                             self.prog_counter += value
                     else:
-                        if self.registers[line[1]] > 0:
+                        if self.registers[arg1] > 0:
                             self.prog_counter += value
                 case 'snd':
-                    if line[1] in self.registers:
-                        self.sndqueue.append(self.registers[line[1]])
+                    if arg1 in self.registers:
+                        self.sndqueue.append(self.registers[arg1])
                     else:
-                        self.sndqueue.append(line[1])
+                        assert isinstance(arg1,int)
+                        self.sndqueue.append(arg1)
                     self.snd_count += 1
                 case 'rcv':
+                    assert isinstance(arg1,str)
                     if len(self.rcvqueue) > 0:
-                        self.registers[line[1]] = self.rcvqueue.pop(0)
+                        self.registers[arg1] = self.rcvqueue.pop(0)
                     else:
                         return
+                case _:
+                    assert False, 'unreachable'
+            
             self.prog_counter += 1
 
 
@@ -102,7 +118,7 @@ with open('Day18/input.txt') as f:
         if mat is None:
             print(f'could not match line "{line}"')
             exit(1)
-        res = mat.groups()
+        res = cast(Tuple[str,str,str|None],mat.groups())
         
         if res[1][-1].isdigit():
             # its a number
@@ -111,10 +127,12 @@ with open('Day18/input.txt') as f:
         if res[0] != 'snd' and res[0] != 'rcv':
             if res[2] is None:
                 print(f'argument two not parsed in line "{line}"')
+                exit()
             
             if res[2][-1].isdigit():
                 res = (res[0],res[1],int(res[2]))
 
+        
         program.append(res)
 
 

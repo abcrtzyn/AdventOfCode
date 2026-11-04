@@ -14,7 +14,7 @@ contexts: List[Context] = []
 contexts.append(Context([9,3], [0,0], False, 1))
 
 
-def modifiedMod(n, m):
+def modifiedMod(n: int, m: int):
     return ((n-1) % m) + 1
 
 while len(contexts) != 0:

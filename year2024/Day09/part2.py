@@ -20,13 +20,13 @@ def add_free_space(ptr: int, length: int):
     heapq.heappush(free_spaces[length],ptr)
 
 
-def file_id(disk_map_ptr):
+def file_id(disk_map_ptr: int):
     if disk_map_ptr % 2 == 0:
         return disk_map_ptr // 2
     else:
         raise Exception('file_id was given an odd disk_map_ptr, which is in free space')
     
-def compute_checksum_contribution(disk_ptr, f_id, file_length):
+def compute_checksum_contribution(disk_ptr: int, f_id: int, file_length: int):
     # with (id) at (disk_ptr)
     # sum the values disk_ptr, disk_ptr + 1, disk_ptr + 2 up to disk_ptr + file_length
     # = disk_ptr * file_length + (trianglular number for file_length - 1)

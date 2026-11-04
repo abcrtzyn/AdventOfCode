@@ -10,11 +10,12 @@
 
 import re
 import bisect
+from typing import List, Tuple
 
 line_format = re.compile('(\\d+)-(\\d+)')
 
 
-rules = []
+rules: List[Tuple[int,int]] = []
 
 
 with open('Day20/input.txt') as f:
@@ -29,7 +30,7 @@ with open('Day20/input.txt') as f:
         rules.insert(bisect.bisect(rules,(start,end)),(start,end))
         
 
-allowed = []
+allowed: List[Tuple[int,int]] = []
 allowed_count = 0
 
 current = 0

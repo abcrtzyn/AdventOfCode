@@ -1,39 +1,52 @@
 import json
+from typing import Dict, List, Union
 
-js = json.load(open('Day12/input.txt'))
 
-def parselist(l):
-    score = 0
+JsonScalar = Union[str, int, float, bool, None]
+
+JsonType = Union[
+    JsonScalar,
+    List["JsonType"],
+    Dict[str, "JsonType"]
+]
+
+
+
+
+js: List[JsonType] | Dict[str,JsonType] = json.load(open('Day12/input.txt'))
+
+def parselist(l: List[JsonType]) -> int:
+    score: int = 0
     for item in l:
-        if type(item) == list:
+        if isinstance(item,list):
             score += parselist(item)
-        elif type(item) == dict:
+        elif isinstance(item,dict):
             score += parsedict(item)
-        elif type(item) == str:
+        elif isinstance(item,str):
             pass
-        elif type(item) == int:
+        elif isinstance(item,int):
             score += item
     return score
 
 
-def parsedict(o: dict):
+def parsedict(o: dict[str,JsonType]) -> int:
     score = 0
     for v in o.values():
-        if type(v) == list:
+        if isinstance(v,list):
             score += parselist(v)
-        elif type(v) == dict:
+        elif isinstance(v,dict):
             score += parsedict(v)
-        elif type(v) == str:
+        elif isinstance(v,str):
             if v == 'red':
                 return 0
-        elif type(v) == int:
+        elif isinstance(v,int):
             score += v
     
     return score
 
 
 
-if type(js) == list:
+if isinstance(js,list):
     print('Part 2:',parselist(js))
 else:
     # I assume this will never be used

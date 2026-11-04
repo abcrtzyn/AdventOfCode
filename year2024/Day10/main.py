@@ -10,7 +10,7 @@ with open('Day10/input.txt') as f:
 
 # given the current coordinate in the grid
 # returns a set of all the 9s reached and the number of paths that can reach each endpoint
-def score(y,x) -> Tuple[Set[Tuple[int,int]],int]:
+def score(y: int,x: int) -> Tuple[Set[Tuple[int,int]],int]:
     digit = int(grid[y][x])
 
     if digit == 9:

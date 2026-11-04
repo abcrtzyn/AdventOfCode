@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 from functools import partial
 import heapq
-from typing import Any
+from typing import Callable, Dict, List, Tuple
 from itertools import combinations, permutations
 
 
@@ -16,19 +16,19 @@ with open('Day24/input.txt') as f:
 @dataclass(order=True)
 class Entry:
     priority: int
-    coord: Any=field(compare=False)
+    coord: Tuple[int,int]=field(compare=False)
 
-def taxicab(a,b):
+def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
-def A_star(start, goal, h):
-    gScore = {}
+def A_star(start: Tuple[int,int], goal: Tuple[int,int], h: Callable[[Tuple[int,int]],int]):
+    gScore: Dict[Tuple[int,int],int] = {}
     gScore[start] = 0
 
-    fScore = {}
+    fScore: Dict[Tuple[int,int],int] = {}
     fScore[start] = h(start)
 
-    open_set = [Entry(fScore[start],start)]
+    open_set: List[Entry] = [Entry(fScore[start],start)]
 
     while len(open_set) != 0:
         
@@ -63,7 +63,7 @@ def A_star(start, goal, h):
 
 # find the numbers
 numbers = list(range(8))
-number_coords = {}
+number_coords: Dict[int,Tuple[int,int]] = {}
 
 
 for i,line in enumerate(grid):
@@ -73,7 +73,7 @@ for i,line in enumerate(grid):
             number_coords[n] = (i,res)
             numbers.remove(n)
 
-edges = {}
+edges: Dict[Tuple[int,int],int] = {}
 # find all shortest paths from each number to each number using A*
 for (a,ac),(b,bc) in combinations(number_coords.items(),2):
     #print(a,ac,b,bc)

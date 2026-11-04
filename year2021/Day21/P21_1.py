@@ -4,7 +4,7 @@ diceRolls = 0
 dicePos = 100
 currentPlayer = 0
 
-def modifiedMod(n, m):
+def modifiedMod(n: int, m: int):
     return ((n-1) % m) + 1
 
 def rollDice():

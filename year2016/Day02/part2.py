@@ -31,6 +31,8 @@ with open('Day02/input.txt') as f:
                     # add 1
                     if number not in [1,4,9,12,13]:
                         number += 1
+                case _:
+                    assert False, 'unreachable'
             #print(c,number)
         code *= 16
         code += number

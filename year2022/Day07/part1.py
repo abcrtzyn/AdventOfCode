@@ -1,10 +1,9 @@
 # assuming the input goes in order, this can be done as a recursive call
 
+from typing import TextIO, Tuple
 
-from io import TextIOWrapper
 
-
-def trace(f: TextIOWrapper):
+def trace(f: TextIO) -> Tuple[int,int]:
     size = 0;
     outputSize = 0;
     # expect ls command

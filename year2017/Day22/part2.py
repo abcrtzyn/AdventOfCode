@@ -1,17 +1,20 @@
 
 
+from typing import Dict, List, Tuple
+
+
 UP = (-1,0)
 DOWN = (1,0)
 LEFT = (0,-1)
 RIGHT = (0,1)
 
-TURN_RIGHT = {UP:RIGHT,RIGHT:DOWN,DOWN:LEFT,LEFT:UP}
-TURN_LEFT  = {UP:LEFT,LEFT:DOWN,DOWN:RIGHT,RIGHT:UP}
+TURN_RIGHT: Dict[Tuple[int,int],Tuple[int,int]] = {UP:RIGHT,RIGHT:DOWN,DOWN:LEFT,LEFT:UP}
+TURN_LEFT: Dict[Tuple[int,int],Tuple[int,int]]  = {UP:LEFT,LEFT:DOWN,DOWN:RIGHT,RIGHT:UP}
 
 
 
 with open('Day22/input.txt') as f:
-    grid = [[2 if c=='#' else 0 for c in line] for line in f]
+    grid: List[List[int]] = [[2 if c=='#' else 0 for c in line] for line in f]
 # zero is clean
 # one is weak
 # two is infected
@@ -43,6 +46,8 @@ for i in range(10000000):
             grid[position[0]][position[1]] = 0
             # too lazy to put in a reverse, but not lazy enough to not write this long comment that too longer to type
             direction = TURN_RIGHT[TURN_RIGHT[direction]]
+        case _:
+            assert False, 'unreachable'
 
     # move forward
     #print('new dir', direction)

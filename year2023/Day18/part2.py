@@ -66,6 +66,8 @@ with open('Day18/input.txt') as f:
                     corner_offset2 += 0.5
                 else:
                     corner_offset2 -= 0.5
+            case _:
+                assert False, 'unreachable'
 
         triangle2 = abs(height)*(distance) # height * base, also adding the edge. divide by two at the end
         #print(height,distance)

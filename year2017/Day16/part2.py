@@ -7,18 +7,18 @@ word = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p']
 
 
 from io import TextIOWrapper
-from typing import List
+from typing import Dict, List
 
 
 
-def swap_pos(word: List[str], x,y):    
+def swap_pos(word: List[str], x: int,y: int):    
     temp = word[x]
     word[x] = word[y]
     word[y] = temp
     
     return word
 
-def swap_ltr(word: List[str],x,y):
+def swap_ltr(word: List[str],x: str,y: str):
     i = word.index(x)
     j = word.index(y)
     
@@ -29,7 +29,7 @@ def swap_ltr(word: List[str],x,y):
     return word
 
 
-def rotate_dir(word: List[str], steps):
+def rotate_dir(word: List[str], steps: int):
 
     if True:
         # rotate right
@@ -79,7 +79,7 @@ def read_until_char(f:TextIOWrapper, term: str):
     return s
 
 
-DP = {}
+DP: Dict[str,int] = {}
 
 i = 0
 

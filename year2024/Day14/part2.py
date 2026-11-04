@@ -1,4 +1,6 @@
 
+from typing import List, Tuple
+
 import numpy as np
 import re
 
@@ -10,8 +12,8 @@ grid_shape = (101,103)
 line_rule = re.compile('p=(\\d+),(\\d+) v=(-?\\d+),(-?\\d+)')
 
 
-entities_positions = []
-entities_velocities = []
+entities_positions: List[Tuple[int,int]] = []
+entities_velocities: List[Tuple[int,int]] = []
 
 
 with open('Day14/input.txt') as f:

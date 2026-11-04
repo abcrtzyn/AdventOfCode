@@ -3,7 +3,7 @@ from functools import reduce
 import operator
 
 # solve using a modified quadratic forula
-def solve(b, c):
+def solve(b: int, c: int):
     discrimanant = (b**2-4*c)**0.5
     return floor((b+discrimanant)/2)-ceil((b-discrimanant)/2)+1
 

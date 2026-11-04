@@ -1,9 +1,8 @@
-from math import log2
 
 packet = 0
 offet = 0
 
-def getField(fieldWidth):
+def getField(fieldWidth: int):
     global packet
     global offset
     offset -= fieldWidth
@@ -15,7 +14,7 @@ def parseBITS():
     sumVersion += version
     type = getField(3)
     if type == 4:
-        number = parseImmediateValue()
+        _number = parseImmediateValue()
         #print(f'packet: V:{version} T:{type} N:{number}')
     else:
         lengthID = getField(1)
@@ -24,7 +23,7 @@ def parseBITS():
             #the next 11 bits is the number of sub-packets
             numSubPackets = getField(11)
             #print(f'packet: V:{version} T:{type} S:{numSubPackets}')
-            for i in range(numSubPackets):
+            for _ in range(numSubPackets):
                 #print(' ', end='')
                 sumVersion += parseBITS()
 

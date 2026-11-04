@@ -1,9 +1,10 @@
 import re
+from typing import List, Set
 
 rule = re.compile('(\\d+) <-> ([0-9, ]+)')
 
 
-groups = []
+groups: List[Set[int]] = []
 
 with open('Day12/input.txt') as f:
     lines = f.readlines()
@@ -13,7 +14,7 @@ with open('Day12/input.txt') as f:
     while len(all_el) > 0:
         start = min(all_el)
         
-        connected = set()
+        connected: Set[int] = set()
         connected.add(start)
         stack = [start]
         while len(stack) > 0:

@@ -1,31 +1,31 @@
-from math import log2
+from typing import List
 import numpy as np
 packet = 0
 offet = 0
 
-def getField(fieldWidth):
+def getField(fieldWidth: int):
     global packet
     global offset
     offset -= fieldWidth
     return packet >> offset & ((1 << fieldWidth) - 1)
 
-def parseBITS():
-    version = getField(3)
-    type = getField(3)
-    if type == 4:
+def parseBITS() -> int:
+    _version = getField(3)
+    typee = getField(3)
+    if typee == 4:
         number = parseImmediateValue()
         #print('immediate', number)
         return number
         #print(f'packet: V:{version} T:{type} N:{number}')
     else:
-        packetResults = list()
+        packetResults: List[int] = []
         lengthID = getField(1)
         if lengthID:
             #lengthID is 1
             #the next 11 bits is the number of sub-packets
             numSubPackets = getField(11)
             #print(f'packet: V:{version} T:{type} S:{numSubPackets}')
-            for i in range(numSubPackets):
+            for _ in range(numSubPackets):
                 #print(' ', end='')
                 packetResults.append(parseBITS())
 
@@ -41,31 +41,33 @@ def parseBITS():
                 packetResults.append(parseBITS())
             assert offset == endOffset
         #print(packetResults, end='       ')
-        if type == 0:
+        if typee == 0:
             #print('sum', np.sum(packetResults))
             return sum(packetResults)
-        elif type == 1:
+        elif typee == 1:
             acc = 1
             #print(packetResults, end='       ')
             for n in packetResults:
                 acc *= n
             #print('product', acc, np.product(packetResults))
             return acc
-        elif type == 2:
+        elif typee == 2:
             #print('min', np.min(packetResults))
-            return np.min(packetResults)
-        elif type == 3:
+            return int(np.min(packetResults))
+        elif typee == 3:
             #print('max',  np.max(packetResults))
-            return np.max(packetResults)
-        elif type == 5:
+            return int(np.max(packetResults))
+        elif typee == 5:
             #print('greater', 1 if packetResults[0] > packetResults[1] else 0)
             return (1 if packetResults[0] > packetResults[1] else 0)
-        elif type == 6:
+        elif typee == 6:
             #print('less', 1 if packetResults[0] < packetResults[1] else 0)
             return (1 if packetResults[0] < packetResults[1] else 0)
-        elif type == 7:
+        elif typee == 7:
             #print('equal', 1 if packetResults[0] == packetResults[1] else 0)
             return (1 if packetResults[0] == packetResults[1] else 0)
+        else:
+            assert False, 'unreachable'
 
 
 def parseImmediateValue():

@@ -1,5 +1,8 @@
-workflows = {}
-parts = []
+from typing import Dict, List, Tuple
+
+
+workflows: Dict[str,List[Tuple[str, str, int, str]]] = {}
+parts: List[Dict[str,int]] = []
 
 with open('Day19/input.txt') as f:
     emptyline = False

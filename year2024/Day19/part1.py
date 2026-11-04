@@ -4,7 +4,7 @@
 # 
 
 
-from typing import List, Dict
+from typing import List, Set
 from functools import cache
 
 # by prefix length (length of string before g)
@@ -18,7 +18,7 @@ def pattern_possible(s: str) -> bool:
         # no more greens to check
         return True
 
-    test_cutoffs = set()
+    test_cutoffs: Set[int] = set()
 
     for i in range(min(prefix_len,len(towels_w_green)-1),-1,-1):
         # for each prefix length

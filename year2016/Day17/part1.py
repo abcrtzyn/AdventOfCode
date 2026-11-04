@@ -7,10 +7,9 @@ key = 'veumntbg'
 
 # implementating A* for this task
 
-from functools import partial
 import heapq
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Dict, Tuple
 
 @dataclass(order=True)
 class Entry:
@@ -20,7 +19,7 @@ class Entry:
 
 goal = (4,4)
 
-def get_coord(path):
+def get_coord(path: str):
     x = 1
     y = 1
     for c in path:
@@ -35,17 +34,17 @@ def get_coord(path):
     return (x,y)
 
 # taxicab distance
-def taxicab(a,b):
+def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
 
 
-def A_star(goal):
+def A_star(goal: Tuple[int,int]):
 
-    gScore = {}
+    gScore: Dict[str,int] = {}
     gScore[''] = 0
 
-    fScore = {}
+    fScore: Dict[str,int] = {}
     fScore[''] = taxicab((1,1),goal)
 
     open_set = [Entry(fScore[''],'')]

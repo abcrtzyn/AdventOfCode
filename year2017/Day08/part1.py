@@ -1,9 +1,10 @@
 import re
+from typing import Dict
 
 line_rule = re.compile('(?P<reg>\\w+) (?P<dir>inc|dec) (?P<num>-?\\d+) if (?P<sub>\\w+) (?P<op>==|<|>|<=|>=|!=) (?P<comp>-?\\d+)')
 
 
-registers = {}
+registers: Dict[str,int] = {}
 
 maximum = -10000
 
@@ -14,7 +15,7 @@ with open('Day08/input.txt') as f:
             print(f'could not match "{line}"')
             exit(1)
         
-        res = mat.groupdict()
+        res: Dict[str,str] = mat.groupdict()
 
         if res['sub'] not in registers:
             registers[res['sub']] = 0
@@ -35,6 +36,8 @@ with open('Day08/input.txt') as f:
                 action = registers[res['sub']] <= int(res['comp'])
             case '>=':
                 action = registers[res['sub']] >= int(res['comp'])
+            case _:
+                assert False, 'unreachable'
 
         if action:
             match res['dir']:
@@ -42,11 +45,13 @@ with open('Day08/input.txt') as f:
                     registers[res['reg']] += int(res['num'])
                 case 'dec':
                     registers[res['reg']] -= int(res['num'])
+                case _:
+                    assert False, 'unreachable'
         
         if registers[res['reg']] > maximum:
             maximum = registers[res['reg']]
         
 # print(registers)
 
-print(f'part 1: {max([v for k,v in registers.items()])}')
+print(f'part 1: {max([v for _,v in registers.items()])}')
 print(f'part 2: {maximum}')

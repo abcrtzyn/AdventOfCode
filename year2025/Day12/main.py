@@ -1,9 +1,10 @@
 import re
+from typing import List
 pattern = re.compile('(\\d+)x(\\d+): (\\d+) (\\d+) (\\d+) (\\d+) (\\d+) (\\d+)')
 
 
-presents = []
-presents_area = []
+presents: List[List[str]] = []
+presents_area: List[int] = []
 
 
 with open('Day12/input.txt','r') as f:

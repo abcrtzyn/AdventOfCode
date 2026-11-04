@@ -1,5 +1,7 @@
 
 
+from typing import Dict, List, Tuple
+
 import numpy as np
 
 
@@ -16,9 +18,11 @@ UP = (-1,0)
 DOWN = (1,0)
 LEFT = (0,-1)
 RIGHT = (0,1)
-opposite = {UP:DOWN,DOWN:UP,LEFT:RIGHT,RIGHT:LEFT}
+directions: List[Tuple[int,int]] = [UP,DOWN,LEFT,RIGHT]
+opposite: Dict[Tuple[int,int],Tuple[int,int]] = {UP:DOWN,DOWN:UP,LEFT:RIGHT,RIGHT:LEFT}
 
-queue = [(start,DOWN,0)]
+
+queue: List[Tuple[Tuple[int,int],Tuple[int,int],int]] = [(start,DOWN,0)]
 
 # it looks like junctions always keep you moving forward
 # we could count all the paths seperately
@@ -33,7 +37,7 @@ while len(queue) != 0:
 
     match grid[tile]:
         case '.':
-            for dire2 in [UP,DOWN,LEFT,RIGHT]:
+            for dire2 in directions:
                 # print(dire,dire2)
                 if dire2 != opposite[dire]:
                     # print('not opposite')

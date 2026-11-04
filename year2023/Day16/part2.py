@@ -1,3 +1,5 @@
+from typing import Dict, List, Tuple
+
 import numpy as np
 
 with open('Day16/input.txt') as f:
@@ -9,16 +11,16 @@ DOWN = (1, 0)
 UP = (-1, 0)
 LEFT = (0, -1)
 RIGHT = (0, 1)
-left_mirror = {UP: LEFT, DOWN: RIGHT, LEFT: UP, RIGHT: DOWN}
-right_mirror = {UP: RIGHT, DOWN: LEFT, LEFT: DOWN, RIGHT: UP}
+left_mirror: Dict[Tuple[int,int],Tuple[int,int]] = {UP: LEFT, DOWN: RIGHT, LEFT: UP, RIGHT: DOWN}
+right_mirror: Dict[Tuple[int,int],Tuple[int,int]] = {UP: RIGHT, DOWN: LEFT, LEFT: DOWN, RIGHT: UP}
 
 
-def countCells(ix,iy,id):
+def countCells(ix: int,iy: int,id: Tuple[int,int]):
     energizedlr = np.zeros(grid.shape,np.bool8)
     energizedud = np.zeros(grid.shape,np.bool8)
     energizedmirrors = np.zeros(grid.shape,np.bool8)
 
-    stack = [(ix,iy,id)]
+    stack: List[Tuple[int,int,Tuple[int,int]]] = [(ix,iy,id)]
 
     try:
         current = stack.pop();

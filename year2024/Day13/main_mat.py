@@ -11,7 +11,7 @@ tokens_used_1 = 0
 # tokens_used_2 = 0
 # part_2_offset = 10000000000000
 
-def solve(ax,ay,bx,by,px,py):
+def solve(ax: int,ay: int,bx: int,by: int,px: int,py: int):
     a = np.array([[ax,bx],[ay,by]],dtype=np.float64)
     b = np.array([px,py],dtype=np.float64)
 

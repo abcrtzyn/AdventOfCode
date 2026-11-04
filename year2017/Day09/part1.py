@@ -1,7 +1,7 @@
-from io import TextIOWrapper
+from typing import TextIO, Tuple
 
 
-def handle_group(stream: TextIOWrapper, score = 1):
+def handle_group(stream: TextIO, score: int = 1) -> Tuple[int,int]:
     # already read the first char
     # the structure of the rest is comma seperated garbage or groups
     total_score = score
@@ -41,7 +41,7 @@ def handle_group(stream: TextIOWrapper, score = 1):
 
 
 
-def handle_garbage(stream: TextIOWrapper):
+def handle_garbage(stream: TextIO) -> int:
     total_garbage = 0
     while True:
         c = stream.read(1)

@@ -16,7 +16,7 @@ with open("input.txt",'r') as f:
         over9 = np.pad(grid[1:-1,1:-1] > 9, 1, 'constant', constant_values=False)
         previousCount = 0
         count = over9.sum()
-        previousOver9 = np.zeros(grid.shape,dtype=np.bool8)
+        previousOver9 = np.zeros(grid.shape,dtype=np.bool8) # pyright: ignore[reportUnknownArgumentType, reportUnknownMemberType, reportAttributeAccessIssue]
         
         while count != previousCount:
             increment = over9 ^ previousOver9

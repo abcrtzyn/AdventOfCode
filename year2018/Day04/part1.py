@@ -25,10 +25,10 @@ with open('Day04/input.txt') as f:
 guard_shifts: Dict[int,List[List[Tuple[int,int,int]]]] = {}
 
 asleep_start = None
+guard: int | None = None
 
 for t in sorted(lines.keys()):
     x = lines[t]
-    
     match x[0]:
         case 'G':
             # guard start shift
@@ -49,8 +49,13 @@ for t in sorted(lines.keys()):
                 print('guard already awake')
                 exit(10)
             time_asleep = t - asleep_start
+            if guard is None:
+                print('guard is none when it should not be none')
+                exit(10)
             guard_shifts[guard][-1].append((asleep_start%1440,t%1440,time_asleep))
             asleep_start = None
+        case _:
+            assert False, 'unreachable'
 
 # figure out which one was asleep the longest
 asleep_times = {k:sum([sum([y[2] for y in x]) for x in v]) for k,v in guard_shifts.items()}

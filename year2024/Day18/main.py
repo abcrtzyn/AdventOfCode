@@ -1,11 +1,10 @@
 from math import log2
 import numpy as np
-import heapq
-from typing import Iterable, List, Dict, Tuple, Optional, Callable, Generator
+from typing import Tuple, Callable
 from functools import partial
 
 # # I could use A* or something, I don't feel like it yet
-from graph_traversals.breadth_first_search import breadth_first_search
+from graph_traversals.shortest_path import dijkstra
 
 
 
@@ -49,7 +48,7 @@ grid.fill(len(fall_list))
 for i,(x,y) in enumerate(fall_list):
     grid[y,x] = i
 
-print('Part 1:',breadth_first_search(startpoint,is_end,partial(adjacent,12)))
+print('Part 1:',dijkstra(startpoint,is_end,partial(adjacent,12)))
 
 
 # lets do a binary search just because
@@ -74,7 +73,7 @@ while power:
     # try the value at half the list
     current |= (1 << power)
     # if the condition is true, remove the bit, otherwise leave it
-    current ^= (int(current-1 >= len(fall_list) or breadth_first_search(startpoint,is_end,partial(adjacent,current)) is None) << power)
+    current ^= (int(current-1 >= len(fall_list) or dijkstra(startpoint,is_end,partial(adjacent,current)) is None) << power)
     
     
 print(f'Part 2: {fall_list[current][0]},{fall_list[current][1]}')

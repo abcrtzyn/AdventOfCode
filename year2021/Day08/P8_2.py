@@ -1,21 +1,22 @@
 from typing import List
+
 import numpy as np
 
 letters = "abcdefg"
-sum = 0
+summ = 0
 with open('input.txt') as f:
     easyDigitsTotal = 0
     for line in f:
         combos: str
         combos, output = tuple([l.strip() for l in line.strip().split('|')])
         combosDigits = combos.split()
-        grid = list()
+        gridl: List[List[int]] = []
         for i, combo in zip(range(0,10), combosDigits):
-            grid.append(list())
+            gridl.append([])
             for j, l in zip(range(0,7),letters):
-                grid[i].append(l in combo)
-        grid = np.array(grid)
-        digits = np.ndarray(grid.shape,dtype=np.bool8)
+                gridl[i].append(l in combo)
+        grid = np.array(gridl)
+        digits = np.ndarray(grid.shape,dtype=np.bool8) # pyright: ignore[reportUnknownArgumentType, reportUnknownMemberType, reportAttributeAccessIssue]
         
         segments = grid.sum(1)
         counts = grid.sum(0)
@@ -40,16 +41,16 @@ with open('input.txt') as f:
         digits[9] = np.logical_or.reduce((segmentA, segmentB, segmentC, segmentD, segmentF, segmentG))
 
         outputDigits = output.split()
-        outputGrid = list()
+        outputGridl: List[List[int]] = []
         for i, output in zip(range(0,10), outputDigits):
-            outputGrid.append(list())
+            outputGridl.append([])
             for j, l in zip(range(0,7),letters):
-                outputGrid[i].append(l in output)
-        outputGrid = np.array(outputGrid)
+                outputGridl[i].append(l in output)
+        outputGrid = np.array(outputGridl)
         number = 0
         for n in outputGrid:
             number *= 10
             number += np.where((digits == n).all(axis=1))[0]
         print(number[0])
-        sum += number[0]
-    print(sum)
+        summ += number[0]
+    print(summ)

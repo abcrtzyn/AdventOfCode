@@ -27,8 +27,8 @@ with open('Day24/input.txt') as f:
                 ors.append((exp,name))
 
 
-first_layer_half_adders = []
-second_layer_half_adders = []
+first_layer_half_adders: List[Tuple[str,str,str,str]] = []
+second_layer_half_adders: List[Tuple[str,str,str,str]] = []
 
 # for each xor, find the and
 for exp,xor_out in xors:
@@ -51,7 +51,7 @@ for exp,xor_out in xors:
 first_layer_half_adders_by_and_res = {d:(a,b,c,d) for a,b,c,d in first_layer_half_adders}
 second_layer_half_adders_by_and_res = {d:(a,b,c,d) for a,b,c,d in second_layer_half_adders}
 
-full_adders = [] 
+full_adders: List[Tuple[Tuple[str,str,str,str]|None,Tuple[str,str,str,str]|None,str,str]] = [] 
 # each OR matches up half adders
 # there should be one of them in first layer and second layer
 for exp,or_out in ors:

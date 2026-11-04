@@ -3,11 +3,12 @@
 # the second ones are slices
 
 import re
+from typing import List, Tuple
 
 rule = re.compile('(x|y)=(\\d+), (x|y)=(\\d+)\\.\\.(\\d+)')
 
 
-parsed = []
+parsed: List[Tuple[str,int,int,int]] = []
 
 min_x = 500
 max_x = 500
@@ -19,7 +20,7 @@ with open('Day17/input.txt') as f:
         if mat is None:
             print('could not parse something')
             exit(1)
-        inline = mat.group(1)
+        inline: str = mat.group(1)
         first = int(mat.group(2))
         second = int(mat.group(4))
         third = int(mat.group(5))

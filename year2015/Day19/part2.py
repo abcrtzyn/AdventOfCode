@@ -3,7 +3,10 @@
 # read part2.txt for more details
 
 
-def parens(f):
+from typing import TextIO
+
+
+def parens(f: TextIO):
     # count the number of atoms in parentheses
     local_count = 0
     while True:

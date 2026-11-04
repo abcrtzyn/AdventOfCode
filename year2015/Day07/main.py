@@ -1,6 +1,9 @@
 
 
-terms_original = {}
+from typing import Dict
+
+
+terms_original: Dict[str,str | int] = {}
 
 #  parsing the terms
 with open('Day07/input.txt') as f:
@@ -14,7 +17,7 @@ with open('Day07/input.txt') as f:
 # calculates the name given using term bank
 # calculates all dependicies and simplifies them in the bank
 # returns the integer result of the computation
-def calculate(name,terms):
+def calculate(name: str,terms: Dict[str,str | int]) -> int:
     if name.isnumeric():
         # if it is a numeric string (usually second argument of a shift)
         # return the int
@@ -22,7 +25,7 @@ def calculate(name,terms):
     # otherwise, get the expression
     expression = terms[name]
     
-    if type(expression) == int:
+    if isinstance(expression, int):
         # if the expression is already an int, return that
         return expression
     else:

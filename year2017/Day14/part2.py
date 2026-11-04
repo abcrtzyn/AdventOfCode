@@ -1,3 +1,5 @@
+from typing import List, Set, Tuple
+
 from part1 import get_grid
 
 
@@ -20,12 +22,14 @@ def is_used(x:int,y:int):
             return c in ['2','3','6','7','a','b','e','f']
         case 3:
             return c in ['1','3','5','7','9','b','d','f']
+        case _:
+            assert False, 'unreachable'
 
 
-seen = set()
+seen: Set[Tuple[int,int]] = set()
 
-def connect(x,y):
-    stack = [(x,y)]
+def connect(x: int,y: int):
+    stack: List[Tuple[int,int]] = [(x,y)]
     while len(stack) > 0:
         e = stack.pop()
         seen.add(e)

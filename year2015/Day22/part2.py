@@ -1,12 +1,15 @@
+from typing import Dict, Tuple
+
+
 player_health = 50
 mana = 500
 
 boss_health = 51
 boss_damage = 9
 
-DP = {}
+DP: Dict[Tuple[int, int, int, int, int, int],int] = {}
 
-def boss_turn(ph,mana,bh,bd,shield,poison,recharge):#,actions):
+def boss_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,recharge: int) -> int:#,actions):
     #print(ph,mana,bh,shield,poison,recharge,actions)
     if bh <= 0:
         # winning action
@@ -32,7 +35,7 @@ def boss_turn(ph,mana,bh,bd,shield,poison,recharge):#,actions):
     
     return player_turn(ph-max(1,bd-armour),mana,bh,bd,shield,poison,recharge)#,actions)
 
-def player_turn(ph,mana,bh,bd,shield,poison,recharge):#,actions):
+def player_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,recharge: int) -> int:#,actions):
     #print(ph,mana,bh,shield,poison,recharge,actions)
     key = (ph,mana,bh,shield,poison,recharge) 
     if key in DP:

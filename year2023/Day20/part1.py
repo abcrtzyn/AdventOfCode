@@ -1,4 +1,7 @@
-modules = {}
+from typing import Dict, List, Tuple
+
+
+modules: Dict[str,Tuple[str,int|Dict[str,int],List[str]]] = {}
 
 with open('Day20/input.txt') as f:
     for line in f.readlines():
@@ -30,7 +33,7 @@ for module in modules:
     
     
 first = ('button',0,'broadcaster')
-pulseQueue = []
+pulseQueue: List[Tuple[str,int,str]] = []
 
 high_count = 0
 low_count = 0
@@ -59,6 +62,7 @@ for it in range(1000):
                 modules[mod] = (tipe,state,outs)
 
         elif tipe == '&':
+            assert isinstance(state,Dict)
             # set the new value
             state[source] = p
             # if all input sources are one

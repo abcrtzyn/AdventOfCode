@@ -11,8 +11,8 @@
 # for each digit in the code, all robots are on the A buttone
 # It is not an easy fact to think about
 
-from typing import Dict, List, Tuple
-from graph_traversals.breadth_first_search import breadth_first_search, breadth_first_search_parents
+from typing import Callable, Dict, Iterator, Tuple
+from graph_traversals.shortest_path import dijkstra
 
 from functools import partial
 
@@ -32,11 +32,11 @@ def is_pushed(x: Tuple[str,str]):
     return x[0] == 'P'
 
 
-def indirect_entry_neighbors(next_neighbors_func, neighbors: Dict[str,Dict[str,str]], goal: str, current: Tuple[str,str], score: int):
+def indirect_entry_neighbors(next_neighbors_func: Callable[[str,Tuple[str,str],int],Iterator[Tuple[int,Tuple[str,str]]]], neighbors: Dict[str,Dict[str,str]], goal: str, current: Tuple[str,str], score: int):
     # print('1st',goal,current,score)
     if current[0] == goal:
         # go to and press A
-        result = breadth_first_search((current[1],'A'), is_pushed, partial(next_neighbors_func,'A'))
+        result = dijkstra((current[1],'A'), is_pushed, partial(next_neighbors_func,'A'))
         if result is None:
             print(f'no path found from {current} to {goal}???')
             exit(1)
@@ -46,7 +46,7 @@ def indirect_entry_neighbors(next_neighbors_func, neighbors: Dict[str,Dict[str,s
     else:
         for neigh,in_neigh in neighbors[current[0]].items():
             # go to the symbol at neighbors[c][n] and press it
-            result = breadth_first_search((current[1],'A'), is_pushed, partial(next_neighbors_func,in_neigh))
+            result = dijkstra((current[1],'A'), is_pushed, partial(next_neighbors_func,in_neigh))
             if result is None:
                 print(f'no path found from {current} to {neigh}???')
                 exit(1)
@@ -77,7 +77,7 @@ with open('Day21/input.txt') as f:
         sequence_length = 0
         current = 'A'
         for ch in sequence:
-            result = breadth_first_search((current,'A'), is_pushed, partial(indirect_entry_neighbors,partial(indirect_entry_neighbors,partial(direct_entry_neighbors,arrow_neighbors_dict),arrow_neighbors_dict),numpad_neighbors_dict,ch))
+            result = dijkstra((current,'A'), is_pushed, partial(indirect_entry_neighbors,partial(indirect_entry_neighbors,partial(direct_entry_neighbors,arrow_neighbors_dict),arrow_neighbors_dict),numpad_neighbors_dict,ch))
             if result is None:
                 print(f'no path found from {current} to {ch}???')
                 exit(1)

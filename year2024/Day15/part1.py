@@ -4,7 +4,7 @@ import numpy as np
 grid_chars: List[List[str]] = []
 
 
-def attempt_move(grid,cy,cx,dy,dx):
+def attempt_move(grid,cy: int,cx: int,dy: int,dx: int):
     search_y = cy
     search_x = cx
     while True:

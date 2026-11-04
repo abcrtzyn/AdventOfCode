@@ -3,6 +3,8 @@
 places = ['Tristram','AlphaCentauri','Snowdin','Tambi','Faerun','Norrath','Straylight','Arbre']
 #places = ['Dublin','London','Belfast']
 
+from typing import Callable, List
+
 import numpy as np
 
 dist = np.zeros((len(places),len(places)))
@@ -28,7 +30,7 @@ with open('Day09/input.txt') as f:
 # the function returns 0 if no path is more superlative than the default value
 # otherwise returns the most superlative path length
 
-def calculateDistance(used,previous,f,default):
+def calculateDistance(used: List[bool],previous: int | None,f: Callable[[int,int],int],default: int):
     # go through the list, take the first false one
     superlative_dist = default
     

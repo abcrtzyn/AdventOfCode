@@ -20,8 +20,8 @@ with open('Day22/input.txt') as f:
         grid[x1:x2+1,y1:y2+1,z1:z2+1] = 1
 
 zorder = sorted(bricks,key = lambda x: x[0][2])
-supporting = np.zeros((len(bricks)),np.bool8)
-new_bricks = []
+supporting = np.zeros((len(bricks)),np.bool8) # pyright: ignore[reportUnknownArgumentType, reportUnknownMemberType, reportAttributeAccessIssue]
+new_bricks: List[Tuple[Tuple[int,int,int],Tuple[int,int,int]]] = []
 
 # make the bricks fall
 for i,b in enumerate(zorder):
@@ -80,7 +80,7 @@ for i,v in reversed(list(enumerate(supporting))):
     # # remove the ith brick
     cgrid[x1:x2+1,y1:y2+1,z1:z2+1] = 0
 
-    queue = []
+    queue: List[int] = []
     # for each brick that it supports
     below = np.unique(cgrid[x1:x2+1,y1:y2+1,z2+1])
     for j in below:

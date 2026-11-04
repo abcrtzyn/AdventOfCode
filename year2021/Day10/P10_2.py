@@ -1,10 +1,14 @@
+from typing import List
+
+
 matchChars = {'(':')','[':']','{':'}','<':'>'}
 
 pointsDict = {')':1, ']':2, '}':3,'>':4}
-scores = list()
+scores: List[int] = []
+
 with open('input.txt','r') as f:
     for line in f:
-        chunkStack = list()
+        chunkStack: List[str] = []
         for char in line:
             if char == '\n':
                 lineScore = 0

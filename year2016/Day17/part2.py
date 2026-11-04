@@ -8,10 +8,8 @@ key = 'veumntbg'
 
 # implementating A* for this task
 
-from functools import partial
-import heapq
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Tuple
 
 @dataclass(order=True)
 class Entry:
@@ -21,7 +19,7 @@ class Entry:
 
 goal = (4,4)
 
-def get_coord(path):
+def get_coord(path: str):
     x = 1
     y = 1
     for c in path:
@@ -36,12 +34,12 @@ def get_coord(path):
     return (x,y)
 
 # taxicab distance
-def taxicab(a,b):
+def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
 
 
-def max_path(path='',coord=(1,1)):
+def max_path(path: str='',coord: Tuple[int,int]=(1,1)) -> Tuple[int,str]:
 
     if coord == goal:
         print(len(path))

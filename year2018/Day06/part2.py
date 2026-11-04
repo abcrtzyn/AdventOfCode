@@ -1,6 +1,8 @@
+from typing import List, Tuple
+
 import numpy as np
 
-points = []
+points: List[Tuple[int,...]] = []
 
 
 # parse
@@ -28,7 +30,7 @@ grid = np.zeros((x_max-x_min+20,y_max-y_min+20),np.int16)
 
 # when marking, grid_index + (xy)_min - 10 = coordinate position
 
-def dist(cx,cy,px,py):
+def dist(cx:int,cy:int,px:int,py:int):
     return abs(cx-px) + abs(cy-py)
 
 

@@ -33,7 +33,7 @@ point_x = int(a[0])
 point_y = int(b[0])
 
 # from the starting point, figure out one of the two valid connections to start
-def start_direction(x,y):
+def start_direction(x: int,y: int):
     check_x = x+NORTH[0]
     check_y = y+NORTH[1]
 

@@ -9,13 +9,13 @@ with open('input.txt','r') as f:
 
 numbers = [line for i, line in enumerate(numbers) if i % 6 != 5]
 boards = np.array(numbers).astype(np.int8).reshape((len(numbers)//5,5,5))
-covered = np.zeros((len(numbers)//5,5,5), dtype=np.bool8)
+covered = np.zeros((len(numbers)//5,5,5), dtype=np.bool8) # pyright: ignore[reportUnknownArgumentType, reportUnknownMemberType, reportAttributeAccessIssue]
 
 for n in callNumbers:
     covered: np.ndarray = np.logical_or(covered, boards == n)
     hasBingo: np.ndarray = np.logical_or(np.any(covered.sum(1) == 5 ,1), np.any(covered.sum(2) == 5, 1))
     if np.all(hasBingo):
-        lastBingo = np.logical_xor(lastHasBingo, hasBingo)
+        lastBingo = np.logical_xor(lastHasBingo, hasBingo) # pyright: ignore[reportPossiblyUnboundVariable]
         if lastBingo.sum() > 1:
             print("too many last bingos")
             break

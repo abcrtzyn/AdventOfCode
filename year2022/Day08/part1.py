@@ -5,7 +5,7 @@
 
 with open("Day08/testinput.txt") as f:
     c = f.read()
-    def index(row, column):
+    def index(row: int, column: int):
         return c[row*100+column];
     
     # 0 to 98 both directions. remember that

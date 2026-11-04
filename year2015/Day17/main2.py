@@ -1,7 +1,7 @@
 from typing import List
 
 
-containers = []
+containers: List[int] = []
 
 with open('Day17/input.txt') as f:
     for line in f.readlines():
@@ -32,6 +32,7 @@ print('Part 1:',fill(containers, 0, 150))
 
 import itertools
 # there are ways I could sneakily incorporate part 2 into part 1, but I'm not going to
+ways = 0
 
 for i in range(len(containers)):
     ways = sum((150-sum(com)==0) for com in itertools.combinations(containers,i))

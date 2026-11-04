@@ -1,8 +1,8 @@
 from functools import reduce
 from itertools import combinations
-from operator import xor
+from operator import xor # pyright: ignore[reportUnknownVariableType]
 from typing import List
-from scipy.optimize import milp, LinearConstraint
+from scipy.optimize import milp, LinearConstraint # pyright: ignore[reportMissingTypeStubs, reportUnknownVariableType]
 
 def create_matrix(length:int, true_indicies: List[List[int]]):
     mat: List[List[int]] = []
@@ -16,7 +16,7 @@ def create_matrix(length:int, true_indicies: List[List[int]]):
 
 
 part1_total = 0
-part2_total = 0
+part2_total: int = 0
 
 # parse the file
 with open('Day10/input.txt','r') as f:
@@ -42,7 +42,7 @@ with open('Day10/input.txt','r') as f:
         try:
             for b in range(1,len(buttons1)):
                 for c in combinations(buttons1,b):
-                    if reduce(xor,c,0)==lights:
+                    if reduce(xor,c,0)==lights: # pyright: ignore[reportUnknownArgumentType]
                         raise StopIteration
         except StopIteration:
             pass
@@ -57,13 +57,13 @@ with open('Day10/input.txt','r') as f:
         # non-negative x1,..., yep
 
         # not all best solutions are integers, so I am using the Mixed Integer Linear Program solver
-        res = milp([1]*(len(entries)-2),constraints=LinearConstraint(buttons2,joltage,joltage),integrality=1)
-        part2_total += res.fun
+        res = milp([1]*(len(entries)-2),constraints=LinearConstraint(buttons2,joltage,joltage),integrality=1) # pyright: ignore[reportArgumentType]
+        part2_total += res.fun # pyright: ignore[reportUnknownVariableType, reportUnknownMemberType]
         
 
 
 
 print('Part 1:',part1_total)
-print('Part 2:',part2_total)
+print('Part 2:',part2_total) # pyright: ignore[reportUnknownArgumentType]
 
 

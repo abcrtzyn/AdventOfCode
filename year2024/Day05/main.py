@@ -76,13 +76,14 @@ print_list_corrected: List[List[int]] = []
 
 
 for l in print_list_fails:
-    newl = []
+    newl: List[int] = []
 
     for x in l:
         nodes[x] = True
 
     # find the next element
     while l:
+        x=0
         for x in l:
             has_dependency = False
             if x in edges:

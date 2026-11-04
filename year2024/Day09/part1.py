@@ -13,7 +13,7 @@
 # else, char is free space
 # 
 
-def file_id(disk_map_ptr):
+def file_id(disk_map_ptr: int):
     if disk_map_ptr % 2 == 0:
         return disk_map_ptr // 2
     else:
@@ -31,7 +31,8 @@ with open('Day09/input.txt') as f:
     length_left = 0
     checksum = 0
     curr_disk_pos = 0
-    
+
+    file = 0
     # this loop will break early
     for curr_ptr in range(length):
         # each loop handles one file or one empty space

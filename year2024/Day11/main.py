@@ -8,14 +8,14 @@
 from math import floor, log
 from functools import cache
 
-def digits(n):
+def digits(n:int):
     return floor(log(n,10))+1
 
 
 # counts how many stones after iterations with a stone of the given value
 # this function is predictable, caching results
 @cache
-def count_stones(iterations,stone_value):
+def count_stones(iterations: int, stone_value: int) -> int:
     if iterations == 0:
         return 1
     

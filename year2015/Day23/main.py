@@ -1,6 +1,9 @@
 
 # emulate the program and return the state
-def emulate(prog, a, b):
+from typing import List
+
+
+def emulate(prog: List[List[str]], a: int, b: int):
     prog_len = len(prog)
     pc = 0
     while True:
@@ -45,7 +48,7 @@ def emulate(prog, a, b):
                     pc += 1
             case 'hlf':
                 assert x[1] == 'a'
-                a /= 2
+                a //= 2
                 pc += 1
             case _:
                 raise Exception(x[0])

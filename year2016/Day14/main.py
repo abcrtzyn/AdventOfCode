@@ -1,23 +1,25 @@
 from hashlib import md5
 import re
+from typing import Dict, List, Set
 
 three_rule = re.compile('((\\S)\\2{2,})')
 five_rule = re.compile('((\\S)\\2{4,})')
 
-def pad(salt,part2):
+def pad(salt: str,part2: bool):
 
-    pad_set = set()
-    watch_list = {}
+    pad_set: Set[int] = set()
+    watch_list: Dict[str,List[int]] = {}
     last_i = 40000
     i = 0
     while True:
         s = md5(bytes(salt+str(i),'utf-8'),usedforsecurity=False).hexdigest()
         
         if part2 == True:
-            for j in range(2016):
+            for _ in range(2016):
                 s = md5(bytes(s,'utf-8'),usedforsecurity=False).hexdigest()
 
-        for m,c in five_rule.findall(s):
+        for _,c in five_rule.findall(s):
+            c: str
             #if len(m) != 5:
             #    continue
             #print(i,c)
@@ -37,7 +39,7 @@ def pad(salt,part2):
                 
         mat = three_rule.search(s)    
         if mat is not None:
-            m,c = mat.groups()
+            _,c = mat.groups()
             #if len(m) != 3:
             #    continue
             # add to watch list

@@ -1,13 +1,14 @@
 ITERATIONS = 10710
 
-import numpy as np
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
 import re
 
 line_rule = re.compile("position=<([ -]\\d+), ([ -]\\d+)> velocity=<([ -]\\d+), ([ -]\\d+)>")
 
 
-points = []
+points: List[Tuple[int,int,int,int]] = []
 
 with open('Day10/input.txt') as f:
     for line in f:
@@ -43,5 +44,5 @@ with open('Day10/input.txt') as f:
 xs = [p[0] for p in points]
 ys = [-p[1] for p in points]
 
-plt.scatter(xs,ys)
-plt.show()
+plt.scatter(xs,ys) # pyright: ignore[reportUnknownMemberType]
+plt.show() # pyright: ignore[reportUnknownMemberType]

@@ -16,21 +16,21 @@ links: Dict[int,Tuple[int,int]] = {}
 
 links[0] = (0,0)
 
-def next(n):
+def next(n: int):
     return links[n][1]
 
-def prev(n):
+def prev(n: int):
     return links[n][0]
 
 # insert x where n currently is
-def insert(x, n):
+def insert(x: int, n: int):
     p = prev(n)
     # update the links, n becomes the next
     links[p] = (links[p][0],x)
     links[x] = (p,n)
     links[n] = (x,links[n][1])
 
-def remove(x):
+def remove(x: int): 
     p = prev(x)
     n = next(x)
     links[p] = (links[p][0],n)

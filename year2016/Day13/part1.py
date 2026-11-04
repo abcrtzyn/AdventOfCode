@@ -3,12 +3,7 @@
 from functools import partial
 import heapq
 from dataclasses import dataclass, field
-from typing import Any
-
-@dataclass(order=True)
-class Entry:
-    priority: int
-    coord: Any=field(compare=False)
+from typing import Callable, Dict, Hashable, Iterator, Tuple
 
 
 #DESIGNERS_FAVORITE_NUMBER = 10
@@ -19,10 +14,10 @@ start = (1,1)
 goal = (31,39)
 
 # taxicab distance
-def taxicab(a,b):
+def taxicab(a: Tuple[int,int],b: Tuple[int,int]) -> int:
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
-def iswall(p):
+def iswall(p: Tuple[int,int]):
     n = p[0]**2 + 3*p[0] + 2 * p[0] * p[1] + p[1] + p[1]**2 + DESIGNERS_FAVORITE_NUMBER
     #print(n)
     #print(bin(n))
@@ -30,7 +25,7 @@ def iswall(p):
 
 
 
-def reconstruct_path(cameFrom, current):
+def reconstruct_path[T: Hashable](cameFrom: Dict[T,T], current: T):
     path = [current]
     while current in cameFrom:
         current = cameFrom[current]
@@ -40,14 +35,20 @@ def reconstruct_path(cameFrom, current):
     return path
 
 
-def A_star(start, goal, h):
-    
-    cameFrom = {}
 
-    gScore = {}
+def A_star[T: Hashable](start: T, goal: T, h: Callable[[T],int], neighbors: Callable[[T],Iterator[T]]):
+    @dataclass(order=True)
+    class Entry:
+        priority: int
+        coord: T=field(compare=False)
+
+    
+    cameFrom: Dict[T,T] = {}
+
+    gScore: Dict[T,int] = {}
     gScore[start] = 0
 
-    fScore = {}
+    fScore: Dict[T,int] = {}
     fScore[start] = h(start)
 
     open_set = [Entry(fScore[start],start)]
@@ -63,12 +64,9 @@ def A_star(start, goal, h):
             
         
         # for each neighbor
-        for neighbor in [(current[0]-1,current[1]),(current[0]+1,current[1]),(current[0],current[1]-1),(current[0],current[1]+1)]:
+        for neighbor in neighbors(current):
             # print(neighbor)
-            if neighbor[0] < 0 or neighbor[1] < 0:
-                continue
-            if iswall(neighbor):
-                continue
+            
             tentative_gScore = gScore[current] + 1
 
             if neighbor not in gScore or tentative_gScore < gScore[neighbor]:
@@ -85,7 +83,15 @@ def A_star(start, goal, h):
     return (-1,None)
 
 
+def get_neighbors(current: Tuple[int,int]):
+    for neighbor in [(current[0]-1,current[1]),(current[0]+1,current[1]),(current[0],current[1]-1),(current[0],current[1]+1)]:
+        if neighbor[0] < 0 or neighbor[1] < 0:
+            continue
+        if iswall(neighbor):
+            continue
+        yield neighbor
 
 
 
-print('Part 1:', A_star(start,goal,partial(taxicab,goal))[0])
+
+print('Part 1:', A_star(start,goal,partial(taxicab,goal),get_neighbors)[0])

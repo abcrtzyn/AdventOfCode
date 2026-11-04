@@ -1,5 +1,8 @@
 # im going to leave the input text as a list of strings that can be indexed
 
+from typing import List, Set, Tuple
+
+
 LEFT = 0
 UP = 1
 RIGHT = 2
@@ -9,8 +12,8 @@ DOWN = 3
 with open('Day13/input.txt') as f:
     grid = [list(x) for x in f.readlines()]
 
-carts = []
-current_coords = set()
+carts: List[Tuple[int,int,int,int]] = []
+current_coords: Set[Tuple[int,int]] = set()
 
 
 # find all the arrows
@@ -42,7 +45,7 @@ for i,line in enumerate(grid):
             current_coords.add((i,res4))
 
 
-def move(y,x,direction):
+def move(y: int,x: int,direction: int):
     match direction:
         case 0: #left
             new_y = y
@@ -74,7 +77,7 @@ collided = {}
 iterations = 0
 
 while len(carts) > 1:
-    new_carts = []
+    new_carts: List[Tuple[int,int,int,int]] = []
     print(carts)
     for i,(y,x,direction,intersection) in enumerate(sorted(carts)):
         # print(i,y,x,direction,intersection)
@@ -128,6 +131,8 @@ while len(carts) > 1:
                         new_direction = DOWN
                     case 3: #down
                         new_direction = RIGHT
+                    case _:
+                        assert False, 'unreachable'
                 
                 y,x = move(y,x,new_direction)
                 new_carts.append((y,x,new_direction,intersection))
@@ -142,6 +147,8 @@ while len(carts) > 1:
                         new_direction = UP
                     case 3: #down
                         new_direction = LEFT
+                    case _:
+                        assert False, 'unreachable'
                 
                 y,x = move(y,x,new_direction)
                 new_carts.append((y,x,new_direction,intersection))

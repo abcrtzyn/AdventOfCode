@@ -1,12 +1,14 @@
 # rule parsing
 
+from collections import defaultdict
 import re
+from typing import Dict, List, Tuple
 
 bot_rule = re.compile('bot (\\d+) gives low to (bot|output) (\\d+) and high to (bot|output) (\\d+)')
 value_rule = re.compile('value (\\d+) goes to bot (\\d+)')
 
-rules = {}
-values = []
+rules: Dict[int,Tuple[int,int]] = {}
+values: List[Tuple[int,int]] = []
 
 with open('Day10/input.txt') as f:
     for line in f.readlines():
@@ -21,18 +23,15 @@ with open('Day10/input.txt') as f:
             values.append((int(value_match.group(2)),int(value_match.group(1))))
 
 # now create bot states stuff
-bots = {}
+bots: Dict[int,List[int]] = defaultdict(list)
 
-process_stack = []
+process_stack: List[int] = []
 
 # initial states
 for k,v in values:
-    if k in bots:
-        bots[k].append(v)
-        if len(bots[k]) >= 2:
-            process_stack.append(k)
-    else:
-        bots[k] = [v]
+    bots[k].append(v)
+    if len(bots[k]) >= 2:
+        process_stack.append(k)
 
 while len(process_stack) != 0:
     #print(process_stack)
@@ -50,35 +49,24 @@ while len(process_stack) != 0:
     high_bot = rules[p][1]
 
     if e1 < e2:
-        if low_bot in bots:
-            bots[low_bot].append(e1)
-            if len(bots[low_bot]) >= 2:
-                process_stack.append(low_bot)
-        else:
-            bots[low_bot] = [e1]
-
-        if high_bot in bots:
-            bots[high_bot].append(e2)
-            if len(bots[high_bot]) >= 2:
-                process_stack.append(high_bot)
-        else:
-            bots[high_bot] = [e2]
-
-    else: # e1 > e2
-        if high_bot in bots:
-            bots[high_bot].append(e1)
-            if len(bots[high_bot]) >= 2:
-                process_stack.append(high_bot)
-        else:
-            bots[high_bot] = [e1]
+        bots[low_bot].append(e1)
+        if len(bots[low_bot]) >= 2:
+            process_stack.append(low_bot)
         
-        if low_bot in bots:
-            bots[low_bot].append(e2)
-            if len(bots[low_bot]) >= 2:
-                process_stack.append(low_bot)
-        else:
-            bots[low_bot] = [e2]
-
+        
+        bots[high_bot].append(e2)
+        if len(bots[high_bot]) >= 2:
+            process_stack.append(high_bot)
+        
+    else: # e1 > e2
+        bots[high_bot].append(e1)
+        if len(bots[high_bot]) >= 2:
+            process_stack.append(high_bot)
+        
+        bots[low_bot].append(e2)
+        if len(bots[low_bot]) >= 2:
+            process_stack.append(low_bot)
+        
 #print(bots)
 
 # part 2

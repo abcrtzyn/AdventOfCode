@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Set, Tuple
 
 replacements: List[Tuple[str,str]] = []
 
@@ -8,7 +8,7 @@ with open('Day19/replacements.txt') as f:
         replacements.append((line[0],line[2]))
 
 # print(replacements)
-a = set()
+a: Set[str] = set()
 
 import re
 

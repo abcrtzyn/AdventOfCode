@@ -27,7 +27,7 @@ def value(l: List[int]) -> int:
     child = l.pop(0)
     meta = l.pop(0)
 
-    child_values = []
+    child_values: List[int] = []
 
     if child == 0:
         # value is sum_meta

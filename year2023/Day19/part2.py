@@ -1,6 +1,8 @@
-workflows = {}
+from typing import Dict, List, Tuple
 
-slices = []
+
+workflows: Dict[str,List[Tuple[str, str, int, str]]] = {}
+parts: List[Dict[str,int]] = []
 
 with open('Day19/input.txt') as f:
     emptyline = False
@@ -22,10 +24,10 @@ with open('Day19/input.txt') as f:
 
 #print(workflows)
 
-def countSlice(slice):
+def countSlice(slice: Dict[str, Tuple[int, int]]):
     return (slice['x'][1]-slice['x'][0])*(slice['m'][1]-slice['m'][0])*(slice['a'][1]-slice['a'][0])*(slice['s'][1]-slice['s'][0])
 
-def function(flow,i,slice:dict):
+def function(flow: str,i: int,slice: Dict[str, Tuple[int, int]]) -> int:
     score = 0
     # each step in the workflow splits the slice (maybe) into two slices.
     step = workflows[flow][i]

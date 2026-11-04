@@ -6,7 +6,7 @@ np.set_printoptions(threshold=100000,linewidth=500)
 grid_chars: List[List[str]] = []
 
 
-def attempt_move_left_right(grid,cy,cx,dx):
+def attempt_move_left_right(grid,cy: int,cx: int,dx: int):
     search_x = cx
     while True:
         search_x += dx
@@ -38,7 +38,7 @@ def attempt_move_left_right(grid,cy,cx,dx):
 # given a box, left or right side, direction of movement
 # determines if that box can move
 # recursive function
-def is_movable(grid,cy,cx,dy):
+def is_movable(grid,cy: int,cx: int,dy: int):
 
     if grid[cy,cx] == '[':
         second_x = cx + 1
@@ -70,7 +70,7 @@ def is_movable(grid,cy,cx,dy):
     return movable
 
 
-def move_up_down(grid,cy,cx,dy):
+def move_up_down(grid,cy: int,cx: int,dy: int):
     # move a bunch of boxes
     # use is_movable to determine if it can be moved, this function assumes it can
     match grid[cy+dy,cx]:
@@ -97,7 +97,7 @@ def move_up_down(grid,cy,cx,dy):
 
 
 
-def attempt_move_up_down(grid,cy,cx,dy):
+def attempt_move_up_down(grid,cy: int,cx: int,dy: int):
     match grid[cy+dy,cx]:
         case '.':
             move_up_down(grid,cy,cx,dy)
@@ -126,7 +126,7 @@ def attempt_move_up_down(grid,cy,cx,dy):
 
 
 
-def replace_wider(c):
+def replace_wider(c: str):
     match c:
         case '.':
             return ['.','.']
@@ -141,7 +141,7 @@ def replace_wider(c):
 
 with open('Day15/input.txt') as f:
     while True:
-        expanded_line = []
+        expanded_line: List[str] = []
         line = f.readline().strip()
         if line == '':
             break

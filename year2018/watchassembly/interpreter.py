@@ -1,60 +1,59 @@
-from io import TextIOBase
-from typing import List, Tuple
+from typing import Dict, List, TextIO, Tuple
 
 
-def addr(registers,a,b):
+def addr(registers: List[int],a: int,b: int) -> int:
     return registers[a] + registers[b]
 
-def addi(registers,a,b):
+def addi(registers: List[int],a: int,b: int) -> int:
     return registers[a] + b
 
-def mulr(registers,a,b):
+def mulr(registers: List[int],a: int,b: int) -> int:
     return registers[a] * registers[b]
 
-def muli(registers,a,b):
+def muli(registers: List[int],a: int,b: int) -> int:
     return registers[a] * b
 
-def banr(registers,a,b):
+def banr(registers: List[int],a: int,b: int) -> int:
     return registers[a] & registers[b]
 
-def bani(registers,a,b):
+def bani(registers: List[int],a: int,b: int) -> int:
     return registers[a] & b
 
-def borr(registers,a,b):
+def borr(registers: List[int],a: int,b: int) -> int:
     return registers[a] | registers[b]
 
-def bori(registers,a,b):
+def bori(registers: List[int],a: int,b: int) -> int:
     return registers[a] | b
 
-def setr(registers,a,b):
+def setr(registers: List[int],a: int,b: int) -> int:
     return registers[a]
 
-def seti(registers,a,b):
+def seti(registers: List[int],a: int,b: int) -> int:
     return a
 
-def gtir(registers,a,b):
+def gtir(registers: List[int],a: int,b: int) -> int:
     return 1 if a > registers[b] else 0
 
-def gtri(registers,a,b):
+def gtri(registers: List[int],a: int,b: int) -> int:
     return 1 if registers[a] > b else 0
 
-def gtrr(registers,a,b):
+def gtrr(registers: List[int],a: int,b: int) -> int:
     return 1 if registers[a] > registers[b] else 0
 
-def eqir(registers,a,b):
+def eqir(registers: List[int],a: int,b: int) -> int:
     return 1 if a == registers[b] else 0
 
-def eqri(registers,a,b):
+def eqri(registers: List[int],a: int,b: int) -> int:
     return 1 if registers[a] == b else 0
 
-def eqrr(registers,a,b):
+def eqrr(registers: List[int],a: int,b: int) -> int:
     return int(registers[a] == registers[b])
 
 
 ops = {f.__name__:f for f in [addr,addi,mulr,muli,banr,bani,borr,bori,setr,seti,gtir,gtri,gtrr,eqir,eqri,eqrr]}
 
 
-def interpret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [0,0,0,0,0,0], ip_reg=5):
+def interpret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [0,0,0,0,0,0], ip_reg:int=5):
     regs = initial_regs
 
     while 0 <= regs[ip_reg] < len(program):
@@ -67,8 +66,8 @@ def interpret(program: List[Tuple[str,int,int,int]], initial_regs: List[int] = [
     return regs
 
 
-def parse(f: TextIOBase, dissasemble_map=None):
-    program = []
+def parse(f: TextIO, dissasemble_map: Dict[int,str] | None=None) -> Tuple[List[Tuple[str, int, int, int]],int|None]:
+    program: List[Tuple[str, int, int, int]] = []
 
     line = next(f)
     if line[0] == '#':

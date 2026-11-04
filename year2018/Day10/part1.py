@@ -4,10 +4,11 @@
 # lets bring the numbers down by 10600*v
 # then find the most compact time
 import re
+from typing import List, Tuple
 line_rule = re.compile("position=<([ -]\\d+), ([ -]\\d+)> velocity=<([ -]\\d+), ([ -]\\d+)>")
 
 
-points = []
+points: List[Tuple[int,int,int,int]] = []
 
 with open('Day10/input.txt') as f:
     for line in f:

@@ -19,7 +19,7 @@ for line, idx in zip(grid,range(len(grid))):
         break;
 
 # from the starting point, figure out one of the two valid connections to start
-def start_direction(x,y):
+def start_direction(x: int,y: int):
     check_x = x+NORTH[0]
     check_y = y+NORTH[1]
     if grid[check_x][check_y] in '|F7':

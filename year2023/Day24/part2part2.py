@@ -1,15 +1,20 @@
-import itertools
 
 
-hails = []
+from typing import List, Tuple
+
+
+hails: List[Tuple[Tuple[int,int,int],Tuple[int,int,int]]] = []
+
 with open('Day24/input.txt') as f:
     for line in f.readlines():
         p,v = line.strip().split('@')
         p = tuple([int(x) for x in p.split(',')])
+        assert len(p) == 3
         v = tuple([int(x) for x in v.split(',')])
+        assert len(v) == 3
         hails.append((p,v))
 
-pass
+
 # facts
 # There must exist a projection plane such that all 300 lines intersect at a single point
 # the perpendicular line from this point is the only line that works. Then the starting point must be found
@@ -23,12 +28,12 @@ pass
 # for the purposes of this algorithm, it is reasonable to believe that the first two hailstones will be hit at t=1 and t=2
 # so i will start there
 
-def extrapolate(p,v,t):
+def extrapolate(p: Tuple[int,int,int],v: Tuple[int,int,int],t: int):
     return (p[0]+v[0]*t,p[1]+v[1]*t,p[2]+v[2]*t)
 
-mus = []
+mus: List[float] = []
 
-def distance_from_line(ap,av,bp,bv):
+def distance_from_line(ap: Tuple[float,float,float],av: Tuple[float,float,float],bp: Tuple[int,int,int],bv: Tuple[int,int,int]) -> float:
     # determine the line perpendicular to both lines, return the distance squared
     p1 = ap
     p3 = bp
@@ -65,8 +70,8 @@ def distance_from_line(ap,av,bp,bv):
 
     mub = (d1343 + d4321 * mua) / d4343;
     
-    pa = (p1[0]+mua*p21[0],p1[1]+mua*p21[1],p1[2]+mua*p21[2])
-    pb = (p3[0]+mub*p43[0],p3[1]+mub*p43[1],p3[2]+mub*p43[2])
+    # pa = (p1[0]+mua*p21[0],p1[1]+mua*p21[1],p1[2]+mua*p21[2])
+    # pb = (p3[0]+mub*p43[0],p3[1]+mub*p43[1],p3[2]+mub*p43[2])
     
     return (p1[0]+mua*p21[0]-(p3[0]+mub*p43[0]))**2+(p1[1]+mua*p21[1]-(p3[1]+mub*p43[1]))**2+(p1[2]+mua*p21[2]-(p3[2]+mub*p43[2]))**2
     

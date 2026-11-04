@@ -26,6 +26,8 @@ for i in range(1,170):
 
     # get the grid index, by searching
     # this is easier, but it could be calculated
+    k=0
+    j=0
     for a,l in enumerate(grid):
         try:
             j = l.index(i)

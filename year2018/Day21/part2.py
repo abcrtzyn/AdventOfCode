@@ -11,6 +11,8 @@
 # the value in the sequence just before the sequence repeats any values
 
 
+from typing import Set
+
 from year2018.watchassembly.interpreter import parse, ops
 
 
@@ -29,7 +31,7 @@ with open('Day21/input.txt') as f:
 
 assert type(ip) == int
 
-values = set()
+values: Set[int] = set()
 previous = 0
 
 while 0 <= regs[ip] < len(program):

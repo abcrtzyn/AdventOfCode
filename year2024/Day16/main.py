@@ -1,5 +1,5 @@
 from typing import Set, Tuple, List
-from graph_traversals.breadth_first_search import breadth_first_search_parents
+from graph_traversals.shortest_path import dijkstra_parents
 import numpy as np
 
 # an intersting search problem where turning is costly
@@ -13,7 +13,7 @@ EAST = (0,1)
 SOUTH = (1,0)
 WEST = (0,-1)
 
-def search_directions(y,x):
+def search_directions(y: int,x: int) -> List[Tuple[int,int]]:
     if y == 0:
         return [NORTH,SOUTH]
     elif x == 0:
@@ -58,7 +58,7 @@ def neighbors(state: Tuple[int,int,Tuple[int,int]], score: int):
         yield (next_score,(next_y,next_x,next_dir))
 
 
-score, parents = breadth_first_search_parents(startpoint,is_endpoint, neighbors)
+score, parents = dijkstra_parents(startpoint,is_endpoint, neighbors)
 
 print('Part 1:',score)
 
@@ -66,7 +66,9 @@ visited: Set[Tuple[int,int,Tuple[int,int]]] = set()
 
 lasts: List[Tuple[int,int,Tuple[int,int]]] = []
 
-for dy,dx in [NORTH,EAST,SOUTH,WEST]:
+DIRECTIONS: List[Tuple[int,int]] = [NORTH, EAST, SOUTH, WEST]
+
+for dy,dx in DIRECTIONS:
     if (endpoint[0],endpoint[1],(dy,dx)) in parents:
         lasts.append((int(endpoint[0]),int(endpoint[1]),(dy,dx)))
 
@@ -102,4 +104,4 @@ while len(work_queue):
 
 # now convert all visited into cells
 
-print('Part 2:', len(set([(y,x) for y,x,d in visited])))
+print('Part 2:', len(set([(y,x) for y,x,_d in visited])))

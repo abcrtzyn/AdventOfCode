@@ -1,9 +1,8 @@
 # hard limits, in x, 1/2(sqrt(1+8left)-1) <= v <= right
 #              in y, down <= v <= -down-1 
 from math import floor, ceil, sqrt
-import numpy as np
 
-def p_x(t,v_x):
+def p_x(t: int,v_x: int):
     maxP_x = (v_x^2+v_x)/2
     if t > v_x:
         return maxP_x
@@ -26,19 +25,19 @@ print(f'{v_yLowLimit} <= v_y <= {v_yHighLimit}')
 
 #calculatedHeights = np.zeros((1, v_yHighLimit-v_yLowLimit+1), dtype=np.int16)
 #calculatedHeightsValidAfter = np.zeros((1, v_yHighLimit-v_yLowLimit+1), dtype=np.int16)
-def maxHeight(v_y):
+def maxHeight(v_y: int):
     if v_y > 0: 
         return floor(1/2*(v_y**2 + v_y + 1/4))
     else:
         return 0
 
-def heightValidAfter(v_y):
+def heightValidAfter(v_y: int):
     if v_y > 0:
         return v_y
     else:
         return 0
 
-def inTarget(x,y):
+def inTarget(x: int,y: int):
     return leftLimit <= x <= rightLimit and downLimit <= y <= upLimit
 
 #hitTarget = np.zeros((v_xHighLimit-v_xLowLimit+1, v_yHighLimit-v_yLowLimit+1), dtype=np.bool8)

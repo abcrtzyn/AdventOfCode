@@ -4,7 +4,7 @@ import numpy as np
 
 
 # marks all connected instances of the grid key
-def search_component(grid, components, y, x, key, component_number):
+def search_component(grid, components, y: int, x: int, key: str, component_number: int):
     # mark cell
     components[y,x] = component_number
 

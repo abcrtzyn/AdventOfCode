@@ -1,5 +1,8 @@
 
 
+from collections import defaultdict
+from typing import Dict, List, Tuple
+
 import numpy as np
 
 
@@ -16,19 +19,20 @@ UP = (-1,0)
 DOWN = (1,0)
 LEFT = (0,-1)
 RIGHT = (0,1)
-opposite = {UP:DOWN,DOWN:UP,LEFT:RIGHT,RIGHT:LEFT}
+directions: List[Tuple[int,int]] = [UP,DOWN,LEFT,RIGHT]
+opposite: Dict[Tuple[int,int],Tuple[int,int]] = {UP:DOWN,DOWN:UP,LEFT:RIGHT,RIGHT:LEFT}
 
-queue = [(start,DOWN)]
+queue: List[Tuple[Tuple[int,int],Tuple[int,int]]] = [(start,DOWN)]
 
 # we could count all the paths seperately
-paths = []
+paths: List[Tuple[Tuple[int,int],Tuple[int,int],int]] = []
 
-def tile_add(tile1,tile2):
+def tile_add(tile1: Tuple[int,int],tile2: Tuple[int,int]):
     return (tile1[0]+tile2[0],tile1[1]+tile2[1])
 
-def isjunction(tile):
+def isjunction(tile: Tuple[int,int]):
     paths = 0
-    for dire in [UP,DOWN,LEFT,RIGHT]:
+    for dire in directions:
         paths += grid[tile_add(tile,dire)] != '#'
     return paths >= 3
 
@@ -44,7 +48,7 @@ while len(queue) != 0:
         # move to the next tile
         new_tile = (0,0)
         new_dire = (0,0)
-        for dire2 in [UP,DOWN,LEFT,RIGHT]:
+        for dire2 in directions:
             #print(dire,dire2)
             if dire2 != opposite[dire]:
                 #print('not opposite')
@@ -67,7 +71,7 @@ while len(queue) != 0:
     if tile == end:
         continue
     # for each direction of tile not opposite of dire, add to queue
-    for dire2 in [UP,DOWN,LEFT,RIGHT]:
+    for dire2 in directions:
         #print(dire,dire2)
         if dire2 != opposite[dire]:
             #print('not opposite')
@@ -75,10 +79,8 @@ while len(queue) != 0:
                 queue.append((tile,dire2))
     #print(queue)
 
-adj = dict()
+adj: Dict[Tuple[int,int],List[Tuple[Tuple[int,int],int]]] = defaultdict(list)
 for x,y,c in paths:
-    if x not in adj:
-        adj[x] = []
     adj[x].append((y,c))
 #print(adj)
 # this is essientially an adjacency matrix
@@ -86,7 +88,7 @@ nodes_n = len(adj.keys())
 
 # this stuff should be enough to find a maximal route
 # find the longest path from start to end by trying everything
-def find_path(x,y,visited):
+def find_path(x: Tuple[int,int],y: Tuple[int,int],visited: Dict[Tuple[int,int],int]) -> int:
     #print('cur',x,visited)
     if x == y:
         return 0

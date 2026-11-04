@@ -1,15 +1,15 @@
-from typing import List
+from typing import Dict, List, Tuple
 import re
 
 # i could not get part2 by myself, the solution requires using a cache table to remember previous solutions
-DP = {}
+dp: Dict[Tuple[int,int],int] = {}
 
 def countPossibles(line: str, numbers: List[int]) -> int:
     #print(line, numbers)
 
     key = (len(line),len(numbers))
-    if key in DP:
-        return DP[key]
+    if key in dp:
+        return dp[key]
     
     # completely different approach than part 1
     # place the numbers and see if they fit
@@ -51,7 +51,7 @@ def countPossibles(line: str, numbers: List[int]) -> int:
             i += m.start(1) + 1
 
     # print('not enough space')
-    DP[key] = pos
+    dp[key] = pos
     return pos
 
 
@@ -63,11 +63,11 @@ with open('Day12/input.txt') as f:
         #print(i)
         chars, numbers  = line.split()
         
-        a=list()
+        a: List[str] = []
         a.append(chars)
         chars = '?'.join(5*a)
         numbers = 5*[int(x) for x in numbers.split(',')]
-        DP = {}
+        dp: Dict[Tuple[int,int],int] = {}
         count += countPossibles(chars, numbers)
 
         

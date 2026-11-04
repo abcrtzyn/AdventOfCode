@@ -1,5 +1,8 @@
+from typing import Dict, Tuple
+
+
 inst = ''
-net = dict()
+net: Dict[str, Tuple[str,str]] = dict()
 
 with open('Day08/input.txt') as f:
     inst = f.readline()[:-1];
