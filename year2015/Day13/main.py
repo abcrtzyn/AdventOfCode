@@ -1,6 +1,6 @@
 
 import numpy as np
-adjacency = np.zeros((8,8))
+adjacency = np.zeros((8,8),dtype=np.int16)
 
 # I don't think the names change so here they are
 people = ['Alice','Bob','Carol','David','Eric','Frank','George','Mallory']

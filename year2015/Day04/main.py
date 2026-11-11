@@ -2,8 +2,9 @@
 
 import hashlib
 
-# INPUT STRING HERE
-base = 'yzbqklnj'
+
+with open('Day04/input.txt') as f:
+    base = f.read().strip()
 
 
 def solve(base: str, prefix: str):

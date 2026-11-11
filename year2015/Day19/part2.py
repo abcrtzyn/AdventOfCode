@@ -3,6 +3,7 @@
 # read part2.txt for more details
 
 
+from io import StringIO
 from typing import TextIO
 
 
@@ -39,20 +40,24 @@ def parens(f: TextIO):
 # the number of atoms in the string, with modifications to how Rn()Ar blocks are handled
 count = 0
 
-with open('Day19/text.txt') as f:
-    # read characters
-    while True:
-        a = f.read(1)
-        if a == '\n':
-            break
-        if a.islower():
-            # not counting lowercase
-            continue
+with open('Day19/input.txt') as f:
+    molecule = f.read().split('\n\n')[1].strip()
 
-        count += 1
-        if a == 'R': # start of an Rn()Ar block
-            f.read(1) # n, discard
-            count += parens(f)
+f = StringIO(molecule + '\n')
+
+# read characters
+while True:
+    a = f.read(1)
+    if a == '\n':
+        break
+    if a.islower():
+        # not counting lowercase
+        continue
+
+    count += 1
+    if a == 'R': # start of an Rn()Ar block
+        f.read(1) # n, discard
+        count += parens(f)
 
 
 print('Part 2:',count - 1)

@@ -1,20 +1,20 @@
 from typing import List, Set, Tuple
 
+
+with open('Day19/input.txt') as f:
+    
+    replacements_text, txt = f.read().split('\n\n')
+
+
 replacements: List[Tuple[str,str]] = []
+for line in replacements_text.split('\n'):
+    line = line.split()
+    replacements.append((line[0],line[2]))
 
-with open('Day19/replacements.txt') as f:
-    for line in f:
-        line = line.split()
-        replacements.append((line[0],line[2]))
 
-# print(replacements)
 a: Set[str] = set()
 
 import re
-
-with open('Day19/text.txt') as f:
-    txt = f.readline()
-
 
 # for each replacement
 for k,v in replacements:

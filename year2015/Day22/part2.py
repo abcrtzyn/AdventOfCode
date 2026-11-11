@@ -4,8 +4,12 @@ from typing import Dict, Tuple
 player_health = 50
 mana = 500
 
-boss_health = 51
-boss_damage = 9
+
+with open('Day22/input.txt') as f:
+    lines = f.readlines()
+    boss_health = int(lines[0].split()[-1])
+    boss_damage = int(lines[1].split()[-1])
+
 
 DP: Dict[Tuple[int, int, int, int, int, int],int] = {}
 
@@ -118,4 +122,4 @@ def player_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,rechar
 
 # this is a search problem
 
-print(player_turn(player_health,mana,boss_health,boss_damage,0,0,0))
+print('Part 2:',player_turn(player_health,mana,boss_health,boss_damage,0,0,0))

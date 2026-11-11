@@ -1,8 +1,5 @@
 
-
-
-        ⍝ INPUT HERE
-input ← 'hijklmmn'
+input ← ⊃⊃ ⎕NGET 'Day11/input.txt' 1
 
 stringtodigits ← (¯1+(¯1 ⎕C ⎕A)⍳⊢)
 digitstostring ← {(¯1 ⎕C ⎕A)[1+⍵]}

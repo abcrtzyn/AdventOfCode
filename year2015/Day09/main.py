@@ -7,7 +7,7 @@ from typing import Callable, List
 
 import numpy as np
 
-dist = np.zeros((len(places),len(places)))
+dist = np.zeros((len(places),len(places)),dtype=np.int16)
 
 
 with open('Day09/input.txt') as f:

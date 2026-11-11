@@ -1,7 +1,9 @@
 'factors' ⎕CY 'dfns'
 
+key ← ⍎⊃⊃⎕NGET 'Day20/input.txt' 1
+
 ⍝ part 1, something like this is pretty good
-⌊/⍸3600000≤(×/⍥(∪{((⍺*1+⍵)-1)÷(⍺-1)}¨⊢∘≢⌸)factors)¨ 831000+⍳1000
+⌊/⍸(key ÷ 10)≤(×/⍥(∪{((⍺*1+⍵)-1)÷(⍺-1)}¨⊢∘≢⌸)factors)¨ 831000+⍳1000
 
 ⍝ without factors
 

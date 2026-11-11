@@ -11,7 +11,7 @@ trees: 3
 cars: 2
 perfumes: 1
 
-Searched my input for chilren: 3, and the other two traits for sue 213 matched
+Searched my input for children: 3, and the other two traits for one sue matched
 
 Part 2
 
