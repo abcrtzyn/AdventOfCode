@@ -8,12 +8,12 @@ mana = 500
 with open('Day22/input.txt') as f:
     lines = f.readlines()
     boss_health = int(lines[0].split()[-1])
-    boss_damage = int(lines[1].split()[-1])
+    BOSS_DAMAGE = int(lines[1].split()[-1])
 
 
 DP: Dict[Tuple[int, int, int, int, int, int],int] = {}
 
-def boss_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,recharge: int) -> int:#,actions):
+def boss_turn(ph: int,mana: int,bh: int,shield: int,poison: int,recharge: int, part2: bool) -> int:#,actions):
     #print(ph,mana,bh,shield,poison,recharge,actions)
     if bh <= 0:
         # winning action
@@ -37,17 +37,19 @@ def boss_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,recharge
         #print('kill')
         return 0
     
-    return player_turn(ph-max(1,bd-armour),mana,bh,bd,shield,poison,recharge)#,actions)
+    return player_turn(ph-max(1,BOSS_DAMAGE-armour),mana,bh,shield,poison,recharge,part2)#,actions)
 
-def player_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,recharge: int) -> int:#,actions):
+
+def player_turn(ph: int,mana: int,bh: int, shield: int,poison: int,recharge: int, part2: bool) -> int:#,actions):
     #print(ph,mana,bh,shield,poison,recharge,actions)
     key = (ph,mana,bh,shield,poison,recharge) 
     if key in DP:
-        #print(key,DP[key])
         return DP[key]
     
     # hard mode lose 1 hp
-    ph -= 1
+    if part2:
+        ph -= 1
+
     # if ph and bh still greater than 0, keep going
     if ph <= 0:
         # losing
@@ -80,35 +82,35 @@ def player_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,rechar
     if mana >= 53:
         # missile
         #actions.append('m')
-        res = boss_turn(ph,mana-53,bh-4,bd,shield,poison,recharge)#,actions)
+        res = boss_turn(ph,mana-53,bh-4,shield,poison,recharge, part2)#,actions)
         if res != -1:
             mana_used = min(mana_used,res+53)
         #actions.pop()
     if mana >= 73:
         # drain
         #actions.append('d')
-        res = boss_turn(ph+2,mana-73,bh-2,bd,shield,poison,recharge)#,actions)
+        res = boss_turn(ph+2,mana-73,bh-2,shield,poison,recharge, part2)#,actions)
         if res != -1:
             mana_used = min(mana_used,res+73)
         #actions.pop()
     if mana >= 113 and shield == 0:
         # shield
         #actions.append('s')
-        res = boss_turn(ph,mana-113,bh,bd,shield+6,poison,recharge)#,actions)
+        res = boss_turn(ph,mana-113,bh,6,poison,recharge, part2)#,actions)
         if res != -1:
             mana_used = min(mana_used,res+113)
         #actions.pop()
     if mana >= 173 and poison == 0:
         # poison
         #actions.append('p')
-        res = boss_turn(ph,mana-173,bh,bd,shield,poison+6,recharge)#,actions)
+        res = boss_turn(ph,mana-173,bh,shield,6,recharge, part2)#,actions)
         if res != -1:
             mana_used = min(mana_used,res+173)
         #actions.pop()
     if mana >= 229 and recharge == 0:
         # recharge
         #actions.append('r')
-        res = boss_turn(ph,mana-229,bh,bd,shield,poison,recharge+5)#,actions)
+        res = boss_turn(ph,mana-229,bh,shield,poison,5, part2)#,actions)
         if res != -1:
             mana_used = min(mana_used,res+229)
         #actions.pop()
@@ -122,4 +124,6 @@ def player_turn(ph: int,mana: int,bh: int,bd: int,shield: int,poison: int,rechar
 
 # this is a search problem
 
-print('Part 2:',player_turn(player_health,mana,boss_health,boss_damage,0,0,0))
+print('Part 1:',player_turn(player_health,mana,boss_health,0,0,0,False))
+DP = {}  # pyright: ignore[reportConstantRedefinition]
+print('Part 2:',player_turn(player_health,mana,boss_health,0,0,0,True))
