@@ -41,7 +41,7 @@ def adjacent(threshold: int, cell: Tuple[int,int], score: int):
         if grid[y,x] < threshold:
             continue
 
-        yield (score + 1, (y,x))
+        yield (1, (y,x))
 
 grid.fill(len(fall_list))
 

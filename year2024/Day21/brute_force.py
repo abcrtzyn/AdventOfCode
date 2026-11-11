@@ -41,7 +41,7 @@ def indirect_entry_neighbors(next_neighbors_func: Callable[[str,Tuple[str,str],i
             print(f'no path found from {current} to {goal}???')
             exit(1)
         # print('1st',current,('pushed','A'),result,score+result)
-        yield (score+result,('P','A'))
+        yield (result,('P','A'))
     
     else:
         for neigh,in_neigh in neighbors[current[0]].items():
@@ -51,7 +51,7 @@ def indirect_entry_neighbors(next_neighbors_func: Callable[[str,Tuple[str,str],i
                 print(f'no path found from {current} to {neigh}???')
                 exit(1)
             # print('1st',current,(neigh,in_neigh),result,score+result)
-            yield (score+result,(neigh,in_neigh))
+            yield (result,(neigh,in_neigh))
 
 
 def direct_entry_neighbors(neighbors: Dict[str,Dict[str,str]], goal: str, current: Tuple[str,str], score: int):
@@ -59,12 +59,12 @@ def direct_entry_neighbors(neighbors: Dict[str,Dict[str,str]], goal: str, curren
     if current[0] == goal:
         # the act of pressing A
         # print('  2nd',current,('pushed','A'),1,score+1)
-        yield (score+1,('P','A'))
+        yield (1,('P','A'))
     else:
         for neigh,in_neigh in neighbors[current[0]].items():
             # the act of pressing a single arrow key
             # print('  2nd',current,(neigh,in_neigh),1,score+1)
-            yield (score+1,(neigh,in_neigh))
+            yield (1,(neigh,in_neigh))
 
 
 

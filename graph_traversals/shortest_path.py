@@ -21,7 +21,8 @@ def dijkstra_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[
         if end(current):
             return current_score, parents
 
-        for neighbor_score, neighbor in neighbors(current,current_score):
+        for edge_score, neighbor in neighbors(current,current_score):
+            neighbor_score = current_score + edge_score
             if neighbor not in scores:
                 scores[neighbor] = neighbor_score
                 parents[neighbor] = [current]
@@ -43,7 +44,17 @@ def dijkstra_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[
 
 
 def dijkstra[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Optional[int]:
-    # given a start point, an end point (or a function to say it is the end), a function that gives all neighbors
+    """Finds the shortest (smallest edge-weight) path from the start node to a node considered the end.
+    
+    Give the starting node
+    
+    Give a predicate function for determining the end. Can be as simple as lambda x: x == end
+
+    The graph is implied by the neighbors function. The neighbors function takes the current node, and the current score, and yields all neighbors and the edge weight for each
+    
+    If you need the path returned, try dijkstra_parents"""
+    
+    
     
     scores: Dict[T,int] = {start: 0}
     queue: List[Tuple[int,T]] = [(0,start)]
@@ -59,7 +70,8 @@ def dijkstra[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],I
         if end(current):
             return current_score
 
-        for neighbor_score, neighbor in neighbors(current,current_score):
+        for edge_score, neighbor in neighbors(current,current_score):
+            neighbor_score = current_score + edge_score
             if neighbor not in scores:
                 scores[neighbor] = neighbor_score
                 heapq.heappush(queue,(neighbor_score,neighbor))

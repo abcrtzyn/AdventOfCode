@@ -34,7 +34,7 @@ endpoint = np.argwhere(grid == 'E')[0]
 def is_endpoint(point: Tuple[int,int,Tuple[int,int]]) -> bool:
     return point[0] == endpoint[0] and point[1] == endpoint[1]
 
-def neighbors(state: Tuple[int,int,Tuple[int,int]], score: int):
+def neighbors(state: Tuple[int,int,Tuple[int,int]], _: int):
     # new states are to move forward
     # and rotate
     state_y, state_x, state_dir = state
@@ -43,19 +43,19 @@ def neighbors(state: Tuple[int,int,Tuple[int,int]], score: int):
     next_y = state_y + state_dir[0]
     next_x = state_x + state_dir[1]
     next_dir = state_dir
-    next_score = score + 1
+    edge_score = 1
 
     if grid[next_y,next_x] != '#':
-        yield (next_score, (next_y, next_x, next_dir))
+        yield (edge_score, (next_y, next_x, next_dir))
     
     #### rotations
     for direction in search_directions(*state_dir):
         next_y = state_y
         next_x = state_x
         next_dir = direction
-        next_score = score + 1000
+        edge_score = 1000
 
-        yield (next_score,(next_y,next_x,next_dir))
+        yield (edge_score,(next_y,next_x,next_dir))
 
 
 score, parents = dijkstra_parents(startpoint,is_endpoint, neighbors)
