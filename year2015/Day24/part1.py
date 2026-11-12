@@ -4,7 +4,7 @@ with open('Day24/input.txt') as f:
     values.reverse()
 
 # the weight of the groups is calculatable ahead of time
-group_weight = round(sum(values)/3) # it will always be an int
+group_weight = sum(values)//3 # it will always be an int
 # print(group_weight)
 
 number = len(values)-1
