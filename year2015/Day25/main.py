@@ -4,10 +4,6 @@ with open('Day25/input.txt') as f:
     goal_row = int(words[15].strip(','))
     goal_col = int(words[17].strip('.'))
 
-
-# goal_row = 2947
-# goal_col = 3029
-
 # going to try iterative first
 x = 1
 y = 1
