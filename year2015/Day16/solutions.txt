@@ -28,3 +28,5 @@ perfumes: 1
 
 
 decided on just hand elimination on part2, not to terrible if you know some regex find and replace
+pretty sure I looked for lines where "children: [not 3]" are and deleted them.
+Repeat for each invalid trait until one remains.
