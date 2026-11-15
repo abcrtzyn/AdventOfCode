@@ -4,7 +4,7 @@ from typing import Tuple, Callable
 from functools import partial
 
 # # I could use A* or something, I don't feel like it yet
-from graph_traversals.shortest_path import dijkstra
+from python_utils.graph_traversals.shortest_path import dijkstra
 
 
 

@@ -1,5 +1,5 @@
 from typing import Set, Tuple, List
-from graph_traversals.shortest_path import dijkstra_parents
+from python_utils.graph_traversals.shortest_path import dijkstra_parents
 import numpy as np
 
 # an intersting search problem where turning is costly

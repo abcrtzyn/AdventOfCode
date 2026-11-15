@@ -12,7 +12,7 @@
 # It is not an easy fact to think about
 
 from typing import Callable, Dict, Iterator, Tuple
-from graph_traversals.shortest_path import dijkstra
+from python_utils.graph_traversals.shortest_path import dijkstra
 
 from functools import partial
 
