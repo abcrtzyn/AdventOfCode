@@ -48,26 +48,16 @@ while len(process_stack) != 0:
     low_bot = rules[p][0]
     high_bot = rules[p][1]
 
-    if e1 < e2:
-        bots[low_bot].append(e1)
-        if len(bots[low_bot]) >= 2:
-            process_stack.append(low_bot)
+    low_value, high_value = (e1, e2) if e1 < e2 else (e2, e1)
+
+    bots[low_bot].append(low_value)
+    if len(bots[low_bot]) >= 2:
+        process_stack.append(low_bot)
+    
+    bots[high_bot].append(high_value)
+    if len(bots[high_bot]) >= 2:
+        process_stack.append(high_bot)
         
-        
-        bots[high_bot].append(e2)
-        if len(bots[high_bot]) >= 2:
-            process_stack.append(high_bot)
-        
-    else: # e1 > e2
-        bots[high_bot].append(e1)
-        if len(bots[high_bot]) >= 2:
-            process_stack.append(high_bot)
-        
-        bots[low_bot].append(e2)
-        if len(bots[low_bot]) >= 2:
-            process_stack.append(low_bot)
-        
-#print(bots)
 
 # part 2
 print('Part 2:', bots[300][0] * bots[301][0] * bots[302][0])
