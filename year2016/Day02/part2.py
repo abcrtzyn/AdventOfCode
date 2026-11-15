@@ -1,6 +1,6 @@
 # start on 5
 number = 5
-code = 0
+code = ''
 
 # lookup tables
 # the number you get when you go up
@@ -34,8 +34,7 @@ with open('Day02/input.txt') as f:
                 case _:
                     assert False, 'unreachable'
             #print(c,number)
-        code *= 16
-        code += number
+        code += f'{number:X}' # get the hex digit for that number
         #break
 
-print('Part 2:',hex(code)[2:])
+print('Part 2:',code)
