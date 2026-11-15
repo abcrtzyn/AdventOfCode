@@ -1,5 +1,8 @@
 from typing import List
 
+def is_valid_triangle(a: int,b: int,c: int):
+    return a-b-c < 0 and b-c-a < 0 and c-a-b < 0
+
 
 count = 0
 with open('Day03/input.txt') as f:
@@ -16,11 +19,11 @@ with open('Day03/input.txt') as f:
         i += 1
         if i % 3 == 0:
            # print(t1,t2,t3)
-            if (t1[0]-t1[1]-t1[2] < 0) and (t1[1]-t1[2]-t1[0] < 0) and (t1[2]-t1[0]-t1[1] < 0):
+            if is_valid_triangle(t1[0],t1[1],t1[2]):
                 count += 1
-            if (t2[0]-t2[1]-t2[2] < 0) and (t2[1]-t2[2]-t2[0] < 0) and (t2[2]-t2[0]-t2[1] < 0):
+            if is_valid_triangle(t2[0],t2[1],t2[2]):
                 count += 1
-            if (t3[0]-t3[1]-t3[2] < 0) and (t3[1]-t3[2]-t3[0] < 0) and (t3[2]-t3[0]-t3[1] < 0):
+            if is_valid_triangle(t3[0],t3[1],t3[2]):
                 count += 1
             t1 = []
             t2 = []

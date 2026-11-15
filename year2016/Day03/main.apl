@@ -8,10 +8,10 @@ rho_smart ← {⍵⍴⍨⍺×@(<∘0)⍨(×/⍴⍵)÷×/⍺~0}
 
 ⍝ returns boolean for if the set of 3 numbers is valid
 triangle_valid ← ((2×⌈/)<+/)
-
-
 ⍝ z < x+y where z is the longest side
 ⍝ so 2z < x+y+z
+
+
 ⎕← 'Part 1: ', +/triangle_valid¨parsed
                ⍝ count valid triangles
 
