@@ -57,7 +57,8 @@ def pad(salt: str,part2: bool):
     return pad_set
 
 #SALT = 'abc'
-SALT = 'zpqevtbw'
+with open('Day14/input.txt') as f:
+    SALT = f.read().strip()
 
 pad_set = pad(SALT,False)
 print('Part 1:', sorted(pad_set)[63])

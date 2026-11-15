@@ -1,7 +1,7 @@
 from hashlib import md5
 
-key = 'veumntbg'
-#key = 'ihgpwlah'
+with open('Day17/input.txt') as f:
+    key = f.read().strip()
 
 
 # yet another time to implement a*
@@ -42,7 +42,7 @@ def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
 def max_path(path: str='',coord: Tuple[int,int]=(1,1)) -> Tuple[int,str]:
 
     if coord == goal:
-        print(len(path))
+        # print(len(path))
         return (len(path),path)
 
     hsh = md5(bytes(key+path,'utf-8')).hexdigest()[:4]
@@ -78,4 +78,5 @@ def max_path(path: str='',coord: Tuple[int,int]=(1,1)) -> Tuple[int,str]:
 
 
 
-print(max_path())
+le, s = max_path()
+print(le)

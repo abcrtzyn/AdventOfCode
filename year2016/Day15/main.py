@@ -20,7 +20,7 @@ with open('Day15/input.txt','r') as f:
 
         discs.append((mod,pos))
 
-print(discs)
+# print(discs)
 
 # I believe I have to, for each disc
 # find the first x where (pos + x) % mod = 0 above the previous with some other limitations

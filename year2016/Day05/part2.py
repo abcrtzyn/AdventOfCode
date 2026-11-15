@@ -1,7 +1,10 @@
 import hashlib
 from typing import Dict
 
-base = 'uqwqemis'
+
+with open('Day05/input.txt') as f:
+    base = f.read().strip()
+
 i=-1
 j = 0
 password: Dict[str,str] = {}

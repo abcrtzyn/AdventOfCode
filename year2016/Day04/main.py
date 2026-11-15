@@ -5,6 +5,9 @@ from typing import Dict
 score = 0
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
+part2_name: str = ''
+part2_answer: int | None = None
+
 with open('Day04/input.txt') as f:
     for line in f.readlines():
         line = line.strip()
@@ -40,10 +43,14 @@ with open('Day04/input.txt') as f:
             shifted = str.maketrans(alphabet+'-',alphabet[shift:] + alphabet[:shift] +' ','0123456789')
             name = line[:line.find('[')].translate(shifted)
             if 'north' in name:
-                print(name)
-                print('Part 2:',number)
+                part2_name = name
+                part2_answer = number
 
-print(score)
+
+print('Part 1:',score)
+# print(part2_name)
+print('Part 2:',part2_answer)
+
 
         
         

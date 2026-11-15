@@ -7,7 +7,8 @@ from typing import Callable, Dict, Hashable, Iterator, Tuple
 
 
 #DESIGNERS_FAVORITE_NUMBER = 10
-DESIGNERS_FAVORITE_NUMBER = 1352
+with open('Day13/input.txt') as f:
+    DESIGNERS_FAVORITE_NUMBER = int(f.read().strip())
 
 start = (1,1)
 #goal = (7,4)

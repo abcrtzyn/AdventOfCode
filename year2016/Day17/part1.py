@@ -1,6 +1,7 @@
 from hashlib import md5
 
-key = 'veumntbg'
+with open('Day17/input.txt') as f:
+    key = f.read().strip()
 
 
 # yet another time to implement a*
@@ -82,7 +83,7 @@ def A_star(goal: Tuple[int,int]):
             
             heapq.heappush(open_set,Entry(fScore[npath],npath))
 
-        print(open_set)
+        # print(open_set)
     
     return -1
 
