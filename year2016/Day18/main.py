@@ -24,10 +24,6 @@ def sliding_window[T](iterable: Iterable[T], n: int) -> Generator[Tuple[T,...],N
 
 with open('Day18/input.txt') as f:
     initial = [1 if c=='^' else 0 for  c in f.read().strip()]
-    # print(init_text)
-    # exit()
-
-# initial = [0,1,1,1,1,1,0,1,1,0,1,1,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,0,0,0,0,1,0,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1]
 
 
 def simulate_safe_count(inital: List[int], rows: int):
