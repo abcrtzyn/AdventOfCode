@@ -150,3 +150,31 @@ def a_star[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tuple[int,T
     
     return None
 
+
+def bounded_reachability[T](start: T, steps: int, neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> int:
+    
+    scores: Dict[T,int] = {start: 0}
+    queue: List[Tuple[int,T]] = [(0,start)]
+
+    while queue:
+        queue_score, current = heapq.heappop(queue)
+        current_score = scores[current]
+        if queue_score > current_score:
+            # this means that some other path was deemed better and this state
+            # has already been checked
+            continue
+
+        for edge_score, neighbor in neighbors(current,current_score):
+            neighbor_score = current_score + edge_score
+            if neighbor_score > steps:
+                # we don't need to traverse this edge, it is too expensive
+                continue
+            if neighbor not in scores or scores[neighbor] > neighbor_score:
+                scores[neighbor] = neighbor_score
+                heapq.heappush(queue,(neighbor_score,neighbor))
+            
+            # else not a better score, continue
+        
+    # scores has every node less that or equal to steps
+    # and the shortest distance from start to that node
+    return len(scores)
