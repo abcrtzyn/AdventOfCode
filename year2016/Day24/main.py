@@ -1,9 +1,9 @@
  
 from dataclasses import dataclass, field
-from functools import partial
-import heapq
-from typing import Callable, Dict, List, Tuple
+from typing import Dict, Iterator, Tuple
 from itertools import combinations, permutations
+
+from python_utils.graph_traversals.shortest_path import a_star
 
 
 with open('Day24/input.txt') as f:
@@ -21,43 +21,19 @@ class Entry:
 def taxicab(a: Tuple[int,int],b: Tuple[int,int]):
     return abs(a[0]-b[0])+abs(a[1]+b[1])
 
-def A_star(start: Tuple[int,int], goal: Tuple[int,int], h: Callable[[Tuple[int,int]],int]):
-    gScore: Dict[Tuple[int,int],int] = {}
-    gScore[start] = 0
 
-    fScore: Dict[Tuple[int,int],int] = {}
-    fScore[start] = h(start)
+directions = [(1,0),(0,1),(-1,0),(0,-1)]
 
-    open_set: List[Entry] = [Entry(fScore[start],start)]
-
-    while len(open_set) != 0:
-        
-        current = heapq.heappop(open_set).coord
-        
-        if current == goal:
-            return (gScore[current])
-        
-        # for each neighbor
-        for neighbor in [(current[0]-1,current[1]),(current[0]+1,current[1]),(current[0],current[1]-1),(current[0],current[1]+1)]:
+def neighbors(current: Tuple[int,int],score: int) -> Iterator[Tuple[int,Tuple[int,int]]]:
+    for dx, dy in directions:
             # dont have to worry about goint off the edge 
             # because the grid is all walled off
+            neighbor = (current[0]+dx,current[1]+dy)
             if grid[neighbor[0]][neighbor[1]] == '#':
                 continue
             
-            tentative_gScore = gScore[current] + 1
-
-            if neighbor not in gScore or tentative_gScore < gScore[neighbor]:
-                gScore[neighbor] = tentative_gScore
-                fScore[neighbor] = tentative_gScore + h(neighbor)
-
-                if neighbor not in open_set:
-                    heapq.heappush(open_set,Entry(fScore[neighbor],neighbor))
-
-        # print(open_set)
-        # if(len(open_set) > 20):
-            # exit(0)
-    
-    return -1
+            yield 1,neighbor
+        
 
 
 
@@ -77,7 +53,10 @@ edges: Dict[Tuple[int,int],int] = {}
 # find all shortest paths from each number to each number using A*
 for (a,ac),(b,bc) in combinations(number_coords.items(),2):
     #print(a,ac,b,bc)
-    d = A_star(ac,bc,partial(taxicab,bc))
+    d = a_star(ac,bc,neighbors,taxicab)
+    if d is None:
+        print(ac,bc,'no path')
+        exit(1)
     #print(a,ac,b,bc,d)
     edges[(a,b)] = d
     edges[(b,a)] = d
@@ -86,18 +65,20 @@ for (a,ac),(b,bc) in combinations(number_coords.items(),2):
 #print(edges)
 
 # now figure out the travelling salesman problem
-min_dist = 10000000000
-min_tour = None
+min_dist = 10000
+min_tour = 10000
 for tour in permutations(range(1,8)):
     tour = [0] + list(tour)
     
     # PART 1
     dist = sum(edges[(tour[i], tour[i-1])] for i in range(1,len(tour)))
-    # PART 2
-    dist = sum(edges[(tour[i], tour[i-1])] for i in range(0,len(tour)))
     if dist < min_dist:
         min_dist = dist
+    # PART 2
+    tour = sum(edges[(tour[i], tour[i-1])] for i in range(0,len(tour)))
+    if tour < min_tour:
         min_tour = tour
 
-print(min_dist, min_tour)
-print(edges)
+print('Part 1:',min_dist)
+print('Part 2:',min_tour)
+# print(edges)
