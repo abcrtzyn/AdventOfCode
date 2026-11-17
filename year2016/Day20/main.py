@@ -30,7 +30,8 @@ with open('Day20/input.txt') as f:
         rules.insert(bisect.bisect(rules,(start,end)),(start,end))
         
 
-allowed: List[Tuple[int,int]] = []
+# allowed: List[Tuple[int,int]] = []
+lowest_allowed = 0
 allowed_count = 0
 
 current = 0
@@ -39,7 +40,9 @@ for rulelo,rulehi in rules:
     if current > rulehi:
         continue
     elif current < rulelo:
-        allowed.append((current,rulelo-1))
+        # allowed.append((current,rulelo-1))
+        if allowed_count == 0:
+            lowest_allowed = current
         allowed_count += rulelo - current
         current = rulehi + 1
     elif rulelo <= current <= rulehi:
@@ -47,4 +50,5 @@ for rulelo,rulehi in rules:
 
 
 # print(allowed)
-print(allowed_count)
+print('Part 1:', lowest_allowed)
+print('Part 2:', allowed_count)
