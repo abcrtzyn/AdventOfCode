@@ -44,12 +44,30 @@ def checksum(sg: Generator[str, Any, None],l: int,iterations: int):
         
 
 # the number of iterations of the checksum is determined by how many times the length can be divided by 2
-# It seems there is no way to do this other than a loop and it isn't input dependent so it is hard coded here.
 # the length of the checksum is the result after dividing by 2 a lot.
+# implemented is the fancy way, but here is another way
+# checksum_length = disk_length
+# iterations = 0
+# while checksum_length % 2 == 0:
+#     checksum_length // 2
+#     iterations += 1
 
-g = generate(272,'0')
-print('Part 1:', ''.join(checksum(g,17,4))) # 4 iterations, length 17
+
+disk_length = 272
+iterations = (disk_length ^ (disk_length-1)).bit_length()-1
+checksum_length = disk_length // (2**iterations)
+
+
+
+g = generate(disk_length,'0')
+print('Part 1:', ''.join(checksum(g,checksum_length,iterations)))
 
 # part 2 is definitely slow, but good enough for me.
-g = generate(35651584,'0')
-print('Part 2:', ''.join(checksum(g,17,21))) # 21 iterations, length 17
+
+disk_length = 35651584
+iterations = (disk_length ^ (disk_length-1)).bit_length()-1
+checksum_length = disk_length // (2**iterations)
+
+
+g = generate(disk_length,'0')
+print('Part 2:', ''.join(checksum(g,checksum_length,iterations))) # 21 iterations, length 17
