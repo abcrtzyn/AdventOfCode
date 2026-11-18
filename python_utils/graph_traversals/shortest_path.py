@@ -3,39 +3,7 @@ import heapq
 
 
 def dijkstra_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Tuple[Optional[int],Dict[T,List[T]]]:
-    
-    # given a start point, an end point (or a function to say it is the end), a function that gives all neighbors
-    
-    scores: Dict[T,int] = {start: 0}
-    parents: Dict[T,List[T]] = {}
-    queue: List[Tuple[int,T]] = [(0,start)]
-
-    while queue:
-        queue_score, current = heapq.heappop(queue)
-        current_score = scores[current]
-        if queue_score > current_score:
-            # this means that some other path was deemed better and this state
-            # has already been checked
-            continue
-
-        if end(current):
-            return current_score, parents
-
-        for edge_score, neighbor in neighbors(current,current_score):
-            neighbor_score = current_score + edge_score
-            if neighbor not in scores or scores[neighbor] > neighbor_score:
-                scores[neighbor] = neighbor_score
-                parents[neighbor] = [current]
-                heapq.heappush(queue,(neighbor_score,neighbor))
-
-            elif scores[neighbor] == neighbor_score:
-                # add extra parent
-                parents[neighbor].append(current)
-            
-            # else not a better score, continue
-        
-    
-    return None, parents
+    return a_star_parents(start,end,neighbors,lambda x: 0)
 
 
 def dijkstra[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]]) -> Optional[int]:
@@ -49,35 +17,10 @@ def dijkstra[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],I
     
     If you need the path returned, try dijkstra_parents"""
     
+    return a_star(start,end,neighbors,lambda x: 0)
     
-    
-    scores: Dict[T,int] = {start: 0}
-    queue: List[Tuple[int,T]] = [(0,start)]
 
-    while queue:
-        queue_score, current = heapq.heappop(queue)
-        current_score = scores[current]
-        if queue_score > current_score:
-            # this means that some other path was deemed better and this state
-            # has already been checked
-            continue
-
-        if end(current):
-            return current_score
-
-        for edge_score, neighbor in neighbors(current,current_score):
-            neighbor_score = current_score + edge_score
-            if neighbor not in scores or scores[neighbor] > neighbor_score:
-                scores[neighbor] = neighbor_score
-                heapq.heappush(queue,(neighbor_score,neighbor))
-            
-            # else not a better score, continue
-        
-    
-    return None
-
-
-def a_star_parents[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tuple[int,T]]],h: Callable[[T,T],int]) -> Tuple[Optional[int],Dict[T,List[T]]]:
+def a_star_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]], h: Callable[[T],int]) -> Tuple[Optional[int],Dict[T,List[T]]]:
     """A star finds the shortest path on a given a good idea of what the graph (usually a grid)
     
     start node, end node
@@ -89,13 +32,18 @@ def a_star_parents[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tup
     
     scores: Dict[T,int] = {start: 0}
     parents: Dict[T,List[T]] = {}
-    queue: List[Tuple[int,T]] = [(h(start,end),start)]
+    queue: List[Tuple[int,T]] = [(h(start),start)]
 
     while queue:
-        _, current = heapq.heappop(queue)
+        queue_score, current = heapq.heappop(queue)
         current_g_score = scores[current]
 
-        if current == end:
+        if queue_score > current_g_score:
+            # this means that some other path was deemed better and this state
+            # has already been checked
+            continue
+
+        if end(current):
             return current_g_score, parents
 
         for edge_score, neighbor in neighbors(current,current_g_score):
@@ -103,7 +51,7 @@ def a_star_parents[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tup
             
             if neighbor not in scores or scores[neighbor] > neighbor_g_score:
                 scores[neighbor] = neighbor_g_score
-                f_score = neighbor_g_score + h(neighbor,end)
+                f_score = neighbor_g_score + h(neighbor)
                 parents[neighbor] = [current]
                 heapq.heappush(queue,(f_score,neighbor))
             
@@ -117,7 +65,7 @@ def a_star_parents[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tup
     return None, parents
 
 
-def a_star[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tuple[int,T]]],h: Callable[[T,T],int]) -> Optional[int]:
+def a_star[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,int],Iterator[Tuple[int,T]]], h: Callable[[T],int]) -> Optional[int]:
     """A star finds the shortest path on a given a good idea of what the graph (usually a grid)
     
     start node, end node
@@ -128,13 +76,19 @@ def a_star[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tuple[int,T
 
     
     scores: Dict[T,int] = {start: 0}
-    queue: List[Tuple[int,T]] = [(h(start,end),start)]
+    queue: List[Tuple[int,T]] = [(h(start),start)]
 
     while queue:
-        _, current = heapq.heappop(queue)
+        queue_score, current = heapq.heappop(queue)
         current_g_score = scores[current]
 
-        if current == end:
+        if queue_score > current_g_score + h(current):
+            # this means that some other path was deemed better and this state
+            # has already been checked
+            continue
+
+
+        if end(current):
             return current_g_score
 
         for edge_score, neighbor in neighbors(current,current_g_score):
@@ -142,7 +96,7 @@ def a_star[T](start: T, end: T, neighbors: Callable[[T,int],Iterator[Tuple[int,T
             
             if neighbor not in scores or scores[neighbor] > neighbor_g_score:
                 scores[neighbor] = neighbor_g_score
-                f_score = neighbor_g_score + h(neighbor,end)
+                f_score = neighbor_g_score + h(neighbor)
                 heapq.heappush(queue,(f_score,neighbor))
 
             # else not a better score, continue

@@ -1,4 +1,5 @@
  
+from functools import partial
 from typing import Dict, Iterator, Tuple
 from itertools import combinations, permutations
 
@@ -43,7 +44,7 @@ edges: Dict[Tuple[int,int],int] = {}
 # find all shortest paths from each number to each number using A*
 for (a,ac),(b,bc) in combinations(number_coords.items(),2):
     #print(a,ac,b,bc)
-    d = a_star(ac,bc,neighbors,taxicab)
+    d = a_star(ac,lambda x: x == bc,neighbors,partial(taxicab,bc))
     if d is None:
         print(a,b,ac,bc,'no path')
         exit(1)

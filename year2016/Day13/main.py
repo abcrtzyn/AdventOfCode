@@ -1,4 +1,5 @@
-from typing import Tuple
+from functools import partial
+from typing import Tuple, cast
 from python_utils.graph_traversals.shortest_path import a_star, bounded_reachability
 
 # DESIGNERS_FAVORITE_NUMBER = 10
@@ -29,5 +30,5 @@ def get_neighbors(current: Tuple[int,int], score: int):
         yield 1,neighbor
 
 
-print('Part 1:', a_star(start,goal,get_neighbors,taxicab))
+print('Part 1:', a_star(cast(Tuple[int,int],start),lambda x: x == goal,get_neighbors,partial(taxicab,goal)))
 print('Part 2:',bounded_reachability(start,50,get_neighbors))
