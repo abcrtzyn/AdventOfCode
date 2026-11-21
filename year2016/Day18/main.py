@@ -21,26 +21,31 @@ def sliding_window[T](iterable: Iterable[T], n: int) -> Generator[Tuple[T,...],N
 
 #initial = [0,1,1,0,1,0,1,1,1,1]
 #rows = 10
-initial = [0,1,1,1,1,1,0,1,1,0,1,1,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,0,0,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,0,0,0,0,1,0,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,0,1,1]
-rows = 40
 
-safe_count = 0
+with open('Day18/input.txt') as f:
+    initial = [1 if c=='^' else 0 for  c in f.read().strip()]
 
-row = initial
 
-safe_count += row.count(0)
+def simulate_safe_count(inital: List[int], rows: int):
+    row = initial
+    safe_count = 0
 
-for i in range(rows-1):
-    current: List[int] = []
-    # beginning
-    current.append(RULE[row[0]*2+row[1]])
-    for a,b,c in sliding_window(row,3):
-        current.append(RULE[a*4+b*2+c])
-    # end
-    current.append(RULE[row[-2]*4+row[-1]*2])
-    
-    safe_count += current.count(0)
+    safe_count += row.count(0)
 
-    row = current
+    for _ in range(rows-1):
+        current: List[int] = []
+        # beginning
+        current.append(RULE[row[0]*2+row[1]])
+        for a,b,c in sliding_window(row,3):
+            current.append(RULE[a*4+b*2+c])
+        # end
+        current.append(RULE[row[-2]*4+row[-1]*2])
+        
+        safe_count += current.count(0)
 
-print(safe_count)
+        row = current
+
+    return safe_count
+
+print('Part 1:',simulate_safe_count(initial.copy(),40))
+print('Part 2:',simulate_safe_count(initial.copy(),400000))

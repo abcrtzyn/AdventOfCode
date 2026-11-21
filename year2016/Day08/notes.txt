@@ -2,4 +2,5 @@ I originally did this one in a spreadsheet manually
 
 Rotating arrays is expensive and in my opinion not easy to implement
 
-I may do it later
+The truth is, likely implementing it would have been hard that a spreadsheet was easier
+A computer of course can do it faster

@@ -1,7 +1,10 @@
 import hashlib
 from typing import Dict
 
-base = 'uqwqemis'
+
+with open('Day05/input.txt') as f:
+    base = f.read().strip()
+
 i=-1
 j = 0
 password: Dict[str,str] = {}
@@ -19,8 +22,4 @@ while j != 8:
     # print(i)
     # print(h[5],h[6])
 
-print('Part 2: ',end='')
-for a in valids:
-    print(password[a],end='')
-print()
-# print(password)
+print(f'Part 2: {''.join([password[i] for i in valids])}')

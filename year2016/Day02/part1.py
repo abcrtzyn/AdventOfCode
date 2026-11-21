@@ -1,6 +1,6 @@
 # start on 5
 number = 5
-code = 0
+code: str = ''
 
 
 with open('Day02/input.txt') as f:
@@ -26,8 +26,8 @@ with open('Day02/input.txt') as f:
                         number += 1
                 case _:
                     assert False, 'unreachable'
-        code *= 10
-        code += number
+        
+        code += str(number)
         
 
 print('Part 1:',code)
