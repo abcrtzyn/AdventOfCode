@@ -38,7 +38,7 @@ def a_star_parents[T](start: T, end: Callable[[T],bool], neighbors: Callable[[T,
         queue_score, current = heapq.heappop(queue)
         current_g_score = scores[current]
 
-        if queue_score > current_g_score:
+        if queue_score > current_g_score + h(current):
             # this means that some other path was deemed better and this state
             # has already been checked
             continue
