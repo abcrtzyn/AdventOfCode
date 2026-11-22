@@ -9,7 +9,7 @@ from python_utils.graph_traversals.shortest_path import a_star
 
 # breadth first search
 
-# (elevator, (chip 1, chip 2), (gen 1, gen 2))
+# (elevator, [(chip 1, gen 1), (chip 2, gen 2)])
 
 
 # starting at maze state
@@ -17,30 +17,30 @@ from python_utils.graph_traversals.shortest_path import a_star
 # elevator moves up or down one floor
 # one or two objects from that floor must move as well
 
-def stuff_on_floor(state: Tuple[int,Tuple[int,...],Tuple[int,...]]):
+def stuff_on_floor(state: Tuple[int,Tuple[Tuple[int,int],...]]):
     floor = state[0]
     stuff: List[Tuple[int,int]] = []
 
-    for i,f in enumerate(state[1]):
-        if f == floor:
-            stuff.append((0,i))
-    for i,f in enumerate(state[2]):
-        if f == floor:
-            stuff.append((1,i))
-    
+    for i,(fg,fc) in enumerate(state[1]):
+        if fg == floor:
+            stuff.append((i,0))
+        if fc == floor:
+            stuff.append((i,1))
+
     return stuff
 
-def create_state[T: Tuple[int,...]](state: Tuple[int,T,T], direction: bool, items: Iterable[Tuple[int,int]]) -> Tuple[int,T,T]:
+def create_state[T: Tuple[Tuple[int,int],...]](state: Tuple[int,T], direction: bool, items: Iterable[Tuple[int,int]]) -> Tuple[int,T]:
     new_floor = state[0] + (1 if direction else -1)
     
-    new_items = [list(state[1]), list(state[2])]
+    new_items = [list(x) for x in state[1]]
     for e in items:
         new_items[e[0]][e[1]] = new_floor
-    
-    new_state = (new_floor, tuple(new_items[0]),tuple(new_items[1]))
-    return cast(Tuple[int,T,T],new_state)
 
-def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int):
+    new_items = tuple(sorted(tuple(x) for x in new_items))
+    new_state = (new_floor, new_items)
+    return cast(Tuple[int,T],new_state)
+
+def check_state(state: Tuple[int,Tuple[Tuple[int,int],...]], old_floor: int):
     # for old_floor and current_floor
     # for each chip on floor
     # if same number generator is not on floor
@@ -48,21 +48,25 @@ def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int)
     
     current_floor = state[0]
 
-    for chip,chip_floor in enumerate(state[1]):
+    for chip_floor,gen_floor in state[1]:
         if chip_floor == old_floor:
-            if state[2][chip] != old_floor:
-                # check for other gens
-                for generation,gen_floor in enumerate(state[2]): # pyright: ignore[reportUnusedVariable]
-                    if gen_floor == old_floor:
+            # if the chip hasn't moved
+            if gen_floor != old_floor:
+                # and the generator is not on the same floor
+                # check for other gens to irradiate it
+                for _,gen2_floor in state[1]:
+                    if gen2_floor == old_floor:
                         #print(state, f'chip {chip} was irradiated by generator {gen}')
                         # invalid state
                         return False
 
         if chip_floor == current_floor:
-            if state[2][chip] != current_floor:
-                # check for other gens
-                for generation,gen_floor in enumerate(state[2]): # pyright: ignore[reportUnusedVariable]
-                    if gen_floor == current_floor:
+            # if the chip moved to the new floor
+            if gen_floor != current_floor:
+                # and the generator is not on the same floor
+                # check for other gens to irradiate it
+                for _,gen2_floor in state[1]:
+                    if gen2_floor == current_floor:
                         #print(state, f'chip {chip} was irradiated by generator {gen}')
                         # invalid state
                         return False
@@ -70,22 +74,20 @@ def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int)
 
 
 
-TT = Tuple[int,Tuple[int,int],Tuple[int,int]]
-T1 = Tuple[int,Tuple[int,int,int],Tuple[int,int,int]]
-T2 = Tuple[int,Tuple[int,int,int,int],Tuple[int,int,int,int]]
-
+TT = Tuple[int,Tuple[Tuple[int,int],...]]
 
 """Test states"""
-init_stateT = (1,(1,1),(2,3))
-final_stateT = (4,(4,4),(4,4))
+init_stateT = (1,((1,2),(1,3)))
+final_stateT = (4,((4,4),(4,4)))
 """Input states part 1"""
-init_state1 = (1,(1,2,3,1,2),(1,2,2,1,2))
-final_state1 = (4,(4,4,4,4,4),(4,4,4,4,4))
+init_state1 = (1,tuple(sorted(((1,1),(2,2),(3,2),(1,1),(2,2)))))
+final_state1 = (4,((4,4),)*5)
 """Input states part 2"""
-init_state2 = (1,(1,2,3,1,2,1,1),(1,2,2,1,2,1,1))
-final_state2 = (4,(4,4,4,4,4,4,4),(4,4,4,4,4,4,4))
+init_state2 = (1,tuple(sorted(((1,1),(2,2),(3,2),(1,1),(2,2),(1,1),(1,1)))))
+final_state2 = (4,((4,4),)*7)
 
-def get_next_states[T: Tuple[int,...]](state: Tuple[int,T,T],current_score: int) -> Iterator[Tuple[int,Tuple[int,T,T]]]:
+
+def get_next_states[T: Tuple[Tuple[int,int],...]](state: Tuple[int,T],current_score: int) -> Iterator[Tuple[int,Tuple[int,T]]]:
     # print(state)
     # I'm using the same approach as before, just in a different way
     stuff = stuff_on_floor(state)
@@ -103,14 +105,15 @@ def get_next_states[T: Tuple[int,...]](state: Tuple[int,T,T],current_score: int)
             if check_state(new_state,state[0]):
                 # state_count += 1
                 yield 2,new_state
-        ## this is commented out, I am enforecing a ideal that you are never allowed
-        ## to bring two items down. Sign of an inefficient solution
-        # if state[0] != 1:
-        #     # go down a floor
-        #     new_state = create_state(state, False, items)
-        #     if check_state(new_state,state[0]):
-        #         state_count += 1
-        #         yield 2,new_state
+        ## could comment this next section out,
+        ## It would skip checking states where you bring 2 items down
+        ## Clear sign of an inefficient solution
+        if state[0] != 1:
+            # go down a floor
+            new_state = create_state(state, False, items)
+            if check_state(new_state,state[0]):
+                # state_count += 1
+                yield 2,new_state
 
     for item in stuff:
         if state[0] != 4:
@@ -129,38 +132,36 @@ def get_next_states[T: Tuple[int,...]](state: Tuple[int,T,T],current_score: int)
     # print(state,state_count)
                 
 
-def compare_states(a: Tuple[int,Tuple[int,...],Tuple[int,...]], b: Tuple[int,Tuple[int,...],Tuple[int,...]]) -> int:
+def compare_states(a: TT, b: TT) -> int:
     """compare the states
     we are just going to do the differences of the floors of the items. Probably will not include elevator level at all
     Oh, and then divide by 2 because 2 things can be moved on the evelator at once."""
 
-    a_chips = a[1]
-    a_gens = a[2]
-    b_chips = b[1]
-    b_gens = b[2]
-
-
-
-    return abs((sum(a_chips) - sum(b_chips)) + (sum(a_gens) - sum(b_gens)))
+    a_items_sum_floors = sum(sum(x) for x in a[1])
+    b_items_sum_floors = sum(sum(x) for x in b[1])
 
 
 
 
+    return abs(a_items_sum_floors - b_items_sum_floors)
 
-# solve(init_stateT,final_stateT)
-# res = a_star(cast(TT,init_stateT),lambda x: x == final_stateT,get_next_states,partial(compare_states,final_stateT))
-# if res is not None:
-#     print('Test:',res//2)
-# else:
-#     print('no path found for test input')
 
-res = a_star(cast(T1,init_state1),lambda x: x == final_state1,get_next_states,partial(compare_states,final_state1))
+
+
+
+res = a_star(cast(TT,init_stateT),lambda x: x == final_stateT,get_next_states,partial(compare_states,final_stateT))
+if res is not None:
+    print('Test:',res//2)
+else:
+    print('no path found for test input')
+
+res = a_star(cast(TT,init_state1),lambda x: x == final_state1,get_next_states,partial(compare_states,final_state1))
 if res is not None:
     print('Part 1:',res//2)
 else:
     print('no path found for part 1')
 
-res = a_star(cast(T2,init_state2),lambda x: x == final_state2,get_next_states,partial(compare_states,final_state2))
+res = a_star(cast(TT,init_state2),lambda x: x == final_state2,get_next_states,partial(compare_states,final_state2))
 if res is not None:
     print('Part 2:',res//2)
 else:
