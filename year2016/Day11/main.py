@@ -183,11 +183,11 @@ def compare_states(a: TT, b: TT) -> int:
 
 
 
-res = a_star(cast(TT,init_stateT),lambda x: x == final_stateT,get_next_states,partial(compare_states,final_stateT))
-if res is not None:
-    print('Test:',res//2)
-else:
-    print('no path found for test input')
+# res = a_star(cast(TT,init_stateT),lambda x: x == final_stateT,get_next_states,partial(compare_states,final_stateT))
+# if res is not None:
+#     print('Test:',res//2)
+# else:
+#     print('no path found for test input')
 
 res = a_star(cast(TT,init_state1),lambda x: x == final_state1,get_next_states,partial(compare_states,final_state1))
 if res is not None:

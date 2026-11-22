@@ -85,6 +85,6 @@ with open('Day21/input.txt') as f:
             if mat is not None:
                 word = handle(word,mat)
                 break
-        print(line.strip(),''.join(word))
+        # print(line.strip(),''.join(word))
 
-print(''.join(word))
+print('Part 1:',''.join(word))

@@ -90,4 +90,4 @@ with open('Day21/input.txt') as f:
                 break
         #print(line.strip(),''.join(word))
 
-print(''.join(word))
+print('Part 2:',''.join(word))
