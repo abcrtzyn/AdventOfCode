@@ -1,6 +1,7 @@
 from functools import partial
 from itertools import combinations
-from typing import Iterable, Iterator, List, Tuple, cast
+import re
+from typing import Dict, Iterable, Iterator, List, Tuple, cast
 from python_utils.graph_traversals.shortest_path import a_star
 
 # essentially this is finding a path through a maze with many dimensions
@@ -79,12 +80,45 @@ TT = Tuple[int,Tuple[Tuple[int,int],...]]
 """Test states"""
 init_stateT = (1,((1,2),(1,3)))
 final_stateT = (4,((4,4),(4,4)))
+
+
+# read the input carefully
+# we need to make pairs of floors
+microchips: Dict[str,int] = {}
+generators: Dict[str,int] = {}
+
+microchips_rule = re.compile(r'a (\w+)-compatible microchip')
+generators_rule = re.compile(r'a (\w+) generator')
+
+with open('Day11/input.txt') as f:
+    # rather than reading the floor number from the line, just index them
+    for floor,line in enumerate(f,1):
+        for element in microchips_rule.findall(line):
+            microchips[element] = floor
+        for element in generators_rule.findall(line):
+            generators[element] = floor
+
+if len(microchips) != 5 and 5 != len(generators):
+    print('could not find all the microchips or generators')
+    print('I am assuming that every input has 5 elements in it')
+    exit()
+
+
+starting_positions = [(microchips[element], generators[element]) for element in microchips]
+
 """Input states part 1"""
-init_state1 = (1,tuple(sorted(((1,1),(2,2),(3,2),(1,1),(2,2)))))
+init_state1 = (1,tuple(sorted(starting_positions)))
 final_state1 = (4,((4,4),)*5)
+
+# add the two new pairs on floor 1
+starting_positions.append((1,1))
+starting_positions.append((1,1))
+
 """Input states part 2"""
-init_state2 = (1,tuple(sorted(((1,1),(2,2),(3,2),(1,1),(2,2),(1,1),(1,1)))))
+init_state2 = (1,tuple(sorted(starting_positions)))
 final_state2 = (4,((4,4),)*7)
+
+
 
 
 def get_next_states[T: Tuple[Tuple[int,int],...]](state: Tuple[int,T],current_score: int) -> Iterator[Tuple[int,Tuple[int,T]]]:
