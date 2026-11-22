@@ -1,5 +1,7 @@
+from functools import partial
 from itertools import combinations
-from typing import Dict, Iterable, List, Tuple
+from typing import Iterable, Iterator, List, Tuple, cast
+from python_utils.graph_traversals.shortest_path import a_star
 
 # essentially this is finding a path through a maze with many dimensions
 # some cells in the maze are not allowed
@@ -28,7 +30,7 @@ def stuff_on_floor(state: Tuple[int,Tuple[int,...],Tuple[int,...]]):
     
     return stuff
 
-def create_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], direction: bool, items: Iterable[Tuple[int,int]]):
+def create_state[T: Tuple[int,...]](state: Tuple[int,T,T], direction: bool, items: Iterable[Tuple[int,int]]) -> Tuple[int,T,T]:
     new_floor = state[0] + (1 if direction else -1)
     
     new_items = [list(state[1]), list(state[2])]
@@ -36,7 +38,7 @@ def create_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], direction: boo
         new_items[e[0]][e[1]] = new_floor
     
     new_state = (new_floor, tuple(new_items[0]),tuple(new_items[1]))
-    return new_state
+    return cast(Tuple[int,T,T],new_state)
 
 def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int):
     # for old_floor and current_floor
@@ -67,73 +69,10 @@ def check_state(state: Tuple[int,Tuple[int,...],Tuple[int,...]], old_floor: int)
     return True
 
 
-def solve(init_state: Tuple[int,Tuple[int,...],Tuple[int,...]], final_state: Tuple[int,Tuple[int,...],Tuple[int,...]]):
-    DP: Dict[Tuple[int,Tuple[int,...],Tuple[int,...]],int] = {}
-    queue: List[Tuple[Tuple[int,Tuple[int,...],Tuple[int,...]],int]] = []
 
-    queue.append((init_state,0))
-    steps = 0
-    while len(queue) > 0:
-        # old_steps = steps
-        maze_state, steps = queue.pop(0)
-        # if steps > old_steps:
-            # print(steps, len(queue)+1)
-
-        if maze_state in DP:
-            continue
-
-        DP[maze_state] = steps
-        current_floor = maze_state[0]
-
-        # make a list of everything on floor 1
-        stuff = stuff_on_floor(maze_state)
-
-
-        new_found = False
-        # move 2 things
-        for items in combinations(stuff, 2):
-            if current_floor != 4:
-                # go up a floor
-                new_state = create_state(maze_state, True, items)
-                if new_state not in DP and check_state(new_state,current_floor):
-                    # add to queue
-                    new_found = True
-                    if new_state == final_state:
-                        return steps+1
-                    queue.append((new_state,steps+1))
-
-
-        down_accceptable = False
-        for x,y in zip(maze_state[1],maze_state[2]):
-            if x < current_floor or y < current_floor:
-                down_accceptable = True
-                break
-
-        for item in stuff:
-            if current_floor != 1 and down_accceptable:
-                
-
-                # go down a floor
-                new_state = create_state(maze_state, False, [item])
-                if new_state not in DP and check_state(new_state,current_floor):
-                    # add to queue
-                    if new_state == final_state:
-                        return steps+1
-                    
-                    queue.append((new_state,steps+1))
-
-        if not new_found:
-            #print('run')
-            for item in stuff:
-                if current_floor != 4:
-                    # go up a floor
-                    new_state = create_state(maze_state, True, [item])
-                    if new_state not in DP and check_state(new_state,current_floor):
-                        # add to queue
-                        new_found = True
-                        if new_state == final_state:
-                            return steps+1
-                        queue.append((new_state,steps+1))
+TT = Tuple[int,Tuple[int,int],Tuple[int,int]]
+T1 = Tuple[int,Tuple[int,int,int],Tuple[int,int,int]]
+T2 = Tuple[int,Tuple[int,int,int,int],Tuple[int,int,int,int]]
 
 
 """Test states"""
@@ -146,7 +85,83 @@ final_state1 = (4,(4,4,4,4,4),(4,4,4,4,4))
 init_state2 = (1,(1,2,3,1,2,1,1),(1,2,2,1,2,1,1))
 final_state2 = (4,(4,4,4,4,4,4,4),(4,4,4,4,4,4,4))
 
+def get_next_states[T: Tuple[int,...]](state: Tuple[int,T,T],current_score: int) -> Iterator[Tuple[int,Tuple[int,T,T]]]:
+    # print(state)
+    # I'm using the same approach as before, just in a different way
+    stuff = stuff_on_floor(state)
+    # print(stuff)
+    # for every combination of two items and each item individually
+    # try move up and down in the elevator
+    # this function will definetly return states that have already been seen, but that is okay
+    
+    # state_count = 0
+
+    for items in combinations(stuff, 2):
+        if state[0] != 4:
+            # go up a floor
+            new_state = create_state(state, True, items)
+            if check_state(new_state,state[0]):
+                # state_count += 1
+                yield 2,new_state
+        ## this is commented out, I am enforecing a ideal that you are never allowed
+        ## to bring two items down. Sign of an inefficient solution
+        # if state[0] != 1:
+        #     # go down a floor
+        #     new_state = create_state(state, False, items)
+        #     if check_state(new_state,state[0]):
+        #         state_count += 1
+        #         yield 2,new_state
+
+    for item in stuff:
+        if state[0] != 4:
+            # go up a floor
+            new_state = create_state(state, True, [item])
+            if check_state(new_state,state[0]):
+                # state_count += 1
+                yield 2,new_state
+        if state[0] != 1:
+            # go down a floor
+            new_state = create_state(state, False, [item])
+            if check_state(new_state,state[0]):
+                # state_count += 1
+                yield 2,new_state
+    
+    # print(state,state_count)
+                
+
+def compare_states(a: Tuple[int,Tuple[int,...],Tuple[int,...]], b: Tuple[int,Tuple[int,...],Tuple[int,...]]) -> int:
+    """compare the states
+    we are just going to do the differences of the floors of the items. Probably will not include elevator level at all
+    Oh, and then divide by 2 because 2 things can be moved on the evelator at once."""
+
+    a_chips = a[1]
+    a_gens = a[2]
+    b_chips = b[1]
+    b_gens = b[2]
+
+
+
+    return abs((sum(a_chips) - sum(b_chips)) + (sum(a_gens) - sum(b_gens)))
+
+
+
+
+
 # solve(init_stateT,final_stateT)
-print('Part 1:',solve(init_state1,final_state1))
-print('part 2 takes a while')
-print('Part 2:',solve(init_state2,final_state2))
+# res = a_star(cast(TT,init_stateT),lambda x: x == final_stateT,get_next_states,partial(compare_states,final_stateT))
+# if res is not None:
+#     print('Test:',res//2)
+# else:
+#     print('no path found for test input')
+
+res = a_star(cast(T1,init_state1),lambda x: x == final_state1,get_next_states,partial(compare_states,final_state1))
+if res is not None:
+    print('Part 1:',res//2)
+else:
+    print('no path found for part 1')
+
+res = a_star(cast(T2,init_state2),lambda x: x == final_state2,get_next_states,partial(compare_states,final_state2))
+if res is not None:
+    print('Part 2:',res//2)
+else:
+    print('no path found for part 2')
