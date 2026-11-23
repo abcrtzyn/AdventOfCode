@@ -1,0 +1,22 @@
+:Namespace Utils
+    ⍝ Convert character vector/array of digits ('123') to integers (1 2 3)
+    toDigits ← {¯48 + ⎕UCS ⍵}
+    
+    ⍝ Read all lines from a text file
+    readLines ← {⊃⎕NGET ⍵ 1}
+
+    ⍝ read the first line from a text file, usually for single line inputs
+    readSingleLine ← {⊃⊃ ⎕NGET ⍵ 1}
+
+    ⍝ parses a single line of numbers using the space and any delimeters in the left argument
+    ⍝ errors if not all numbers sare parsed
+    parseNumbers ← {
+        ⍺ ← ' '
+        (valid nums) ← ⍺ ⎕VFI ⍵
+        ~∧/valid: 'parseNumbers: invalid token' ⎕SIGNAL 11
+        nums
+    }
+
+    partitionBySpace ← ' '∘(≠⊆⊢)
+
+:EndNamespace

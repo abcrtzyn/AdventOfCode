@@ -1,16 +1,17 @@
+⎕FIX 'file://../apl_utils/utils.apln'
 
-R←⊃⎕NGET 'Day04/input.txt' 1
 
-⍝ part 1
-⎕← 'Part 1: ', +/((⊢≡∪)' '∘(≠⊆⊢))¨R
-                                 ⍝ for each line
-                       ⍝ partition by spaces
-                   ⍝ are all words unique
+input ← Utils.partitionBySpace¨ Utils.readLines 'Day04/input.txt'
+
+
+⎕← 'Part 1: ', +/(⊢≡∪)¨ input
+                        ⍝ for each line
+                  ⍝ are all words unique
                ⍝ sum the results
 
-⍝ part 2
-⎕← 'Part 2: ', +/((⊢≡∪)(⊂∘⍋⌷⊢)¨∘(' '∘(≠⊆⊢)))¨R
+
+⎕← 'Part 2: ', +/((⊢≡∪)(⊂∘⍋⌷⊢)¨)¨ input
                                 ⍝ partition by spaces
-                      ⍝ sort each word alphabetically
-                 ⍝ are all words unique
-             ⍝ sum the results
+                       ⍝ sort each word alphabetically
+                   ⍝ are all words unique
+               ⍝ sum the results

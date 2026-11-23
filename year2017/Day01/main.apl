@@ -1,29 +1,23 @@
+⎕FIX 'file://../apl_utils/utils.apln'
 
-R←⊃⊃⎕NGET 'Day01/input.txt' 1
+⍝ read the file and conver 
+input ← Utils.toDigits Utils.readSingleLine 'Day01/input.txt'
 
-⎕ ← 'Part 1: ' , {+/⍎¨(⍵=1⌽⍵)/⍵}R
-                         ⍝ rotate 1
-                       ⍝ equal to
-                            ⍝ compress
-                    ⍝ evaluate digits
-                  ⍝ sum
-
-⍝ a tacit free version
-⍝ +/⍎¨((⊢=1∘⌽)⊢⍤/⊢)
+⎕ ← 'Part 1: ' , ((⊢=1∘⌽)⍛(+.×)) input
 
 
-⎕ ← 'Part 2: ' , {+/⍎¨(⍵=(2÷⍨⍴⍵)⌽⍵)/⍵}R
-⍝ exact same expect        rotate by half the length
+⍝ other methods
+⍝ {+/(⍵=1⌽⍵)/⍵}
+⍝ dot product
+⍝ ((⊢=1∘⌽)+.×⊢)
+
+⍝ +/ (⊢(/⍨)⊢=1∘⌽)
+⍝ 
 
 
-⍝ and a tacit free version of it, 4 nested 3 trains
-⍝  +/⍎((⊢=((2÷⍨⍴)⌽⊢))⊢⍤/⊢)
-⍝
-⍝       ((⊢=((2÷⍨⍴)⌽⊢))⊢⍤/⊢)
-⍝   ┌─3─train──┼─┐
-⍝ ┌3┼train┐    ⍤ ⊢
-⍝ ⊢ = ┌3tr┼─┐ ┌┴┐
-⍝   ┌3┼t┐ ⌽ ⊢ ⊢ /
-⍝   2 ⍨ ⍴
-⍝   ┌─┘
-⍝   ÷
+
+⎕ ← 'Part 2: ' , ((⊢=(2÷⍨≢)⌽⊢)⍛(+.×)) input
+
+⍝ other methods
+⍝ {+/(⍵=(2÷⍨⍴⍵)⌽⍵)/⍵}
+⍝ +/((⊢=((2÷⍨⍴)⌽⊢))⊢⍤/⊢)
