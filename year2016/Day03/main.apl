@@ -1,4 +1,6 @@
-parsed←⍎¨⊃⎕NGET'Day03/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
+
+parsed← Utils.(parseNumbers¨ readLines) 'Day03/input.txt'
 ⍝ 3 numbers per line
 
 ⍝ from aplcart. works the same as ⍴ but a missing dimension is allowed

@@ -1,9 +1,11 @@
-R←⊃⎕NGET 'Day06/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
+
+input ← Utils.readLines 'Day06/input.txt'
 
 ⍝ the bulk of this solution comes from APLCart sorted frequency table
 
 ⍝ part 1
-⎕←'Part 1: ', ({1⊃⍵⌷⍨⊃⍒⊢/⍵}{⍺,≢⍵}⌸)¨↓⍉↑R
+⎕←'Part 1: ', ({1⊃⍵⌷⍨⊃⍒⊢/⍵}{⍺,≢⍵}⌸)¨↓⍉↑ input
                                     ⍝ get each column
                                    ⍝ for each
                             ⍝ frequency table
@@ -12,4 +14,4 @@ R←⊃⎕NGET 'Day06/input.txt' 1
                 ⍝ get only the letter 
 
 ⍝ part 2, sort the other way
-⎕←'Part 2: ', ({1⊃⍵⌷⍨⊃⍋⊢/⍵}{⍺,≢⍵}⌸)¨↓⍉↑R
+⎕←'Part 2: ', ({1⊃⍵⌷⍨⊃⍋⊢/⍵}{⍺,≢⍵}⌸)¨↓⍉↑ input
