@@ -24,6 +24,7 @@ if SESSION_COOKIE is None:
 USER_AGENT = os.getenv("USER_AGENT")
 if USER_AGENT is None:
     print('Please set your user agent string by running "export USER_AGENT="something that identifies you"')
+    exit(1)
 
 if len(sys.argv) != 2:
     print('expected one argument [year]')
