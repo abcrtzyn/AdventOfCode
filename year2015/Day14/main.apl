@@ -1,9 +1,8 @@
-R←⊃⎕NGET 'Day14/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
 
 re ← '\w+ can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds\.'
 
-parsed ← ⍎¨(re ⎕S '\1 \2 \3')R
-
+parsed ← Utils.parseNumbers¨ (re ⎕S '\1 \2 \3') Utils.readLines 'Day14/input.txt'
 
 
 ⎕←'Part 1: ', ⌈/2503{⍵[1]×+/⍺⍴⍵[2]≥⍳⍵[2]+⍵[3]}¨ parsed

@@ -1,7 +1,8 @@
+⎕FIX 'file://../apl_utils/utils.apln'
 
-R ← ⊃⊃ ⎕NGET 'Day12/input.txt' 1
+input ← Utils.readSingleLine 'Day12/input.txt'
 
 ⍝ part 1
-⎕ ← 'Part 1: ', +/⍎¨({∨⌿('-',⎕D)∘.=⍵}⊆⊢) R
+⎕ ← 'Part 1: ', +/⍎¨({∨⌿('-',⎕D)∘.=⍵}⊆⊢) input
 
 ⍝ I would like to make an efficient way of parsing a JSON to get the values without red

@@ -1,7 +1,8 @@
+⎕FIX 'file://../apl_utils/utils.apln'
 
 re ← '(\w): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)'
 
-input ← ⍉ ↑ ⍎¨ '-' ⎕R '¯' (re ⎕S '\2 \3 \4 \5 \6') ⊃⎕NGET 'Day15/input.txt' 1
+input ← ⍉ ↑ Utils.parseNumbers¨ (re ⎕S '\2 \3 \4 \5 \6') Utils.readLines 'Day15/input.txt'
                           ⍝ search for re and extract the numbers
                 ⍝ replace - with ¯
             ⍝ eval each line (get the numbers)

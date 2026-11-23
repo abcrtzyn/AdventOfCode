@@ -12,11 +12,26 @@
     ⍝ errors if not all numbers sare parsed
     parseNumbers ← {
         ⍺ ← ' '
-        (valid nums) ← ⍺ ⎕VFI ⍵
+        (valid nums) ← ⍺ ⎕VFI ('-' ⎕R '¯') ⍵
         ~∧/valid: 'parseNumbers: invalid token' ⎕SIGNAL 11
         nums
     }
+    ⍝ parse a single number
+    parseNumber ← {
+        (valid nums) ← ⎕VFI ('-' ⎕R '¯') ⍵
+        (,1)≢valid : 'parseInt: expected a single valid number' ⎕SIGNAL 11
+        ⊃nums
+    }
+    ⍝ parse a vector of number strings
+    parseNumbersVector ← {
+        (valid nums) ← ⎕VFI ('-' ⎕R '¯') ∊' ',¨ ⍵
+        ~∧/valid ∨ (≢⍵)≠≢nums: 'parseNumbersVector: invalid token' ⎕SIGNAL 11
+        nums
+    }
+
+    readSingleNumber ← parseNumber readSingleLine
 
     partitionBySpace ← ' '∘(≠⊆⊢)
+    partitionByCharacters ← (~⍤∊⍨⊆⊢)
 
 :EndNamespace

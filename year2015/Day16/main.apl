@@ -1,4 +1,4 @@
-⍝ INCOMPLETE SOLUTION
+⎕FIX 'file://../apl_utils/utils.apln'
 
 keys ← 'children' 'cats' 'samoyeds' 'pomeranians' 'akitas' 'vizslas' 'goldfish' 'trees' 'cars' 'perfumes'
 values ← 3 7 2 3 0 0 5 3 2 1
@@ -7,17 +7,17 @@ values ← 3 7 2 3 0 0 5 3 2 1
 kv1 ← ↓⍉↑ keys values
 
 
-R ← ' ,:'∘(~⍤∊⍨⊆⊢)¨ ⊃ ⎕NGET 'Day16/input.txt' 1
+input ← ' ,:'∘Utils.partitionByCharacters¨ Utils.readLines 'Day16/input.txt'
     ⍝ split up into words
 
 
 ⍝ in this case, sues is just ⍳500, but it is here for completeness
 ⍝ if your sues happened to be out of order in the input, my code would handle it
-sues ← ⍎¨ 2⊃¨ R
+sues ← ⍎¨ 2⊃¨ input
           ⍝ just take the sue index for each line
        ⍝ turn each into a numbr
 
-parsed ← ↓¨ ((⍎¨@2⍤1) 3 2 ⍴ ⊢)¨ 2↓¨ R
+parsed ← ↓¨ ((⍎¨@2⍤1) 3 2 ⍴ ⊢)¨ 2↓¨ input
                                ⍝ drop the Sue x
                               ⍝ for each line
                      ⍝ reshape to a table

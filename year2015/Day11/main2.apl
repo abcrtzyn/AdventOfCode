@@ -1,7 +1,9 @@
 ⍝ this solution I'm building in the ILO rule
 ⍝ in order to just immediately skip over them
 
-input ← ⊃⊃ ⎕NGET 'Day11/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
+
+input ← Utils.readSingleLine 'Day11/input.txt'
 
 stringtodigits ← {0 1 2 3 4 5 6 7 8 8 9 10 10 11 12 12 13 14 15 16 17 18 19 20 21 22[(¯1 ⎕C ⎕A)⍳⍵]}
 digitstostring ← {'abcdefghjkmnpqrstuvwxyz'[1+⍵]}

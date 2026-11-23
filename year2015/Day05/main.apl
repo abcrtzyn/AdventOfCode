@@ -1,4 +1,6 @@
-R←⊃⎕NGET 'Day05/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
+
+input ← Utils.readLines 'Day05/input.txt'
 
 ⍝ Part 1
 ⍝ given a string, returns a boolean if the property is true
@@ -11,9 +13,9 @@ R←⊃⎕NGET 'Day05/input.txt' 1
 ⍝ ⎕← 'Part 1: ', +/{(hasDoubleLetter ⍵)∧(has3vowels ⍵)∧~('ab' 'cd' 'pq' 'xy')hasStrings ⍵}¨R ⍝ part 1
 
 ⍝ this solution has a little bit more array based
-vowels ← 3≤+/¨'aeiou'∘(∊⍨)¨ R
-doubleletter ← (∨/(2=/⊢))¨ R
-substrings ← ∨⌿∨⌿¨ 'ab' 'cd' 'pq' 'xy' ∘.⍷ R
+vowels ← 3≤+/¨'aeiou'∘(∊⍨)¨ input
+doubleletter ← (∨/(2=/⊢))¨ input
+substrings ← ∨⌿∨⌿¨ 'ab' 'cd' 'pq' 'xy' ∘.⍷ input
 
 ⎕ ← 'Part 1: ', +/ vowels ∧ doubleletter ∧ ~substrings
 
@@ -39,4 +41,4 @@ hasSandwich←{1∊({1=⍥(⌷∘⍵)3}⌺3)⍵}
                   ⍝ are equal
              ⍝ at least one match
 
-⎕← 'Part 2: ', +/(hasSandwich∧hasTwoPair)¨R
+⎕← 'Part 2: ', +/(hasSandwich∧hasTwoPair)¨input

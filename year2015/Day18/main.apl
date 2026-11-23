@@ -1,6 +1,6 @@
-R ← ⊃ ⎕NGET 'Day18/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
 
-A←'#'=↑R ⍝ convert to 1s and 0s and into matrix
+A ← '#'=↑ Utils.readLines 'Day18/input.txt'
 
 iter←(({+/+/⍵}⌺3 3){(3=⍺)∨(⍵)∧(4=⍺)}⊢) ⍝ iterate once, my attempt at it
 iter←({≢⍸⍵}⌺3 3∊¨3+0,¨⊢) ⍝ from apl cart

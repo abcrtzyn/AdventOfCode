@@ -1,5 +1,6 @@
-key ← ⍎⊃⊃⎕NGET 'Day10/input.txt' 1
+⎕FIX 'file://../apl_utils/utils.apln'
 
+key ← Utils.readSingleNumber 'Day10/input.txt'
 
 input ← (10∘⊥⍣¯1) key
 

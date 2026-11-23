@@ -1,5 +1,6 @@
+⎕FIX 'file://../apl_utils/utils.apln'
 
-input ← ⊃⊃ ⎕NGET 'Day11/input.txt' 1
+input ← Utils.readSingleLine 'Day11/input.txt'
 
 stringtodigits ← (¯1+(¯1 ⎕C ⎕A)⍳⊢)
 digitstostring ← {(¯1 ⎕C ⎕A)[1+⍵]}
