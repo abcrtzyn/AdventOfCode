@@ -5,11 +5,11 @@ from typing import Dict, List, Tuple
 current: List[int] = []
 
 with open('Day06/input.txt') as f:
-    current = [int(x) for x in f.readlines()]
+    current = [int(x) for x in f.read().split()]
 
 length = len(current)
 
-DP: Dict[Tuple[int,...],int] = {}
+states: Dict[Tuple[int,...],int] = {}
 
 iterations = 0
 
@@ -28,12 +28,13 @@ while True:
     
     iterations += 1
 
-    if tuple(current) in DP:
+    if tuple(current) in states:
+        # we've seen this before, done
         break
     
-    DP[tuple(current)] = iterations
+    states[tuple(current)] = iterations
 
-# we've seen this before, done
+
 print('Part 1:',iterations)
-print('Part 2:',iterations-DP[tuple(current)])
+print('Part 2:',iterations-states[tuple(current)])
 exit(0)
