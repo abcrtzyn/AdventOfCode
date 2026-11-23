@@ -13,11 +13,11 @@ input ← ' ,:'∘Utils.partitionByCharacters¨ Utils.readLines 'Day16/input.txt
 
 ⍝ in this case, sues is just ⍳500, but it is here for completeness
 ⍝ if your sues happened to be out of order in the input, my code would handle it
-sues ← ⍎¨ 2⊃¨ input
+sues ← Utils.parseNumbersVector 2⊃¨ input
           ⍝ just take the sue index for each line
        ⍝ turn each into a numbr
 
-parsed ← ↓¨ ((⍎¨@2⍤1) 3 2 ⍴ ⊢)¨ 2↓¨ input
+parsed ← ↓¨ ((Utils.parseNumbersVector@2⍤1) 3 2 ⍴ ⊢)¨ 2↓¨ input
                                ⍝ drop the Sue x
                               ⍝ for each line
                      ⍝ reshape to a table

@@ -16,7 +16,8 @@ ph ← 100
 
 input ← Utils.readLines 'Day21/input.txt'
 
-(bh bd ba) ← ⍎¨2⌷[2]↑':'(~⍤∊⍨⊆⊢)¨input
+(bh bd ba) ← Utils.parseNumbersVector 2⊃¨ ':'∘Utils.partitionByCharacter¨ input
+                                      ⍝ take the second thing in each row (the number)
 
 player_won←({⌈bh÷1⌈(2⊃⍵)-ba}≤{⌈ph ÷ 1⌈bd-(3⊃⍵)})¨options
                               ⍝ the number of turns to kill the player
