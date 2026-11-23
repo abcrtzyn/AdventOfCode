@@ -14,3 +14,4 @@
 2024.19 good candidate for Haskell, memozation
 2024.22 with all the iterators, might be interesting in Haskell
 2015.22 try this using dijkstras algorithm
+2015.20 reimplement, I think I'm missing an optimization somewhere
