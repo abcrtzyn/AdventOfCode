@@ -63,7 +63,10 @@ def handle_garbage(stream: TextIO) -> int:
 with open('Day09/input.txt') as f:
     c = f.read(1)
     if c == '{':
-        print(handle_group(f))
+        res1, res2 = handle_group(f)
     else:
         print('what input file do you have that doesn\'t start with a open curly brace?')
         exit(1)
+
+print('Part 1:',res1)
+print('Part 2:',res2)
