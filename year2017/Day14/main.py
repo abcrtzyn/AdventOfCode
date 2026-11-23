@@ -1,29 +1,39 @@
+
 from typing import List, Set, Tuple
 
-from part1 import get_grid
+from year2017.Day10.main import knothash
 
 
+with open('Day14/input.txt') as f:
+    KEY = f.readline().strip()
 
-# to count connected regions
-# I think we scan the whole thing 
-# and skip cells we hare already connected
 
-grid = [x.hex() for x in get_grid('amgozmfv')]
+def get_grid(key: str):
+    for i in range(128):
+        yield knothash(bytes(key + '-' + str(i),'ascii'))
+
+
+grid = list(int.from_bytes(x) for x in get_grid(KEY))
+
+count = 0
+
+for row in grid:
+    count += row.bit_count()
+        
+print('Part 1:',count)
+
+# for line in grid:
+#     print(f'{line:0128b}')
+# exit()
 
 def is_used(x:int,y:int):
-    c = grid[x][int(y/4)]
-
-    match y%4:
-        case 0:
-            return c in ['8','9','a','b','c','d','e','f']
-        case 1:
-            return c in ['4','5','6','7','c','d','e','f']
-        case 2:
-            return c in ['2','3','6','7','a','b','e','f']
-        case 3:
-            return c in ['1','3','5','7','9','b','d','f']
-        case _:
-            assert False, 'unreachable'
+    # is this coordinate a 1 in the bit
+    r = grid[x]
+    # bit mask time
+    # 0 is most significant, 127 is least significant
+    c = r & (1 << (127-y))
+    
+    return c != 0
 
 
 seen: Set[Tuple[int,int]] = set()
@@ -56,4 +66,4 @@ for i in range(128):
             connect(i,j)
             section_count += 1
 
-print(section_count)
+print('Part 2:',section_count)
