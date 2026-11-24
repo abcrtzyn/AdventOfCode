@@ -1,4 +1,5 @@
-INPUT = 265149
+with open('Day03/input.txt') as f:
+    INPUT = int(f.read().strip())
 
 # this is all the grid I need, because the sums get quite big.
 # in fact, I only need half of this
@@ -49,7 +50,7 @@ for i in range(1,170):
         
     # if we get to the input value, we are done
     if totals[k+1][j+1] > INPUT:
-        print('finished at cell',i)
+        # print('finished at cell',i)
         print('Part 2:',totals[k+1][j+1])
         exit(0)
 
