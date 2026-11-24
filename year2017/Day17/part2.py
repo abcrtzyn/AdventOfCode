@@ -1,7 +1,7 @@
 # we no longer can simulate the buffer, we must keep track of zero and the value after 0
 
-# skip = 3
-skip = 345
+with open('Day17/input.txt') as f:
+    skip = int(f.read())
 
 
 pointer = 0
@@ -22,4 +22,4 @@ for i in range(1,50000001):
         number_after = i
     # if pointer is larger, doesn't matter
 
-print(number_after)
+print('Part 2:',number_after)

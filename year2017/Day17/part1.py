@@ -1,6 +1,6 @@
 
-# skip = 3
-skip = 345
+with open('Day17/input.txt') as f:
+    skip = int(f.read())
 
 
 l = [0]
@@ -14,4 +14,4 @@ for i in range(1,2018):
     l.insert(p,i)
     # print(l)
 
-print(l[l.index(0)+1])
+print('Part 1:',l[l.index(2017)+1])
