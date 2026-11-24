@@ -45,7 +45,7 @@ for _ in range(500):
         del particles[p]
 
 
-print(len(particles))
+print('Part 2:', len(particles))
 
 
         

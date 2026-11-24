@@ -20,5 +20,4 @@ with open('Day20/input.txt') as f:
             minimum = d
             minimum_at = i
 
-print(minimum_at)
-        
+print('Part 1:', minimum_at)
