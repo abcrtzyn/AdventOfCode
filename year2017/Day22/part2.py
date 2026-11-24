@@ -10,8 +10,7 @@ RIGHT = (0,1)
 
 TURN_RIGHT: Dict[Tuple[int,int],Tuple[int,int]] = {UP:RIGHT,RIGHT:DOWN,DOWN:LEFT,LEFT:UP}
 TURN_LEFT: Dict[Tuple[int,int],Tuple[int,int]]  = {UP:LEFT,LEFT:DOWN,DOWN:RIGHT,RIGHT:UP}
-
-
+TURN_AROUND: Dict[Tuple[int,int],Tuple[int,int]] = {UP:DOWN,DOWN:UP,LEFT:RIGHT,RIGHT:LEFT}
 
 with open('Day22/input.txt') as f:
     grid: List[List[int]] = [[2 if c=='#' else 0 for c in line] for line in f]
@@ -44,8 +43,7 @@ for i in range(10000000):
             direction = TURN_RIGHT[direction]
         case 3:
             grid[position[0]][position[1]] = 0
-            # too lazy to put in a reverse, but not lazy enough to not write this long comment that too longer to type
-            direction = TURN_RIGHT[TURN_RIGHT[direction]]
+            direction = TURN_AROUND[direction]
         case _:
             assert False, 'unreachable'
 
@@ -80,4 +78,4 @@ for i in range(10000000):
     #    print(i,count)
     
 #print(grid)
-print(count)
+print('Part 2:', count)

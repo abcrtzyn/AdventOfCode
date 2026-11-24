@@ -64,4 +64,4 @@ for _ in range(10000):
         position = (y,x)
     #print('actual new',position)
 #print(grid)
-print(count)
+print('Part 1:',count)
